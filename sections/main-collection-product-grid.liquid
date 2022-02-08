@@ -1,0 +1,250 @@
+{{ 'template-collection.css' | asset_url | stylesheet_tag }}
+{{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-grid.css' | asset_url | stylesheet_tag }}
+
+<link rel="preload" href="{{ 'component-rte.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+<noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
+
+<script src="{{ 'custom.js' | asset_url }}" defer="defer"></script>
+
+{%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
+  {{ 'component-facets.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
+
+  <div class="page-width" id="main-collection-filters" data-id="{{ section.id }}">
+    {% render 'facets', results: collection, enable_filtering: section.settings.enable_filtering, enable_sorting: section.settings.enable_sorting, collapse_on_larger_devices: section.settings.collapse_on_larger_devices %}
+  </div>
+{%- endif -%}
+
+<div id="ProductGridContainer">
+  {%- paginate collection.products by section.settings.products_per_page -%}
+    {%- if collection.products.size == 0 -%}
+      <div class="collection collection--empty page-width" id="product-grid" data-id="{{ section.id }}">
+        <div class="loading-overlay gradient"></div>
+        <div class="title-wrapper center">
+          <h2 class="title title--primary">
+            {{ 'sections.collection_template.empty' | t }}<br>
+            {{ 'sections.collection_template.use_fewer_filters_html' | t: link: collection.url, class: "underlined-link link" }}
+          </h2>
+        </div>
+      </div>
+    {%- else -%}
+      <div class="collection page-width">
+        <div class="loading-overlay gradient"></div>
+
+        <ul id="product-grid" data-id="{{ section.id }}" class="
+          grid grid--2-col negative-margin product-grid
+          {% if collection.products_count < 4 %} grid--{{ collection.products_count }}-col-tablet{% else %}
+            {% if collection.products_count == 4 %} grid--3-col-desktop{% else %} grid--3-col-tablet grid--one-third-max grid--3-col-desktop grid--quarter-max{% endif %}
+          {% endif %}">
+          {%- for product in collection.products -%}
+            <li class="grid__item">
+              {% render 'product-card',
+                product_card_product: product,
+                media_size: section.settings.image_ratio,
+                show_secondary_image: section.settings.show_secondary_image,
+                add_image_padding: section.settings.add_image_padding,
+                show_vendor: section.settings.show_vendor,
+                show_image_outline: section.settings.show_image_outline,
+                show_rating: section.settings.show_rating
+              %}
+              
+<form action="/cart/add" id="product_form_id" class="product-form" data-type="add-to-cart-form"  
+      method="post" enctype="multipart/form-data">
+   <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+        {% if product.variants.size > 1 %}
+  <select  class="collection-option" name="id">
+  {% for variant in product.variants %}
+    {% if variant.available %}
+    <option value="{{ variant.id }}">{{ variant.price | money }} - {{ variant.title }}</option>     
+    {% else %}
+    <option disabled="disabled">{{ variant.title }} - Sold Out</option>
+    {% endif %}
+  {% endfor %}
+    </select>  
+  {% endif %}
+<div style="display: flex;">       
+  <button class="button--primary product-form__submit button button--full-width" 
+          data-cart-submit 
+          type="submit" 
+          name="add" 
+          aria-live="polite" {% unless product.available %} disabled="true" {% endunless %} 
+          aria-live="polite">
+    <span class="primary-text" aria-hidden=false data-cart-primary-submit-text>
+      {% unless product.available %}
+        Sold Out
+      {% else %}
+        Add to Order
+      {% endunless %}
+    </span>
+  </button>
+{% assign count = 0 %}
+{% for item in cart.items %}
+  {% if product.id == item.product.id %}
+    {% assign count = count | plus: item.quantity %}
+  {% endif  %}
+{% endfor %}
+{% if count > 0 %}
+  <div>
+    <div style="position: absolute; z-index: 6; margin-left: -9px; margin-top: 4px;">
+      <span>{{ count }}</span>
+    </div>
+<img style="position: absolute; margin-left: -20px;" src="{{ 'shopping-bag.png' | asset_img_url: '30x' }}">  
+  </div>{% endif %}
+  </div>
+</form>       
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        {%- if paginate.pages > 1 -%}
+          {% render 'pagination', paginate: paginate, anchor: '' %}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  {%- endpaginate -%}
+</div>
+
+  <script>
+    var childP;
+    $(document).on('submit', '.product-form', function(e) {
+        childP = $(this).find('p.product__notification');
+        $.ajax({
+            url: '/cart/add.js',
+            type: $(this).attr('method'),
+            data: $(this).serialize(),
+            success: function(html) {
+                childP.text("Item added to cart!");
+                childP.addClass('product__notification--success');
+                refreshCart();
+            }
+        });
+        refreshCart();
+        e.preventDefault();
+        $(this).find('.btn').removeClass('btn--primary');
+        $(this).find('.btn').addClass('btn--secondary btn--to-secondary-transitioned');
+        $(this).find('.btn').addClass('ajax-cart__toggle');
+        $(this).find('.btn .primary-text').show();
+        $(".cart-count-bubble").removeClass('');
+        $(".cart-count-bubble").addClass('cart-count-bubble');
+        $('.cart-drawer').removeClass('cart-drawer--empty');
+    });
+
+    function refreshCart() {
+        var itemHTML;
+        $.getJSON("/cart.js", function(json) {
+            console.log(json);
+            $(".cart-drawer__item").each(function() {
+                if (!$(this).hasClass('cart-drawer__note-container')) {
+                    $(this).remove();
+                }
+            });
+            for (i = 0; i < json.items.length; i++) {
+                console.log(json.items[i].image);
+                itemHTML = "<div class=\'cart-drawer__item\' data-cart-item data-cart-item-id=\'" + json.items[i].key + "\' aria-live=\'polite\'><a href=\'" + json.items[i].url + "\' class=\'cart-drawer__item-image " + "img" + i + "\' style=\'" + 'background-position: 50% 50% !important;background-size: cover !important;background: url(' + (json.items[i].image).slice(0, -17) + '_medium.JPG\');' + "\' data-cart-item-background-image data-cart-item-href></a><div class=\'cart-drawer__item-content\'><a href=\'" + json.items[i].url + "\' class=\'h4 cart-drawer__item-title\' data-cart-item-href data-cart-item-title>" + json.items[i].product_title + "</a><p class=\'cart-drawer__item-subtitle\' data-cart-item-variant-title></p><ul class=\'cart-drawer__item-properties\' data-cart-item-property-list><li class=\'cart-drawer__item-property\' data-cart-item-property><a href=\'\'></a></li></ul><p class=\'cart-drawer__item-price-container\'><span class=\'cart-drawer__item-price\' data-cart-item-price>" + Shopify.formatMoney(json.items[i].price) + "</span><s data-cart-item-original-price></s></p><div class=\'cart-drawer__item-discount-container\' data-cart-item-discount-list><p class=\'cart-drawer__item-discount text-small\' data-cart-item-discount></p></div><label for=\'quantity_" + json.items[i].key + "\' class=\'label--hidden\' data-cart-item-label-quantity>" + json.items[i].quantity + "</label><input id=\'quantity_" + json.items[i].key + "\' class=\'cart-drawer__item-quantity\' value=\'" + json.items[i].quantity.toString() + "\' type=\'number\' pattern=\'d*\' min=\'1\' aria-label=\'Quantity\' data-cart-item-input-quantity><button class=\'cart-drawer__item-delete btn-link\' type=\'button\' data-cart-item-delete>Remove</button></div></div>";
+                $(itemHTML).prependTo('.cart-drawer__item-list');
+            }
+            $('.cart-drawer__subtotal-number').text(Shopify.formatMoney(json.total_price));
+        });
+    }
+</script>
+
+
+{% schema %}
+{
+  "name": "t:sections.main-collection-product-grid.name",
+  "class": "spaced-section collection-grid-section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 24,
+      "step": 4,
+      "default": 16,
+      "label": "t:sections.main-collection-product-grid.settings.products_per_page.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-collection-product-grid.settings.header__3.content"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.main-collection-product-grid.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.main-collection-product-grid.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.main-collection-product-grid.settings.image_ratio.options__3.label"
+        }
+      ],
+      "default": "adapt",
+      "label": "t:sections.main-collection-product-grid.settings.image_ratio.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "default": false,
+      "label": "t:sections.main-collection-product-grid.settings.show_secondary_image.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "add_image_padding",
+      "default": false,
+      "label": "t:sections.main-collection-product-grid.settings.add_image_padding.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image_outline",
+      "default": true,
+      "label": "t:sections.main-collection-product-grid.settings.show_image_outline.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "t:sections.main-collection-product-grid.settings.show_vendor.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "default": false,
+      "label": "t:sections.main-collection-product-grid.settings.show_rating.label",
+      "info": "t:sections.main-collection-product-grid.settings.show_rating.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-collection-product-grid.settings.header__1.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "default": true,
+      "label": "t:sections.main-collection-product-grid.settings.enable_filtering.label",
+      "info": "t:sections.main-collection-product-grid.settings.enable_filtering.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "default": true,
+      "label": "t:sections.main-collection-product-grid.settings.enable_sorting.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "collapse_on_larger_devices",
+      "default": false,
+      "label": "t:sections.main-collection-product-grid.settings.collapse_on_larger_devices.label"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,278 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+          }
+        },
+        "26bf1b68-c11f-47b2-b5ac-a96ebe9f1d6c": {
+          "type": "rating",
+          "settings": {
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "dropdown"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "26bf1b68-c11f-47b2-b5ac-a96ebe9f1d6c",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons"
+      ],
+      "settings": {
+        "enable_sticky_info": false,
+        "gallery_layout": "thumbnail_slider",
+        "media_size": "small",
+        "mobile_thumbnails": "hide",
+        "hide_variants": false,
+        "enable_video_looping": false
+      }
+    },
+    "16431448779a0727a0": {
+      "type": "multicolumn",
+      "blocks": {
+        "16431448776c743e6e-0": {
+          "type": "column",
+          "settings": {
+            "title": "{{ product.metafields.my_fields.sellingpoint1.value }}",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "16431448776c743e6e-1": {
+          "type": "column",
+          "settings": {
+            "title": "{{ product.metafields.my_fields.sellingpoint2.value }}",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "16431448776c743e6e-2": {
+          "type": "column",
+          "settings": {
+            "title": "{{ product.metafields.my_fields.sellingpoint3.value }}",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "b1f3011c-d9f0-4fb1-a864-dab12741813a": {
+          "type": "column",
+          "settings": {
+            "title": "{{ product.metafields.my_fields.sellingpoint4.value }}",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "16431448776c743e6e-0",
+        "16431448776c743e6e-1",
+        "16431448776c743e6e-2",
+        "b1f3011c-d9f0-4fb1-a864-dab12741813a"
+      ],
+      "settings": {
+        "title": "",
+        "dropdown": false,
+        "extratext": "",
+        "image_width": "full",
+        "image_ratio": "circle",
+        "column_alignment": "left",
+        "background_style": "primary",
+        "button_label": "",
+        "button_link": "",
+        "swipe_on_mobile": false
+      }
+    },
+    "dropdowns": {
+      "type": "dropdowns",
+      "blocks": {
+        "bf47aaa0-aeec-4ae1-a63a-f378048d7f17": {
+          "type": "Block",
+          "settings": {
+            "heading": "Nutrition (per 100g)",
+            "heading_size": "h2",
+            "nutrition": true,
+            "text": "",
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        },
+        "b6df670f-bebf-40cc-b3ac-da63e1014c34": {
+          "type": "Block",
+          "settings": {
+            "heading": "Ingredients",
+            "heading_size": "h2",
+            "nutrition": false,
+            "text": "<p>{{ product.metafields.my_fields.ingredients | metafield_tag }}<\/p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        },
+        "ec334f99-1ddf-4bc8-8fda-e139ca9350dc": {
+          "type": "Block",
+          "settings": {
+            "heading": "Allergens",
+            "heading_size": "h2",
+            "nutrition": false,
+            "text": "<p>{{ product.metafields.my_fields.allergens | metafield_tag }}<\/p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "bf47aaa0-aeec-4ae1-a63a-f378048d7f17",
+        "b6df670f-bebf-40cc-b3ac-da63e1014c34",
+        "ec334f99-1ddf-4bc8-8fda-e139ca9350dc"
+      ],
+      "settings": {
+        "color_scheme": "background-1",
+        "heading": "Dish information",
+        "full_width": true
+      }
+    },
+    "1643737596371f5e90": {
+      "type": "multicolumn",
+      "blocks": {
+        "1643737596772d5721-0": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Cool.png",
+            "title": "Fridge",
+            "text": "<p>Chill for a week<\/p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "1643737596772d5721-1": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Freeze.png",
+            "title": "Freezer",
+            "text": "<p>Random text<\/p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "1643737596772d5721-0",
+        "1643737596772d5721-1"
+      ],
+      "settings": {
+        "title": "Storage instructions",
+        "dropdown": true,
+        "extratext": "Please ensure you defrost the meal first or add 10 more minutes to the cooking time in the oven or another 2-3 minutes in the microwave. Important thing is that your food is piping hot at (75 ℃ throughout) before serving.",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "column_alignment": "center",
+        "background_style": "none",
+        "button_label": "",
+        "button_link": "",
+        "swipe_on_mobile": false
+      }
+    },
+    "1643739825843737e7": {
+      "type": "multicolumn",
+      "blocks": {
+        "16437398253d8ba433-0": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Microwave.png",
+            "title": "Microwave",
+            "text": "<p>700 - 800W – 5 mins \/900W – 4 mins<\/p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "16437398253d8ba433-1": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Oven.png",
+            "title": "Oven",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "16437398253d8ba433-0",
+        "16437398253d8ba433-1"
+      ],
+      "settings": {
+        "title": "Reheat Options",
+        "dropdown": true,
+        "extratext": "",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "column_alignment": "center",
+        "background_style": "none",
+        "button_label": "",
+        "button_link": "",
+        "swipe_on_mobile": false
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "heading": "You may also like",
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "add_image_padding": false,
+        "show_image_outline": true,
+        "show_vendor": false,
+        "show_rating": false
+      }
+    },
+    "164314481043f616ad": {
+      "type": "rich-text",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "background-1",
+        "full_width": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "16431448779a0727a0",
+    "dropdowns",
+    "1643737596371f5e90",
+    "1643739825843737e7",
+    "product-recommendations",
+    "164314481043f616ad"
+  ]
+}

@@ -1,0 +1,224 @@
+{
+  "sections": {
+    "16437429724ece21f2": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<h1 style=\"width: 100%; margin: auto; text-align: center;\">A better Chinese<\/h1>"
+      }
+    },
+    "16433805081efdc11e": {
+      "type": "image-with-text",
+      "blocks": {
+        "64a7eb9c-0946-4012-9c02-9120e8441e73": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Fresh Chinese meals, cooked by chefs.<\/p>",
+            "textimage": "shopify:\/\/shop_images\/vegetable.png",
+            "text_style": "subtitle"
+          }
+        },
+        "a070576f-4ab3-46ae-be02-243bf82c3405": {
+          "type": "text",
+          "settings": {
+            "text": "<p>No subscriptions, no minimum order.<\/p>",
+            "textimage": "shopify:\/\/shop_images\/order-now.png",
+            "text_style": "subtitle"
+          }
+        },
+        "deb15c84-4ba4-4fdd-a784-c8bc0aa65070": {
+          "type": "text",
+          "settings": {
+            "text": "<p>FREE nationwide delivery every Friday<\/p>",
+            "textimage": "shopify:\/\/shop_images\/fast-delivery_2.png",
+            "text_style": "subtitle"
+          }
+        },
+        "0f4038fb-43a8-4640-864d-eebf72a6dc6b": {
+          "type": "button",
+          "settings": {
+            "button_label": "See Our Menu",
+            "button_link": "shopify:\/\/collections\/frontpage"
+          }
+        },
+        "26e71e97-1280-4211-ab7c-ddcf215e4c73": {
+          "type": "timer",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "64a7eb9c-0946-4012-9c02-9120e8441e73",
+        "a070576f-4ab3-46ae-be02-243bf82c3405",
+        "deb15c84-4ba4-4fdd-a784-c8bc0aa65070",
+        "0f4038fb-43a8-4640-864d-eebf72a6dc6b",
+        "26e71e97-1280-4211-ab7c-ddcf215e4c73"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/Component_1.png",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "content_layout": "overlap",
+        "color_scheme": "background-2",
+        "mobile_content_alignment": "center"
+      }
+    },
+    "1643381123cb4bcf4c": {
+      "type": "multicolumn",
+      "blocks": {
+        "1643381123dec25c6c-0": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Easy_Ordering.png",
+            "title": "Easy Ordering",
+            "text": "<p>random text<\/p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "1643381123dec25c6c-1": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Restaurant_Quality.png",
+            "title": "Restaurant Quality",
+            "text": "<p>random text<\/p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "1643381123dec25c6c-2": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Ready_in_No_Time.png",
+            "title": "Ready in No Time",
+            "text": "<p>random text<\/p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "1f07712b-2341-48b0-acce-c40502ff3ffc": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/We_Do_Care.png",
+            "title": "We Do Care",
+            "text": "<p>random text<\/p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "1643381123dec25c6c-0",
+        "1643381123dec25c6c-1",
+        "1643381123dec25c6c-2",
+        "1f07712b-2341-48b0-acce-c40502ff3ffc"
+      ],
+      "settings": {
+        "title": "How it Works",
+        "dropdown": false,
+        "extratext": "",
+        "image_width": "half",
+        "image_ratio": "adapt",
+        "column_alignment": "center",
+        "background_style": "none",
+        "button_label": "",
+        "button_link": "",
+        "swipe_on_mobile": true
+      }
+    },
+    "16433811313eb8a543": {
+      "type": "rich-text",
+      "blocks": {
+        "ef061996-b2e5-4ca6-bb8c-bc72670fa1d2": {
+          "type": "review",
+          "settings": {
+            "heading": "\"Wonderful food. Great choice. Tastes delicious, so fresh.  Good portions at great prices.\"",
+            "heading_size": "h1",
+            "text": "<p>Meg Robertson on Trustpilot<\/p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        },
+        "4de9ecc2-29aa-4ade-8f33-0e5c7c1e8896": {
+          "type": "review",
+          "settings": {
+            "heading": "\"Wonderful food. Great choice. Tastes delicious, so fresh.  Good portions at great prices.\"",
+            "heading_size": "h1",
+            "text": "<p>\"Wonderful food. Great choice. Tastes delicious, so fresh. <br\/>Good portions at great prices.\"<\/p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        },
+        "b3da60f2-5368-4c48-a485-ffbb95ec7802": {
+          "type": "review",
+          "settings": {
+            "heading": "Talk about your brand",
+            "heading_size": "h1",
+            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.<\/p>",
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "ef061996-b2e5-4ca6-bb8c-bc72670fa1d2",
+        "4de9ecc2-29aa-4ade-8f33-0e5c7c1e8896",
+        "b3da60f2-5368-4c48-a485-ffbb95ec7802"
+      ],
+      "settings": {
+        "color_scheme": "background-1",
+        "full_width": true
+      }
+    },
+    "1643569195f7c3d20f": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Enliven your tastebuds",
+        "collection": "all",
+        "products_to_show": 12,
+        "show_view_all": true,
+        "swipe_on_mobile": true,
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "add_image_padding": false,
+        "show_image_outline": true,
+        "show_vendor": false,
+        "show_rating": false
+      }
+    },
+    "16435698671c93dd68": {
+      "type": "collage",
+      "blocks": {
+        "1f4c34f7-0430-4272-80a5-30da87dd5848": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Amersham_Town_F.C._logo.png",
+            "image_padding": false,
+            "color_scheme": "background-1"
+          }
+        }
+      },
+      "block_order": [
+        "1f4c34f7-0430-4272-80a5-30da87dd5848"
+      ],
+      "settings": {
+        "heading": "Proud Sponsors Of",
+        "desktop_layout": "left",
+        "mobile_layout": "column"
+      }
+    }
+  },
+  "order": [
+    "16437429724ece21f2",
+    "16433805081efdc11e",
+    "1643381123cb4bcf4c",
+    "16433811313eb8a543",
+    "1643569195f7c3d20f",
+    "16435698671c93dd68"
+  ]
+}
