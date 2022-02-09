@@ -1,19 +1,5 @@
 <script>
-
-/**
- * Module to ajaxify all add to cart forms on the page.
- *
- * Copyright (c) 2015 Caroline Schnapp (11heavens.com)
- * Dual licensed under the MIT and GPL licenses:
- * http://www.opensource.org/licenses/mit-license.php
- * http://www.gnu.org/licenses/gpl.html
- *
- */
 Shopify.AjaxifyCart = (function($) {
-  
-  // Some configuration options.
-  // I have separated what you will never need to change from what
-  // you might change.
   
   var _config = {
     
@@ -25,6 +11,7 @@ Shopify.AjaxifyCart = (function($) {
     howLongTillBtnReturnsToNormal: 1000, // in milliseconds.
     cartCountSelector:             '.cart-count-bubble, .cart-count, #cart-count a:first, #gocart p a, #cart .checkout em, .item-count',
     cartTotalSelector:             '#cart-price',
+    itemTotalSelector:              '.itemCollection',
     // 'aboveForm' for top of add to cart form, 
     // 'belowForm' for below the add to cart form, and 
     // 'nextButton' for next to add to cart button.
@@ -37,27 +24,6 @@ Shopify.AjaxifyCart = (function($) {
     shopifyAjaxCartURL:            '/cart.js'
   };
   
-  // We need some feedback when adding an item to the cart.
-  // Here it is.  
-  var _showFeedback = function(success, html, $addToCartForm) {
-    $('.ajaxified-cart-feedback').remove();
-    var feedback = '<p class="ajaxified-cart-feedback ' + success + '">' + html + '</p>';
-    switch (_config.feedbackPosition) {
-      case 'aboveForm':
-        $addToCartForm.before(feedback);
-        break;
-      case 'belowForm':
-        $addToCartForm.after(feedback);
-        break;
-      case 'nextButton':
-      default:
-        $addToCartForm.find(_config.addToCartBtnSelector).after(feedback);
-        break;   
-    }
-    // If you use animate.css
-    // $('.ajaxified-cart-feedback').addClass('animated bounceInDown');
-    $('.ajaxified-cart-feedback').slideDown();
-  };
   var _setText = function($button, label) {
     if ($button.children().length) {
       $button.children().each(function() {
@@ -118,6 +84,12 @@ Shopify.AjaxifyCart = (function($) {
                   $(_config.cartTotalSelector).html(Shopify.formatMoney(cart.total_price, "{{ shop.money_format | remove: "'" | remove: '"' }}"));
                 }
               };
+            });
+            $.getJSON(_config.shopifyAjaxCartURL, function(cart) {
+              if (_config.itemCountSelector) {
+                var value = $(_config.itemCountSelector).html() || '0';
+                $(_config.itemCountSelector).html(value.replace(/[0-9]+/,item.quantity)).removeClass('hidden-count');
+              };
             });        
           }, 
           error: function(XMLHttpRequest) {
@@ -157,7 +129,10 @@ Shopify.AjaxifyCart = (function($) {
   }  
 })(jQuery);
 
-Shopify.AjaxifyCart.init();
+Shopify.AjaxifyCart.init(
+  {      cartCountSelector: '.cart-count-bubble',
+         itemCountSelector: '.itemCollection'}
+);
 
 </script>
 

@@ -85,12 +85,12 @@
 {% for item in cart.items %}
   {% if product.id == item.product.id %}
     {% assign count = count | plus: item.quantity %}
-  {% endif  %}
+  {% endif %}
 {% endfor %}
 {% if count > 0 %}
   <div>
-    <div style="position: absolute; z-index: 6; margin-left: -9px; margin-top: 4px;">
-      <span>{{ count }}</span>
+    <div class="itemCollection" style="position: absolute; z-index: 6; margin-left: -9px; margin-top: 4px;">
+      <span class="itemCollection" >{% for item in cart.items %}{% if product.id == item.product.id %}{{ item.quantity }}{%endif%}{% endfor %}</span>
     </div>
 <img style="position: absolute; margin-left: -20px;" src="{{ 'shopping-bag.png' | asset_img_url: '30x' }}">  
   </div>{% endif %}
@@ -128,7 +128,6 @@
         $(this).find('.btn').addClass('btn--secondary btn--to-secondary-transitioned');
         $(this).find('.btn').addClass('ajax-cart__toggle');
         $(this).find('.btn .primary-text').show();
-        $(".cart-count-bubble").removeClass('');
         $(".cart-count-bubble").addClass('cart-count-bubble');
         $('.cart-drawer').removeClass('cart-drawer--empty');
     });
