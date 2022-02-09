@@ -10,7 +10,7 @@
 
 <product-recommendations class="product-recommendations page-width" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=12">
 
-    <h2 class="product-recommendations__heading">{{ section.settings.heading | escape }}</h2>
+    <h2>{{ section.settings.heading | escape }}</h2>
     <ul id="Slider-{{ section.id }}" class="slider--everywhere grid grid--2-col product-grid{% if recommendations.products_count > 3 %} grid--4-col-desktop grid--quarter-max{% else %} grid--{{ recommendations.products_count }}-col-tablet{% endif %}" role="list">
       {% for recommendation in recommendations.products %}
         <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="grid__item">

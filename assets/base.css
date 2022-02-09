@@ -708,6 +708,7 @@ summary .icon-caret {
 	position: relative;
     height: 1.4rem;
     stroke: black;
+    margin-left: 10px;
 }
 .summary__title {
   display: flex;
@@ -2383,12 +2384,12 @@ details-disclosure > details {
 }
 
 .base-timer__path-elapsed {
-  stroke-width: 3px;
+  stroke-width: 2px;
   stroke: grey;
 }
 
 .base-timer__path-remaining {
-	stroke-width: 3px;
+	stroke-width: 2px;
     stroke-linecap: round;
     transform: rotate(90deg);
     transform-origin: center;
