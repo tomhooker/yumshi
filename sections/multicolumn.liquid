@@ -8,12 +8,11 @@
     <details>
       <summary>
         <div class="summary__title">   
-          {% render 'icon-accordion', icon: block.settings.icon %}
       	  <h2 style="text-align: center;">
         {{ section.settings.title | escape }}
       	  </h2>
+          {% render 'icon-caret' %}
              </div>
-           {% render 'icon-caret' %}
        </summary>
       {% else %}
       <h1 class="title">

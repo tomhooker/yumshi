@@ -4,18 +4,17 @@
 <noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
 <noscript>{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}</noscript>
 
-<div class="{% unless section.settings.full_width %}page-width{% endunless %}">
-  <div class="slider--everywhere rich-text color-{{ section.settings.color_scheme }} gradient{% if section.settings.full_width %} rich-text--full-width{% endif %}">
-    <details id="Details-{{ block.id }}-{{ section.id }}">
+
+  <div class="page-width">
+    <details>
       <summary>
         <div class="summary__title">
-          {% render 'icon-accordion', icon: block.settings.icon %}
-    		<h2>{{ section.settings.heading }}</h2>
+    		<h2 style="text-align: center;">{{ section.settings.heading }}</h2>
+        {% render 'icon-caret' %}
          </div>
-           {% render 'icon-caret' %}
        </summary>
  <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">
-    <div class="rich-text__blocks">
+    <div style="text-align: center;" class="rich-text__blocks">
       {%- for block in section.blocks -%}
       {% if block.settings.heading != blank %}
          <h3 class="{{ block.settings.heading_size }}" {{ block.shopify_attributes }}>{{ block.settings.heading | escape }}</h3>
@@ -73,7 +72,7 @@
       </div>
     </details>
   </div>
-</div>
+
 
 <style>
   .nutrition-con{

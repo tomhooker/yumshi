@@ -705,16 +705,16 @@ summary {
 }
 
 summary .icon-caret {
-	position: absolute;
+	position: relative;
     height: 1.4rem;
     stroke: black;
-    right: 30vw;
-    top: calc(50% + 1.5rem);
 }
-@media screen and (max-width: 749px) {
-summary .icon-caret {
-    right: 13vw;
-}
+.summary__title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
 }
 
 summary::-webkit-details-marker {
