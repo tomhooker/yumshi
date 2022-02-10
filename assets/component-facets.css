@@ -175,6 +175,8 @@
 
 .facets__disclosure {
   margin-right: 3.5rem;
+  border: 2px solid;
+  border-radius: 7px;
 }
 
 .facets__summary {
