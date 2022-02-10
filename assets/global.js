@@ -900,7 +900,7 @@ const COLOR_CODES = {
   }
 };
 
-const TIME_LIMIT = 604;
+const TIME_LIMIT = 604800;
 let timePassed = 0;
 let timeLeft = TIME_LIMIT;
 let timerInterval = null;
