@@ -182,8 +182,7 @@
 .facets__summary {
   color: rgba(var(--color-foreground), 0.75);
   font-size: 1.4rem;
-  margin-bottom: 1.5rem;
-  padding: 0 1.75rem 0 0;
+  padding: 10px 30px;
 }
 
 .facets__disclosure[open] .facets__summary,
