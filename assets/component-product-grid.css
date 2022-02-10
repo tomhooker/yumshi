@@ -11,7 +11,7 @@
   .product-grid .grid__item {
 	padding-left: 30px;
     padding-right: 30px;
-    padding-bottom: 30px;
+    padding-bottom: 40px;
     margin-bottom: calc(1rem + var(--page-width-margin));
   }
 
