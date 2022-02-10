@@ -9,7 +9,7 @@
 
 @media screen and (min-width: 750px) {
   .product-grid .grid__item {
-    padding: 20px;
+    padding: 30px;
     margin-bottom: calc(1rem + var(--page-width-margin));
   }
 
