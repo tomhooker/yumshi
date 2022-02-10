@@ -30,7 +30,7 @@
 .facet-filters {
   align-items: flex-start;
   display: flex;
-  grid-column: 2;
+  grid-column: 1;
   grid-row: 1;
   padding-left: 2.5rem;
 }
