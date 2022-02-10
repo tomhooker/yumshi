@@ -73,7 +73,10 @@
 }
 
 .facet-filters__field .select {
-  width: auto;
+    padding: 10px 30px;
+    width: auto;
+    border: 2px solid;
+    border-radius: 7px;
 }
 
 .facet-filters button {
