@@ -34,9 +34,6 @@
 
         {% if enable_filtering %}
           <div id="FacetsWrapperDesktop" class="facets__wrapper">
-            {%- unless results.filters == empty -%}
-              <h2 class="facets__heading caption-large text-body">{{ 'products.facets.filter_by_label' | t }}</h2>
-            {%- endunless -%}
 
             {%- for filter in results.filters -%}
               {%- assign total_active_values = total_active_values | plus: filter.active_values.size -%}
