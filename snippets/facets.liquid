@@ -47,14 +47,6 @@
                     </div>
                   </summary>
                   <div id="Facet-{{ forloop.index }}-{{ section.id }}" class="facets__display">
-                    <div class="facets__header">
-                      <span class="facets__selected no-js-hidden">{{ 'products.facets.filters_selected' | t: count: filter.active_values.size }}</span>
-                      <facet-remove>
-                        <a href="{{ filter.url_to_remove }}" class="facets__reset link underlined-link">
-                          {{ 'products.facets.reset' | t }}
-                        </a>
-                      </facet-remove>
-                    </div>
 
                     <ul class="facets__list list-unstyled" role="list">
                       {%- for value in filter.values -%}
