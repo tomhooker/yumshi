@@ -975,7 +975,7 @@ var hoursLeft = Math.floor((time) - (days*86400));
 let hours = Math.floor(hoursLeft/3600);
 var minutesLeft = Math.floor((hoursLeft) - (hours*3600));  
 let minutes = Math.floor(minutesLeft/60);
-let seconds = time % 60;
+let seconds = Math.floor(time/60);
 
 if (seconds < 10) {
 seconds = `0${seconds}`;
