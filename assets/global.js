@@ -917,7 +917,7 @@ function nextDayAndTime(dayOfWeek, hour, minute) {
 console.log(nextDayAndTime(5, 12, 0) - Date.now());
 
 var TIME_LIMIT = (nextDayAndTime(5, 12, 0) - Date.now())/1000;
-let timePassed = (nextDayAndTime(5, 12, 0)/360000);
+let timePassed = (nextDayAndTime(5, 12, 0)/86400000);
 let timeLeft = TIME_LIMIT;
 let timerInterval = null;
 let remainingPathColor = COLOR_CODES.info.color;
