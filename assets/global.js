@@ -900,7 +900,23 @@ const COLOR_CODES = {
   }
 };
 
-const TIME_LIMIT = 65413;
+function nextDayAndTime(dayOfWeek, hour, minute) {
+  var now = new Date()
+  var result = new Date(
+                 now.getFullYear(),
+                 now.getMonth(),
+                 now.getDate() + (7 + dayOfWeek - now.getDay()) % 7,
+                 hour,
+                 minute)
+ 
+  if (result < now)
+    result.setDate(result.getDate() + 7)
+  return result
+}
+
+console.log(nextDayAndTime(5, 12, 0) - Date.now());
+
+var TIME_LIMIT = 65413;
 let timePassed = 0;
 let timeLeft = TIME_LIMIT;
 let timerInterval = null;
