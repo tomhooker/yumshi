@@ -91,7 +91,7 @@
 }
 
 .multicolumn:not(.background-secondary) {
-  margin: 0;
+  margin: 50px 0;
 }
 
 .multicolumn-list h3 {
