@@ -89,7 +89,7 @@
   height: 100%;
   justify-content: center;
   align-self: center;
-  padding: 3rem calc(4rem / var(--font-body-scale)) 0rem;
+  padding: 3rem calc(1rem / var(--font-body-scale)) 0rem;
 }
 
 .image-with-text__content--mobile-right > * {
@@ -222,6 +222,7 @@
     flex-direction: row;
         align-items: center;
     width: 100%; 
+    justify-content: center;
 }
 .icon-con img {
  object-fit: contain; 

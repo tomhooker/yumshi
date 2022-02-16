@@ -4,7 +4,7 @@
 <noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
 <noscript>{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}</noscript>
 
-<div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+<div style="text-align: center;" class="page-width">
   <ul data-flickity='{ "groupCells": "1", "cellAlign": "center" }'
       style="{% if template == 'index' %}padding: 0;{%endif%} box-shadow: none; overflow: hidden;"
       class="grid--peek negative-margin--small rich-text color-{{ section.settings.color_scheme }} gradient{% if section.settings.full_width %} rich-text--full-width{% endif %}">
@@ -16,14 +16,24 @@
 {% if block.settings.text != blank %}
             <div class="rich-text__text rte" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
 {% endif %}
+
+<!-- TrustBox widget - Micro Combo -->
+<div class="trustpilot-widget" data-locale="en-GB" data-template-id="5419b6ffb0d04a076446a9af" data-businessunit-id="60eded9d636512000146ead7" data-style-height="20px" data-style-width="100%" data-theme="light">
+  <a href="https://uk.trustpilot.com/review/yumshi.com" target="_blank" rel="noopener">Trustpilot</a>
+</div>
+<!-- End TrustBox widget -->
+
 {% if block.settings.button_label != blank %}
             <a{% if block.settings.button_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ block.settings.button_link }}"{% endif %} class="button{% if block.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}" {{ block.shopify_attributes }}>
               {{ block.settings.button_label | escape }}
             </a>
 {% endif %}
            </div>
+
       {%- endfor -%}
+
   </ul>
+
 </div>
 
 {% schema %}

@@ -21,7 +21,7 @@
 
 .rich-text--full-width .rich-text__blocks {
   /* 4rem (1.5rem + 2.5rem) margin on left & right */
-  width: calc(100% - 8rem / var(--font-body-scale));
+  width: calc(100% / var(--font-body-scale));
 }
 
 .rich-text:not(.rich-text--full-width),
@@ -53,7 +53,7 @@
 
   .rich-text--full-width .rich-text__blocks {
     /* 7.5rem (5rem + 2.5rem) margin on left & right */
-    width: calc(100% - 15rem);
+    width: calc(100%);
     padding: 10px;
   }
 }

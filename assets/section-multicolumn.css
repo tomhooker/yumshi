@@ -1,5 +1,5 @@
 .multicolumn .title {
-  margin: 0;
+  padding: 20px;
   text-align: center;
 }
 
@@ -91,7 +91,7 @@
 }
 
 .multicolumn:not(.background-secondary) {
-  margin: 50px 0;
+  margin: 50px 0 70px 0;
 }
 
 .multicolumn-list h3 {

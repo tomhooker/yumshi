@@ -4,25 +4,37 @@
 <noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
 <noscript>{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}</noscript>
 
-{% capture 'meta_data' %}
-{% for variant in product.variants %}
-  {{ variant.id | json }}: {{ variant.metafields.my_fields.energy | json }}
-  {% unless forloop.last %},{% endunless %}
-{% endfor %}
-{% endcapture %}
+{%- if product.metafields.my_fields.energy != blank -%}
+<div class="stock-info">{{ product.metafields.my_fields.energy }}</div>
+{%- else -%}
+<div class="energy" style="display:none;"></div> 
+  {% capture meta_data %}
+    {% for variant in product.variants %}
+        {%- if variant.metafields.my_fields.energy != blank -%}
+            {{ variant.id}}:{{ variant.metafields.my_fields.energy | json}}
+        {%- endif -%}
+{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  {% endcapture %}
+
+<script>
+        const currentVariantId = {{ product.selected_or_first_available_variant.id }};  // get the currently selected before variant is changed. 
+        const metaData = { {{ meta_data }} };
+        const shippingInfo = (id) => {
+         var selector = document.querySelector('.energy');   
+          if (metaData[id]) {           
+           selector.style.display = 'block'                      
+           selector.innerHTML = metaData[id];
+          } else {       //Added this and the 3 lines below
+           selector.style.display = 'none'                      
+           selector.innerHTML = metaData[id];
+          }
+        };
+        shippingInfo(currentVariantId);
+</script> 
+  {%- endif -%}
 
 <div> {{ meta_data }}</div>
-
-<script>
-  selectCallback = function(variant, selector) {
-  // ... your default selectCallback code here
-  var material = metaData[variant.id];
-}
-</script>
-
-<script>
-  var metaData = { {{ meta_data }} }
-</script>
 
   <div class="page-width">
     <details>
@@ -43,7 +55,7 @@
       {% if block.settings.nutrition %}      
       <div class="nutrition-con">
       <div>
-      <h4>Energy:</h4>
+      <h4 class="energy">Energy:</h4>
   {% if variant.metafields.my_field.energy != blank %}<p>{{ variant.metafields.my_fields.energy }}</p>
   {% else %}<p>{{ product.metafields.my_fields.energy }}</p>{% endif %}
       </div>
@@ -102,6 +114,9 @@
 
 
 <style>
+  .multicolumn:not(.background-secondary) {
+    margin: 0px !important;
+  }
   .nutrition-con{
    display: flex;
     flex-direction: row;
