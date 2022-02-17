@@ -90,8 +90,18 @@
 {% if count > 0 %}
   <div>
     <div class="itemCollection" style="position: absolute; z-index: 6; margin-left: -9px; margin-top: 4px;">
-      <span class="itemCollection" >{% for item in cart.items %}{% if product.id == item.product.id %}{{ item.quantity }}{%endif%}{% endfor %}</span>
+      <span class="itemCollection" >
+        {% assign num = 0 %} 
+        {% for item in cart.items %}
+        {% if product.id == item.product.id %}
+        {% capture temp %}{{ num | plus: item.quantity }}{% endcapture %} 
+        {%endif%}
+        {% assign num = temp %}
+        {% endfor %}
+        {{ num }}
+      </span>
     </div>
+     
 <img style="position: absolute; margin-left: -20px;" src="{{ 'shopping-bag.png' | asset_img_url: '30x' }}">  
   </div>{% endif %}
   </div>
