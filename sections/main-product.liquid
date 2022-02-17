@@ -190,9 +190,12 @@
               {{ product.title | escape }}
             </h1>
           {%- when 'price' -%}
+
+             <!-- Price is determined by v-html -->
             <div class="no-js-hidden" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }} v-html="current_variant.price">
-              <!-- Price is determoned by v-html -->
             </div>
+             <!-- Price is determined by v-html -->
+
             {%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
               <div class="product__tax caption rte">
                 {%- if shop.taxes_included -%}
@@ -203,12 +206,16 @@
                 {%- endif -%}
               </div>
             {%- endif -%}
+            
+            <!-- Update add to cart value / not 100% needed here but worth it -->
             <div {{ block.shopify_attributes }}>
               {%- form 'product', product, id: 'product-form-installment', class: 'installment caption-large' -%}
                 <input type="hidden" name="id" :value="current_variant_id">
                 {{ form | payment_terms }}
               {%- endform -%}
             </div>
+            <!-- Update add to cart value / not 100% needed here but worth it -->
+
           {%- when 'description' -%}
             {%- if product.description != blank -%}
               <div class="product__description rte">
@@ -335,13 +342,16 @@
                         {{ option.name }}
                       </label>
                       <div class="select">
+
                         <!-- We use option.position instead of product_option.position -->
                         <select id="Option-{{ section.id }}-{{ forloop.index0 }}"
-                        v-model="variant_selection.option{{ option.position }}" @change="variant_from_options"
+                          v-model="variant_selection.option{{ option.position }}" @change="variant_from_options"
                           class="select__select"
                           name="options[{{ option.name | escape }}]"
                           form="{{ product_form_id }}"                      
                         >
+                        <!-- We use option.position instead of product_option.position -->
+
                           {%- for value in option.values -%}
                             <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>
                               {{ value }}
@@ -365,6 +375,7 @@
               <div class="product-form__input{% if product.has_only_default_variant %} hidden{% endif %}">
                 <label class="form__label" for="Variants-{{ section.id }}">{{ 'products.product.product_variants' | t }}</label>
                 <div class="select">
+                  <!-- Not needed here as wont render for noscript -->
                   <select name="id" id="Variants-{{ section.id }}" class="select__select" form="{{ product_form_id }}"
                   >
                     {%- for variant in product.variants -%}
@@ -397,8 +408,11 @@
                 </div>
 
                 {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+
                 <!-- Added in :value here to update the add to cart form as well -->
                   <input type="hidden" name="id" :value="current_variant_id" disabled>
+                <!-- Added in :value here to update the add to cart form as well -->
+
                   <div class="product-form__buttons">
                     <button
                       type="submit"

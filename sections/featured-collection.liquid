@@ -38,6 +38,62 @@
             show_image_outline: section.settings.show_image_outline,
             show_rating: section.settings.show_rating
           %}
+
+          <form action="/cart/add" id="product_form_id" class="product-form" data-type="add-to-cart-form"  
+          method="post" enctype="multipart/form-data">
+       <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+            {% if product.variants.size > 1 %}
+      <select  class="collection-option" name="id">
+      {% for variant in product.variants %}
+        {% if variant.available %}
+        <option value="{{ variant.id }}">{{ variant.price | money }} - {{ variant.title }}</option>     
+        {% else %}
+        <option disabled="disabled">{{ variant.title }} - Sold Out</option>
+        {% endif %}
+      {% endfor %}
+        </select>  
+      {% endif %}
+    <div style="display: flex;">       
+      <button class="button--primary product-form__submit button button--full-width" 
+              data-cart-submit 
+              type="submit" 
+              name="add" 
+              aria-live="polite" {% unless product.available %} disabled="true" {% endunless %} 
+              aria-live="polite">
+        <span class="primary-text" aria-hidden=false data-cart-primary-submit-text>
+          {% unless product.available %}
+            Sold Out
+          {% else %}
+            Add to Order
+          {% endunless %}
+        </span>
+      </button>
+    {% assign count = 0 %}
+    {% for item in cart.items %}
+      {% if product.id == item.product.id %}
+        {% assign count = count | plus: item.quantity %}
+      {% endif %}
+    {% endfor %}
+    {% if count > 0 %}
+      <div>
+        <div class="itemCollection" style="position: absolute; z-index: 6; margin-left: -9px; margin-top: 4px;">
+          <span class="itemCollection" >
+            {% assign num = 0 %} 
+            {% for item in cart.items %}
+            {% if product.id == item.product.id %}
+            {% capture temp %}{{ num | plus: item.quantity }}{% endcapture %} 
+            {%endif%}
+            {% assign num = temp %}
+            {% endfor %}
+            {{ num }}
+          </span>
+        </div>
+         
+    <img style="position: absolute; margin-left: -20px;" src="{{ 'shopping-bag.png' | asset_img_url: '30x' }}">  
+      </div>{% endif %}
+      </div>
+    </form>       
+
         </li>
       {%- else -%}
         {%- for i in (1..4) -%}

@@ -6,7 +6,7 @@
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 
-<cart-items class="page-width{% if cart == empty %} is-empty{% endif %}">
+<cart-items id="cart-page" class="page-width{% if cart == empty %} is-empty{% endif %}">
   <div class="title-wrapper-with-link">
     <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
   </div>
@@ -277,6 +277,14 @@
     <p class="visually-hidden" id="shopping-cart-line-item-status" aria-live="polite" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
   </form>
 </cart-items>
+
+<script>
+  const CartPage = {
+
+  }
+  
+  Vue.createApp(CartPage).mount('#cart-page')
+  </script>
 
 {% schema %}
 {
