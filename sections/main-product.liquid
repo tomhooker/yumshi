@@ -18,7 +18,10 @@
   <link id="ModelViewerOverride" rel="stylesheet" href="{{ 'component-model-viewer-ui.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- endif -%}
 
-<section class="page-width">
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign featured_image = current_variant.featured_media | default: product.featured_media %}
+
+<section id="product-page" class="page-width">
   <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.gallery_layout }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
     <div class="grid__item product__media-wrapper">
       <media-gallery id="MediaGallery-{{ section.id }}" role="region" {% if section.settings.enable_sticky_info %}class="product__media-gallery"{% endif %} aria-label="{{ 'products.product.media.gallery_viewer' | t }}" data-desktop-layout="{{ section.settings.gallery_layout }}">
@@ -187,8 +190,8 @@
               {{ product.title | escape }}
             </h1>
           {%- when 'price' -%}
-            <div class="no-js-hidden" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-              {%- render 'price', product: product, use_variant: true, show_badges: true, price_class: 'price--large' -%}
+            <div class="no-js-hidden" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }} v-html="current_variant.price">
+              <!-- Price is determoned by v-html -->
             </div>
             {%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
               <div class="product__tax caption rte">
@@ -202,7 +205,7 @@
             {%- endif -%}
             <div {{ block.shopify_attributes }}>
               {%- form 'product', product, id: 'product-form-installment', class: 'installment caption-large' -%}
-                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                <input type="hidden" name="id" :value="current_variant_id">
                 {{ form | payment_terms }}
               {%- endform -%}
             </div>
@@ -324,6 +327,7 @@
                   </script>
                 </variant-radios>
               {%- else -%}
+
                 <variant-selects class="no-js-hidden" data-section="{{ section.id }}" data-url="{{ product.url }}" {{ block.shopify_attributes }}>
                   {%- for option in product.options_with_values -%}
                     <div class="product-form__input product-form__input--dropdown">
@@ -331,10 +335,12 @@
                         {{ option.name }}
                       </label>
                       <div class="select">
+                        <!-- We use option.position instead of product_option.position -->
                         <select id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                        v-model="variant_selection.option{{ option.position }}" @change="variant_from_options"
                           class="select__select"
                           name="options[{{ option.name | escape }}]"
-                          form="{{ product_form_id }}"
+                          form="{{ product_form_id }}"                      
                         >
                           {%- for value in option.values -%}
                             <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>
@@ -351,6 +357,7 @@
                     {{ product.variants | json }}
                   </script>
                 </variant-selects>
+
               {%- endif -%}
             {%- endunless -%}
 
@@ -358,7 +365,8 @@
               <div class="product-form__input{% if product.has_only_default_variant %} hidden{% endif %}">
                 <label class="form__label" for="Variants-{{ section.id }}">{{ 'products.product.product_variants' | t }}</label>
                 <div class="select">
-                  <select name="id" id="Variants-{{ section.id }}" class="select__select" form="{{ product_form_id }}">
+                  <select name="id" id="Variants-{{ section.id }}" class="select__select" form="{{ product_form_id }}"
+                  >
                     {%- for variant in product.variants -%}
                       <option
                         {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %}
@@ -510,6 +518,69 @@
     </modal-dialog>
   {%- endfor -%}
 </section>
+
+<script>
+  const ProductPage = {
+    data() {
+      return {
+          current_variant_id: "{{ product.selected_or_first_available_variant.id }}",
+          variant_selection: {
+            option1: "{{ product.options_with_values[0].selected_value }}",
+            option2: "{{ product.options_with_values[1].selected_value }}",
+            option3: "{{ product.options_with_values[2].selected_value }}",
+          },
+          variants: [
+            {% for variant in product.variants %}
+                {
+                  id: "{{ variant.id }}",
+                  available: {{ variant.available }},
+                  option1: "{{ variant.option1 }}",
+                  option2: "{{ variant.option2 }}",
+                  option3: "{{ variant.option3 }}",
+                  price: "{{ variant.price | money }}",
+                  {% assign img_url = variant.image.src | img_url: '500x', scale: 2 %}
+                  image: "{% unless img_url contains 'no-image' %}{{ img_url }}{% endunless %}"
+                },
+            {% endfor %}
+          ],
+          fallback_product_image: "{{ featured_image | img_url: '500x', scale: 2 }}"
+      }
+    },
+    computed: {
+      current_variant() {
+        return this.variants.find(variant => variant.id == this.current_variant_id);
+      }
+    },
+    methods: {
+      variant_from_options() {
+        const variant = this.variants.find((variant) => {
+          var match = true;
+          if(variant.option1 != '') {
+            match = variant.option1 == this.variant_selection.option1
+          }
+          if(variant.option2 != '') {
+            match = variant.option2 == this.variant_selection.option2
+          }
+          if(variant.option3 != '') {
+            match = variant.option3 == this.variant_selection.option3
+          }
+          return match;
+        });
+        this.current_variant_id = variant.id;
+        this.update_history_state(variant);
+      },
+      update_history_state(variant) {
+        if(!history.replaceState || !variant){
+          return;
+        }
+        var newurl = window.location.protocol + '//' + window.location.host + window.location.pathname + '?variant=' + variant.id;
+        window.history.replaceState({path: newurl}, '', newurl);
+      }
+    }
+  }
+  
+  Vue.createApp(ProductPage).mount('#product-page')
+  </script>
 
 {% javascript %}
   class ProductModal extends ModalDialog {
