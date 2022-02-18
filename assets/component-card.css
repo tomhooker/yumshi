@@ -191,6 +191,21 @@
   text-decoration: none;
 }
 
+.upsell-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.card-image {
+  width: 70%;
+}
+
+.upsell-wrapper .card-information {
+  padding: 10px;
+  width: 70%;
+  order: 1;
+}
+
 .card-wrapper .card-information {
   background: white;
   padding: 10px;

@@ -4,6 +4,12 @@
 {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
 
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-grid.css' | asset_url | stylesheet_tag }}
+
+<link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'template-collection.css' | asset_url }}" media="print" onload="this.media='all'">
+
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 
   <div class="title-wrapper-with-link">
@@ -30,7 +36,8 @@
 <!-- id for Vue Cart App -->
 <div id="cart-page" class="page-width{% if cart == empty %} is-empty{% endif %}">
 <!-- id for Vue Cart App -->
-
+<div class="cart-page-container">
+<div class="cart-container">
   <template v-if="cart.items.length > 0">
   <!-- <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart"> -->
     <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
@@ -265,33 +272,60 @@
     <p class="visually-hidden" id="cart-live-region-text" aria-live="polite" role="status"></p>
     <p class="visually-hidden" id="shopping-cart-line-item-status" aria-live="polite" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
     
-    <!-- Sub total -->
-    <div class="totals">
-    <h3 class="totals__subtotal">{{ 'sections.cart.subtotal' | t }}</h3>
-    <p class="totals__subtotal-value" v-html="cart.formatted_total_price"></p>
-
-    <small class="tax-note caption-large rte">
-      {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
-        {{ 'sections.cart.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
-      {%- elsif cart.taxes_included -%}
-        {{ 'sections.cart.taxes_included_but_shipping_at_checkout' | t }}
-      {%- elsif shop.shipping_policy.body != blank -%}
-        {{ 'sections.cart.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
-      {%- else -%}
-        {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
-      {%- endif -%}
-    </small>
-    <!-- Sub total -->
-
-    <a href="/checkout" class="cart__checkout-button button">
-      Checkout
-    </a>
-  </div>
-
   </template>
+</div>
+
+    <ul id="Slider-{{ section.id }}" class="cart-add-to-cart grid product-grid{% if section.settings.collection.all_products_count > 2 and section.settings.swipe_on_mobile and section.settings.products_to_show > 2 %} slider slider--tablet grid--peek{% endif %}{% if section.settings.show_view_all == false or section.settings.collection.products.size < section.settings.products_to_show %} negative-margin{% endif %}{% if section.settings.show_view_all and section.settings.collection.products.size > section.settings.products_to_show %} negative-margin--small{% endif %}" role="list">
+      <h2 style="margin-top: 0; text-align: center;">You May Also Like</h2>
+      {%- for product in section.settings.collection.products limit: 4 -%}
+        <li style="padding: 0 !important; width: 100%; max-width: 100%;"
+        id="Slide-{{ section.id }}-{{ forloop.index }}" class="grid__item{% if section.settings.collection.all_products_count > 2 and section.settings.swipe_on_mobile %} slider__slide{% endif %}">
+          {% render 'cart-upsell',
+            product_card_product: product,
+            media_size: section.settings.image_ratio,
+            show_secondary_image: section.settings.show_secondary_image,
+            add_image_padding: section.settings.add_image_padding,
+            show_vendor: section.settings.show_vendor,
+            show_image_outline: section.settings.show_image_outline,
+            show_rating: section.settings.show_rating
+          %}  
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
   <!-- form used to be here -->
 
- <!-- id for Vue Cart App -->
+      <!-- Sub total -->
+      <div class="totals">
+        <div class="totals-container">
+        <h3 class="totals__subtotal">{{ 'sections.cart.subtotal' | t }}</h3>
+        <p class="totals__subtotal-value" v-html="cart.formatted_total_price"></p>
+    
+        <small class="tax-note caption-large rte">
+          {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
+            {{ 'sections.cart.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+          {%- elsif cart.taxes_included -%}
+            {{ 'sections.cart.taxes_included_but_shipping_at_checkout' | t }}
+          {%- elsif shop.shipping_policy.body != blank -%}
+            {{ 'sections.cart.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+          {%- else -%}
+            {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
+          {%- endif -%}
+        </small>
+        <!-- Sub total -->
+    
+        <a href="/checkout" class="cart__checkout-button button">
+          Checkout
+        </a>
+      </div>
+
+        <cart-note class="totals-container cart__note field">
+          <label for="Cart-note">{{ 'sections.cart.note' | t }}</label>
+          <textarea class="text-area text-area--resize-vertical field__input" name="note" form="cart" id="Cart-note" placeholder="{{ 'sections.cart.note' | t }}">{{ cart.note }}</textarea>
+        </cart-note>
+      </div>
+
+ <!-- id for Vue Cart App --> 
 </div>
 <!-- id for Vue Cart App -->
 
@@ -338,6 +372,62 @@
 {
   "name": "t:sections.main-cart-items.name",
   "settings": [
+  {
+    "type": "checkbox",
+    "id": "swipe_on_mobile",
+    "default": false,
+    "label": "t:sections.featured-collection.settings.swipe_on_mobile.label"
+  },
+  {
+    "type": "collection",
+    "id": "collection",
+    "label": "t:sections.featured-collection.settings.collection.label"
+  },
+  {
+    "type": "select",
+    "id": "image_ratio",
+    "options": [
+      {
+        "value": "adapt",
+        "label": "t:sections.featured-collection.settings.image_ratio.options__1.label"
+      },
+      {
+        "value": "portrait",
+        "label": "t:sections.featured-collection.settings.image_ratio.options__2.label"
+      },
+      {
+        "value": "square",
+        "label": "t:sections.featured-collection.settings.image_ratio.options__3.label"
+      }
+    ],
+    "default": "adapt",
+    "label": "t:sections.featured-collection.settings.image_ratio.label"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_secondary_image",
+    "default": false,
+    "label": "t:sections.featured-collection.settings.show_secondary_image.label"
+  },
+  {
+    "type": "checkbox",
+    "id": "add_image_padding",
+    "default": false,
+    "label": "t:sections.featured-collection.settings.add_image_padding.label"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_image_outline",
+    "default": true,
+    "label": "t:sections.featured-collection.settings.show_image_outline.label"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_rating",
+    "default": false,
+    "label": "t:sections.featured-collection.settings.show_rating.label",
+    "info": "t:sections.featured-collection.settings.show_rating.info"
+  }
   ]
 }
 {% endschema %}
