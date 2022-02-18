@@ -4,7 +4,7 @@ var Shopify = Shopify || {};
 // ---------------------------------------------------------------------------
 // Money format handler
 // ---------------------------------------------------------------------------
-Shopify.money_format = "${{amount_no_decimals_with_comma_separator}}";
+Shopify.money_format = "£{{amount}}";
 Shopify.formatMoney = function(cents, format) {
   if (typeof cents == 'string') { cents = cents.replace('.',''); }
   var value = '';

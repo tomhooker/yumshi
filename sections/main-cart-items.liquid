@@ -6,11 +6,10 @@
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 
-<cart-items id="cart-page" class="page-width{% if cart == empty %} is-empty{% endif %}">
   <div class="title-wrapper-with-link">
     <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
   </div>
-  
+<!--
  <a href="{{ routes.all_products_collection_url }}" class="underlined-link">{{ 'general.continue_shopping' | t }}</a>
 
   <div class="cart__warnings">
@@ -26,8 +25,14 @@
       </p>
     {%- endif -%}
   </div>
+-->
 
-  <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
+<!-- id for Vue Cart App -->
+<div id="cart-page" class="page-width{% if cart == empty %} is-empty{% endif %}">
+<!-- id for Vue Cart App -->
+
+  <template v-if="cart.items.length > 0">
+  <!-- <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart"> -->
     <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
       <div class="js-contents">
         {%- if cart != empty -%}
@@ -42,49 +47,33 @@
             </thead>
 
             <tbody>
-              {%- for item in cart.items -%}
-                <tr class="cart-item" id="CartItem-{{ item.index | plus: 1 }}">
+
+              <!-- template used to be here -->
+
+                <tr v-for="item in cart.items" class="cart-item" id="CartItem-{{ item.index | plus: 1 }}">
+                  
                   <td class="cart-item__media">
-                    {% if item.image %}
                       {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
-                      <a href="{{ item.url }}" class="cart-item__link" aria-hidden="true" tabindex="-1"> </a>
                       <img class="cart-item__image"
-                        src="{{ item.image | img_url: '300x' }}"
-                        alt="{{ item.image.alt | escape }}"
+                        :src="item.image"
                         loading="lazy"
                         width="150"
                         height="{{ 150 | divided_by: item.image.aspect_ratio | ceil }}"
                       >
-                    {% endif %}
                   </td>
 
                   <td class="cart-item__details">
-                    {%- if section.settings.show_vendor -%}
-                      <p class="caption-with-letter-spacing light">{{ item.product.vendor }}</p>
-                    {%- endif -%}
 
-                    <a href="{{ item.url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
+                    <!-- Title -->
+                    <a :href="item.url" class="cart-item__name h4 break" v-html="item.title"></a>
+                    <!-- Title-->
 
-                    {%- if item.original_price != item.final_price -%}
-                      <div class="cart-item__discounted-prices">
-                        <span class="visually-hidden">
-                          {{ 'products.product.price.regular_price' | t }}
-                        </span>
-                        <s class="cart-item__old-price product-option">
-                          {{- item.original_price | money -}}
-                        </s>
-                        <span class="visually-hidden">
-                          {{ 'products.product.price.sale_price' | t }}
-                        </span>
-                        <strong class="cart-item__final-price product-option">
-                          {{ item.final_price | money }}
-                        </strong>
+                    <!-- Individual price -->
+                      <div class="product-option" v-html="item.formatted_original_price">
                       </div>
-                    {%- else -%}
-                      <div class="product-option">
-                        {{ item.original_price | money }}
-                      </div>
-                    {%- endif -%}
+                    <!-- Individual price -->
+
+                    <!-- Options and line_properties needs looking at -->
 
                     {%- if item.product.has_only_default_variant == false or item.properties.size != 0 or item.selling_plan_allocation != nil -%}
                       <dl>
@@ -118,6 +107,7 @@
 
                       <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>
                     {%- endif -%}
+                  
 
                     <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
                       {%- for discount in item.discounts -%}
@@ -127,6 +117,9 @@
                         </li>
                       {%- endfor -%}
                     </ul>
+
+                    <!-- Options and line_properties needs looking at -->
+
                   </td>
 
                   <td class="cart-item__totals right medium-hide large-up-hide">
@@ -181,25 +174,17 @@
                       <label class="visually-hidden" for="Quantity-{{ item.index | plus: 1 }}">
                         {{ 'products.product.quantity.label' | t }}
                       </label>
-                      <quantity-input class="quantity">
-                        <button class="quantity__button no-js-hidden" name="minus" type="button">
-                          <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}</span>
-                          {% render 'icon-minus' %}
-                        </button>
+    
+                  <!-- Changed quanityt input here / subract and add removed aswell -->
+
                         <input class="quantity__input"
                           type="number"
-                          name="updates[]"
-                          value="{{ item.quantity }}"
+                          v-model="item.quantity"
+                          @change="update_cart(item.variant_id, item.quantity)"
                           min="0"
-                          aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
-                          id="Quantity-{{ item.index | plus: 1 }}"
-                          data-index="{{ item.index | plus: 1 }}"
                         >
-                        <button class="quantity__button no-js-hidden" name="plus" type="button">
-                          <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}</span>
-                          {% render 'icon-plus' %}
-                        </button>
-                      </quantity-input>
+
+                  <!-- Changed quanityt input here / subract and add removed aswell -->      
 
                       <cart-remove-button id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
                         <a href="{{ item.url_to_remove }}" class="button button--tertiary" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
@@ -234,21 +219,22 @@
                             {{ 'products.product.price.regular_price' | t }}
                           </dt>
                           <dd>
-                            <s class="cart-item__old-price price price--end">
-                              {{ item.original_line_price | money }}
+                            <s class="cart-item__old-price price price--end" v-html="item.formatted_line_price">
                             </s>
                           </dd>
                           <dt class="visually-hidden">
                             {{ 'products.product.price.sale_price' | t }}
                           </dt>
-                          <dd class="price price--end">
-                            {{ item.final_line_price | money }}
+                          <dd class="price price--end" v-html="item.formatted_line_price">
                           </dd>
                         </dl>
                       {%- else -%}
-                        <span class="price price--end">
-                          {{ item.original_line_price | money }}
+
+                      <!-- Correct end total for price line total -->
+                        <span class="price price--end" v-html="item.formatted_line_price">
                         </span>
+                      <!-- Correct end total for price line total -->
+                      
                       {%- endif -%}
 
                       {%- if item.variant.available and item.unit_price_measurement -%}
@@ -265,8 +251,11 @@
                       {%- endif -%}
                     </div>
                   </td>
+
                 </tr>
-              {%- endfor -%}
+
+              <!-- template used to be here-->
+
             </tbody>
           </table>
         {%- endif -%}
@@ -275,27 +264,68 @@
 
     <p class="visually-hidden" id="cart-live-region-text" aria-live="polite" role="status"></p>
     <p class="visually-hidden" id="shopping-cart-line-item-status" aria-live="polite" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
-  </form>
-</cart-items>
+    
+    <!-- Sub total -->
+    <div class="totals">
+    <h3 class="totals__subtotal">{{ 'sections.cart.subtotal' | t }}</h3>
+    <p class="totals__subtotal-value" v-html="cart.formatted_total_price"></p>
+    </div>
+    <!-- Sub total -->
+
+    <a href="/checkout" class="cart__checkout-button button">
+      Checkout
+    </a>
+
+  </template>
+  <!-- form used to be here -->
+
+ <!-- id for Vue Cart App -->
+</div>
+<!-- id for Vue Cart App -->
 
 <script>
   const CartPage = {
-
+    data() {
+      return {
+        cart: {
+          items: []
+        }
+     }
+   },
+   created() {
+     $.get('/cart.js')
+     .then(response => JSON.parse(response))
+     .then(cart => {
+       this.cart = cart;
+       this.format_prices();
+     })
+   },
+   methods: {
+     update_cart(id, qty) {
+       $.post('/cart/update.js', `updates[${id}]=${qty}`)
+       .then(response => JSON.parse(response))
+       .then(cart => {
+         this.cart = cart;
+         this.format_prices();
+       })
+     },
+     format_prices() {
+      this.cart.items.forEach(item => {
+        item.formatted_line_price = Shopify.formatMoney(item.line_price);
+        item.formatted_original_price = Shopify.formatMoney(item.original_price);
+      });
+      this.cart.formatted_total_price = Shopify.formatMoney(this.cart.total_price);
+     }
+   }
   }
   
-  Vue.createApp(CartPage).mount('#cart-page')
+  Vue.createApp(CartPage).mount('#cart-page');
   </script>
 
 {% schema %}
 {
   "name": "t:sections.main-cart-items.name",
   "settings": [
-    {
-      "type": "checkbox",
-      "id": "show_vendor",
-      "default": false,
-      "label": "t:sections.main-cart-items.settings.show_vendor.label"
-    }
   ]
 }
 {% endschema %}
