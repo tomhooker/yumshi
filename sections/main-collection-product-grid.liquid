@@ -20,6 +20,11 @@
 {%- endif -%}
 
 <div id="ProductGridContainer">
+  <img class="head-container"
+  src="{{ 'collectionleft.png' | asset_img_url: '1400x' }}">
+  <img class="head-container-right"
+  src="{{ 'collectionright.png' | asset_img_url: '1400x' }}">
+
   {%- paginate collection.products by section.settings.products_per_page -%}
     {%- if collection.products.size == 0 -%}
       <div class="collection collection--empty page-width" id="product-grid" data-id="{{ section.id }}">
@@ -161,6 +166,38 @@
     }
 </script>
 
+<style>
+  #app {
+  width: 350px;
+}
+@media screen and (max-width: 749px) {
+  #app {
+margin: 10px;
+display: none;
+  }
+}
+.base-timer {
+  border-radius: 6px !important;
+  width: 100% !important;
+  height: 50px !important;
+}
+.base-timer__svg, .base-timer h3, .base-timer h5 {
+  display: none;
+}
+.base-timer__label {
+  width: 150px !important;
+  height: 52px !important; 
+  font-size: 16px !important;
+}
+.base-timer h4 {
+  margin: 0;
+  position: absolute;
+  top: 16px;
+  left: 120px;
+  font-weight: 100;
+  color: white;
+}
+</style>
 
 {% schema %}
 {

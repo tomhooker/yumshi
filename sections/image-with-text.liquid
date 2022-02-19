@@ -60,12 +60,46 @@
       </div>
     </div>
   </div>
+
+  <img class="head-container"
+  src="{{ 'landingleft.png' | asset_img_url: '1400x' }}">
+  <img class="head-container-right"
+  src="{{ 'landingright.png' | asset_img_url: '1400x' }}">
+  
 </div>
 
 <style>
+    .head-container {
+    position: absolute;
+    top: 400px;
+    left: 0;
+    max-width: 600px;
+    max-height: 600px;
+    height: auto;
+    z-index: -1;
+  }
+  .head-container-right {
+    position: absolute;
+    top: 150px;
+    right: 0;
+    max-width: 600px;
+    max-height: 600px;
+    height: auto;
+    z-index: -1;
+  }
+  @media screen and (max-width: 749px) {
+    .head-container-right {
+    max-width: 100% !important;
+    max-height: 600px !important;
+    height: auto !important;
+    }
+    .head-container {
+      display: none !important;
+    }
+  }
   .base-timer h4 {
 display: none !important;
-}
+  }
 </style>
 
 {% schema %}

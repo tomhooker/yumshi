@@ -42,26 +42,6 @@
       assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
       assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
     %}
-  
-  {% if template contains "index" %}
-      <style>
-	body {
-    background: url({{ 'landing-ls.png' | asset_url }}) left no-repeat,
-    url({{ 'landing-rs.png' | asset_url }}) right no-repeat;
-    background-size: 40vw;
-    background-position-y: top;
-		}
-	</style>
-    {% else %}
-     <style>
-	body {
-    background: url({{ 'collection-tl.png' | asset_url }}) left no-repeat,
-    url({{ 'collection-tr.png' | asset_url }}) right no-repeat;
-    background-size: 40vw;
-    background-position-y: top;
-		}
-	</style>
-  {% endif %}
 
     {% style %}
       {{ settings.type_body_font | font_face: font_display: 'swap' }}
@@ -109,6 +89,8 @@
       html {
         box-sizing: border-box;
         font-size: calc(var(--font-body-scale) * 62.5%);
+        min-height: 100%;
+        height: auto !important;
         height: 100%;
       }
 

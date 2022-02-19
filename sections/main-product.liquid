@@ -22,6 +22,11 @@
 {% assign featured_image = current_variant.featured_media | default: product.featured_media %}
 
 <section id="product-page" class="page-width">
+  <img class="head-container"
+  src="{{ 'collectionleft.png' | asset_img_url: '1400x' }}">
+  <img class="head-container-right"
+  src="{{ 'collectionright.png' | asset_img_url: '1400x' }}">
+
   <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.gallery_layout }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
     <div class="grid__item product__media-wrapper">
       <media-gallery id="MediaGallery-{{ section.id }}" role="region" {% if section.settings.enable_sticky_info %}class="product__media-gallery"{% endif %} aria-label="{{ 'products.product.media.gallery_viewer' | t }}" data-desktop-layout="{{ section.settings.gallery_layout }}">

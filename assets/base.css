@@ -347,6 +347,11 @@ body,
   font-weight: var(--font-body-weight);
 }
 
+@font-face {
+  font-family: "CustomFont";
+  src: url("palamecia_titling-webfont.woff") format("woff");
+  }
+
 h1,
 h2,
 h3,
@@ -848,6 +853,7 @@ summary::-webkit-details-marker {
 }
 
 .title-wrapper-with-link .title {
+  font-family: 'CustomFont';
   text-align: center;
   margin: 0;
 }
@@ -1216,10 +1222,21 @@ deferred-media {
   box-shadow: 0 0 0 0.1rem rgba(var(--color-button), var(--alpha-button-border));
   color: rgb(var(--color-button-text));
   min-width: 12rem;
-  min-height: 4.5rem;
+  min-height: 3.5rem;
   transition: box-shadow var(--duration-short) ease;
   -webkit-appearance: none;
   appearance: none;
+}
+
+.orderbutton {
+  width: 160px;
+  border-radius: 3px;
+  background: #169689;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
 }
 
 .button:focus-visible {
@@ -1909,11 +1926,6 @@ input[type='checkbox'] {
 }
 
 @media screen and (min-width: 990px) {
-  .header {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
-
   .header--has-menu:not(.header--middle-left) {
     padding-bottom: 0;
   }
@@ -2342,16 +2354,15 @@ details-disclosure > details {
 
 .badge {
   border: 1px solid transparent;
-  border-radius: 4rem;
+  border-radius: 0.4rem;
   display: inline-block;
   font-size: 1.2rem;
   letter-spacing: 0.1rem;
   line-height: 1;
-  padding: 0.6rem 1.3rem;
+  padding: 1rem 3rem;
   text-align: center;
-  background-color: rgb(var(--color-badge-background));
-  border-color: rgba(var(--color-badge-border), var(--alpha-badge-border));
-  color: rgb(var(--color-foreground));
+  background-color: #1FB389;
+  color: white;
   word-break: break-word;
 }
 

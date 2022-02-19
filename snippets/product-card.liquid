@@ -125,12 +125,43 @@
       {%- endif -%}
 
       <div class="card__badge">
-        {%- if product_card_product.available == false -%}
-          <span class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}">{{ 'products.product.sold_out' | t }}</span>
-        {%- elsif product_card_product.compare_at_price > product_card_product.price and product_card_product.available -%}
-          <span class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}">{{ 'products.product.on_sale' | t }}</span>
+        {% for c in product_card_product.collections %}
+        {% if c.handle == "new" %}
+          <span class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}">NEW</span>
         {%- endif -%}
+        {% endfor %}
       </div>
+
+      <div class="card__icons">
+        <div class="card__icons-container">
+          {% for tag in product_card_product.tags %}
+          {% if tag contains 'Egg' %}
+          <img src="{{ 'FreeRangeEggThin.png' | asset_img_url: '30x' }}">
+          {% endif %}
+
+          {% if tag contains 'Gluten' %}
+          <img src="{{ 'GlutenFreeThin.png' | asset_img_url: '30x' }}">
+          {% endif %}
+
+          {% if tag contains 'Nuts' %}
+          <img src="{{ 'NutsAllergenThin.png' | asset_img_url: '30x' }}">
+          {% endif %}
+
+          {% if tag contains 'Vegan' %}
+          <img src="{{ 'VeganThin.png' | asset_img_url: '30x' }}">
+          {% endif %}
+          
+          {% if tag contains 'Vegetarian' %}
+          <img src="{{ 'VegetarianThin.png' | asset_img_url: '30x' }}">
+          {% endif %}
+
+          {% if tag contains 'Chilli' %}
+          <img src="{{ 'Chilli.png' | asset_img_url: '30x' }}">
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

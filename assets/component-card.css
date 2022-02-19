@@ -260,7 +260,7 @@
 }
 
 .card__badge {
-  bottom: 1rem;
+  top: 1rem;
   display: flex;
   flex-wrap: wrap;
   left: 1rem;
@@ -270,6 +270,24 @@
 .card__badge > * {
   margin-right: 1rem;
   margin-top: 0.5rem;
+}
+
+.card__icons {
+  top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  right: 1rem;
+  position: absolute;
+}
+
+.card__icons > * {
+  margin-right: 1rem;
+  margin-top: 0.5rem;
+}
+
+.card__icons-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .overlay-card {
