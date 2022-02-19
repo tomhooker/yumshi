@@ -34,6 +34,15 @@
 -->
 
 <!-- id for Vue Cart App -->
+<div style="margin-bottom: 1rem;" class="page-width">
+  <div class="cart-top">
+  <a href="{{ routes.all_products_collection_url }}" class="select button">
+    {{ 'general.continue_shopping' | t }}
+  </a>
+  <div style="align-self: center;" id="app"></div>
+  </div>
+</div>
+
 <div id="cart-page" class="page-width{% if cart == empty %} is-empty{% endif %}">
 <!-- id for Vue Cart App -->
 <div class="cart-page-container">

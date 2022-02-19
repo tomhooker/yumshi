@@ -1,10 +1,17 @@
 .facets-container {
   padding-left: 20px;
-  display: grid;
+  padding-right: 30px;
+  display: flex;
+  flex-direction: column;
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(2, auto);
 }
-
+@media screen and (max-width: 750px) {
+.facets-container {
+padding-left: 0px !important;
+padding-right: 0px !important;
+}
+}
 .active-facets-mobile {
   margin-bottom: 0.5rem;
 }
@@ -73,7 +80,7 @@
 }
 
 .facet-filters__field .select {
-    padding: 10px 30px;
+    padding: 10px 10px;
     width: auto;
     border: 2px solid;
     border-radius: 7px;
@@ -145,15 +152,23 @@
 }
 
 .facets {
-  display: block;
+  display: flex;
+  flex-direction: column;
   grid-column-start: span 2;
 }
 
 .facets__form {
-  display: grid;
-  gap: 0 3.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0 3rem;
   grid-template-columns: 1fr max-content max-content;
   margin-bottom: 0.5rem;
+}
+@media screen and (max-width: 749px) {
+  .facets__form {
+    gap: 0 0rem !important;
+  }
 }
 
 .facets__wrapper {

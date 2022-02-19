@@ -940,6 +940,7 @@ document.getElementById("app").innerHTML = `
       ></path>
     </g>
   </svg>
+<h4>left to order till Friday!</h4>
 <h3>Order within</h3>
   <span id="base-timer-label" class="base-timer__label">
 ${formatTime(timeLeft)}</span>

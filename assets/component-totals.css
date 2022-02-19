@@ -9,14 +9,26 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
+@media screen and (max-width: 749px) {
+.totals {
+flex-direction: column-reverse !important;
+  }
+} 
+@media screen and (max-width: 749px) {
+.totals-container {
+width: 100% !important;
+  }
+}
 .totals-container {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
   width: 30%;
 }
-
+.totals-container h3, .totals-container p{
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
 .totals > * {
   font-size: 1.6rem;
   margin: 10px;
