@@ -231,3 +231,71 @@
 background: #053951 !important;
 color: white;
 }
+.img1 {
+  max-width: 30% !important;
+  object-fit: contain !important;
+  height: auto !important;
+  top: 8%;
+  left: 12%;
+  -webkit-animation: animate1 3000ms;
+  -moz-animation: animate1 3000ms;
+  -ms-animation: animate1 3000ms;
+  animation: animate1 3000ms;
+}
+@keyframes animate1{
+  0% {left:40%;} 
+  0% {top:70%;} 
+  100% {left:12%;}
+  100% {top:8%;}
+}
+.img2 {
+  max-width: 30% !important;
+  object-fit: contain !important;
+  height: auto !important;
+  top: 4%;
+  left: 50%;
+  -webkit-animation: animate2 3000ms;
+  -moz-animation: animate2 3000ms;
+  -ms-animation: animate2 3000ms;
+  animation: animate2 3000ms;
+}
+@keyframes animate2{
+  0% {left:40%;} 
+  0% {top:70%;} 
+  100% {left:50%;}
+  100% {top:4%;}
+}
+.img3 {
+max-width: 30% !important;
+object-fit: contain !important;
+height: auto !important;
+top: 35%;
+left: 40%;
+-webkit-animation: animate3 3000ms;
+-moz-animation: animate3 3000ms;
+-ms-animation: animate3 3000ms;
+animation: animate3 3000ms;
+}
+@keyframes animate3{
+  0% {left:40%;} 
+  0% {top:70%;} 
+  100% {left:40%;}
+  100% {top:35%;}
+}
+.img4 {
+  max-width: 30% !important;
+  object-fit: contain !important;
+  height: auto !important;
+  top: 42%;
+  left: 7%;
+  -webkit-animation: animate4 3000ms;
+  -moz-animation: animate4 3000ms;
+  -ms-animation: animate4 3000ms;
+  animation: animate4 3000ms;
+  }
+  @keyframes animate4{
+    0% {left:40%;} 
+    0% {top:70%;} 
+    100% {left:7%;}
+    100% {top:42%;}
+  }

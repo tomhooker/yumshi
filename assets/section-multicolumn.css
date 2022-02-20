@@ -90,8 +90,10 @@
   }
 }
 
+@media screen and (min-width: 749px) {
 .multicolumn:not(.background-secondary) {
   margin: 50px 0 70px 0;
+}
 }
 
 .multicolumn-list h3 {

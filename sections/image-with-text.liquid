@@ -7,7 +7,7 @@
         {% if section.settings.height == 'adapt' and section.settings.image != blank %} style="padding-bottom: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;"{% endif %}
       >
         {%- if section.settings.image != blank -%}
-          <img
+          <img style="z-index: 6;"
             srcset="{%- if section.settings.image.width >= 165 -%}{{ section.settings.image | img_url: '165x' }} 165w,{%- endif -%}
               {%- if section.settings.image.width >= 360 -%}{{ section.settings.image | img_url: '360x' }} 360w,{%- endif -%}
               {%- if section.settings.image.width >= 535 -%}{{ section.settings.image | img_url: '535x' }} 535w,{%- endif -%}
@@ -22,6 +22,10 @@
             width="{{ section.settings.image.width }}"
             height="{{ section.settings.image.height }}"
           >
+          <img class="img1" src="{{ section.settings.dish1 | img_url: 'medium' }}">
+          <img class="img2" src="{{ section.settings.dish2 | img_url: 'medium' }}">
+          <img class="img3" src="{{ section.settings.dish3 | img_url: 'medium' }}">
+          <img class="img4" src="{{ section.settings.dish4 | img_url: 'medium' }}">
         {%- else -%}
           {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
         {%- endif -%}
@@ -50,6 +54,13 @@
             <div class="image-with-text__text rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
         	</div>
               {%- when 'button' -%}
+            <!-- TrustBox widget - Micro Star -->
+              <div class="trustpilot-widget" style="width: 100%;"
+              data-locale="en-GB" data-template-id="5419b732fbfb950b10de65e5" data-businessunit-id="60eded9d636512000146ead7" data-style-height="24px" data-style-width="100%" data-theme="light">
+              <a href="https://uk.trustpilot.com/review/yumshi.com" target="_blank" rel="noopener">Trustpilot</a>
+              </div>
+              <!-- End TrustBox widget -->
+
               {%- if block.settings.button_label != blank -%}
                 <a style=" align-self: center;" {% if block.settings.button_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ block.settings.button_link }}"{% endif %} class="button{% if block.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}" {{ block.shopify_attributes }}>
                   {{ block.settings.button_label | escape }}
@@ -111,6 +122,26 @@ display: none !important;
       "type": "image_picker",
       "id": "image",
       "label": "t:sections.image-with-text.settings.image.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "dish1",
+      "label": "Dish1"
+    },
+    {
+      "type": "image_picker",
+      "id": "dish2",
+      "label": "Dish2"
+    },
+    {
+      "type": "image_picker",
+      "id": "dish3",
+      "label": "Dish3"
+    },
+    {
+      "type": "image_picker",
+      "id": "dish4",
+      "label": "Dish4"
     },
     {
       "type": "select",
