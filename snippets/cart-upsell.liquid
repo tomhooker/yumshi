@@ -59,6 +59,39 @@
       {% unless template contains 'index' %}
       {%- render 'price', product: product_card_product, price_class: '' -%}
       {% endunless %}
+
+      <form action="/cart/add" id="product_form_id" data-type="add-to-cart-form"  
+      method="post" enctype="multipart/form-data">
+   <input type="hidden" name="id" value="{{ product_card_product.variants.first.id }}" />
+        {% if product_card_product.variants.size > 1 %}
+  <select  class="collection-option" name="id">
+  {% for variant in product_card_product.variants %}
+    {% if variant.available %}
+    <option value="{{ variant.id }}">{{ variant.price | money }} - {{ variant.title }}</option>     
+    {% else %}
+    <option disabled="disabled">{{ variant.title }} - Sold Out</option>
+    {% endif %}
+  {% endfor %}
+    </select>  
+  {% endif %}
+<div style="display: flex;">       
+  <button class="button--primary product-form__submit button button--full-width" 
+          data-cart-submit 
+          type="submit" 
+          name="add" 
+          aria-live="polite" {% unless product_card_product.available %} disabled="true" {% endunless %} 
+          aria-live="polite">
+    <span class="primary-text" aria-hidden=false data-cart-primary-submit-text>
+      {% unless product_card_product.available %}
+        Sold Out
+      {% else %}
+        Add to Order
+      {% endunless %}
+    </span>
+  </button>
+</div>
+</form>
+
     </div>
   </div>
 

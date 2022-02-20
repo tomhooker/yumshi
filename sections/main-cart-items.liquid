@@ -207,7 +207,7 @@
 
                   <!-- Changed quanityt input here / subract and add removed aswell -->      
 
-                      <cart-remove-button id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
+                      <cart-remove-button @click="remove_from_cart(item.variant_id)" id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
                         <a href="{{ item.url_to_remove }}" class="button button--tertiary" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
                           {% render 'icon-remove' %}
                         </a>
@@ -302,7 +302,7 @@
             show_vendor: section.settings.show_vendor,
             show_image_outline: section.settings.show_image_outline,
             show_rating: section.settings.show_rating
-          %}  
+          %}            
         </li>
       {%- endfor -%}
     </ul>
@@ -356,17 +356,19 @@
      $.get('/cart.js')
      .then(response => JSON.parse(response))
      .then(cart => {
-       this.cart = cart;
-       this.format_prices();
+      this.set_cart(cart);
      })
    },
    methods: {
+     set_cart(cart) {
+      this.cart = cart;
+      this.format_prices();
+     },
      update_cart(id, qty) {
        $.post('/cart/update.js', `updates[${id}]=${qty}`)
        .then(response => JSON.parse(response))
        .then(cart => {
-         this.cart = cart;
-         this.format_prices();
+        this.set_cart(cart);
        })
      },
      format_prices() {
@@ -375,6 +377,9 @@
         item.formatted_original_price = Shopify.formatMoney(item.original_price);
       });
       this.cart.formatted_total_price = Shopify.formatMoney(this.cart.total_price);
+     },
+     remove_from_cart(id) {
+       this.update_cart(id, 0);
      }
    }
   }
