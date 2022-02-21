@@ -846,7 +846,6 @@
                   salt: "{{ variant.metafields.my_fields.salt }}",
                   ingredients: "{{ variant.metafields.my_fields.ingredients }}",
                   allergens: "{{ variant.metafields.my_fields.allergens }}", 
-
                   penergy: "{{ product.metafields.my_fields.energy }}",
                   pfat: "{{ product.metafields.my_fields.fat }}",
                   psaturates: "{{ product.metafields.my_fields.saturates }}",
@@ -856,18 +855,15 @@
                   psalt: "{{ product.metafields.my_fields.salt }}",
                   pingredients: "{{ product.metafields.my_fields.ingredients }}",
                   pallergens: "{{ product.metafields.my_fields.allergens }}",
-
                   fridge: "{{ product.metafields.my_fields.fridge }}",
                   freezer: "{{ product.metafields.my_fields.freezer }}",
                   fridgefreezer: "{{ product.metafields.my_fields.fridge_and_freezer }}",
                   oven: "{{ product.metafields.my_fields.oven }}",
                   mircrowave: "{{ product.metafields.my_fields.microwave }}",
-
                   sp1: "{{ product.metafields.my_fields.sp1 }}",
                   sp2: "{{ product.metafields.my_fields.sp2 }}",
                   sp3: "{{ product.metafields.my_fields.sp3 }}",
                   sp4: "{{ product.metafields.my_fields.sp4 }}",
-
                   price: "{{ variant.price | money }}",
                   {% assign img_url = variant.image.src | img_url: '500x', scale: 2 %}
                   image: "{% unless img_url contains 'no-image' %}{{ img_url }}{% endunless %}"

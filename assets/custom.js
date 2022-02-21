@@ -48,20 +48,3 @@ Shopify.formatMoney = function(cents, format) {
     return formatString.replace(placeholderRegex, value);
 };
 // Insert any custom theme js here...
-$(document).ready(function() {
-    $('.product-form__quantity-selector').click(function(event) {
-        event.stopPropagation();
-        event.preventDefault();
-    });
-    $('.product-card-addtocart').click(function(event) {
-        refreshCart();
-        $(document).on('drawer_open_start', function() {
-            $('.product-form>.btn').addClass('btn--primary');
-            $('.product-form>.btn').removeClass('btn--secondary');
-            $('.product-form>.btn').removeClass('btn--to-secondary-transitioned');
-            $('.product-form>p').removeClass('product__notification--success')
-            $('.product-form>.btn').removeClass("ajax-cart__toggle");
-        });
-        $('.cart-drawer__checkout').prop("disabled", false);
-    });
-});

@@ -307,8 +307,8 @@
                 <h4 class="card-information__text h5" v-html="upsell.price">
                 </h4>
         
-      <form action="/cart/add" id="product_form_id" data-type="add-to-cart-form"  
-       method="post" enctype="multipart/form-data">
+        <form action="/cart/add" id="product_form_id" data-type="add-to-cart-form"  
+          method="post" enctype="multipart/form-data">
           <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
            {% if product.variants.size > 1 %}
             <select  class="collection-option" name="id">
@@ -333,7 +333,7 @@
             Add to Order</span>
           </button>
         </div>
-      </form>
+        </form>
         
             </div>
           </div>
