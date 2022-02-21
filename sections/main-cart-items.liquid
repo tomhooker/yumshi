@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'template-collection.css' | asset_url }}" media="print" onload="this.media='all'">
 
-{% include 'store.js' %}
 <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 
@@ -59,7 +58,7 @@
   <!-- <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart"> -->
     <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
       <div class="js-contents">
-        {%- if cart != empty -%}
+        
           <table class="cart-items">
             <thead>
               <tr>
@@ -73,8 +72,8 @@
             <tbody>
 
               <!-- template used to be here -->
-              <div v-show="!loading">
-                <tr v-for="item in cart.items" class="cart-item" id="CartItem-{{ item.index | plus: 1 }}">
+              <div>
+                <tr v-for="item in cart.items" class="cart-item">
                   
                   <td class="cart-item__media">
                       {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
@@ -282,7 +281,7 @@
 
             </tbody>
           </table>
-        {%- endif -%}
+        
             </div>
           </div>
 

@@ -5,10 +5,8 @@
       "settings": {
       }
     }
-    }
   },
   "order": [
-    "cart-items",
-    "featured-products"
+    "cart-items"
   ]
 }

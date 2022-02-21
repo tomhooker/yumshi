@@ -821,6 +821,7 @@
 <script>
   const ProductPage = {
     name: 'Product',
+    store,
     data() {
       return {
           current_variant_id: "{{ product.selected_or_first_available_variant.id }}",
