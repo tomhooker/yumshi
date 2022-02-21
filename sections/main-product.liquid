@@ -7,6 +7,12 @@
 {{ 'component-rating.css' | asset_url | stylesheet_tag }}
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
 
+<link rel="stylesheet" href="{{ 'component-rte.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'section-rich-text.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}</noscript>
+
 <link rel="stylesheet" href="{{ 'component-deferred-media.css' | asset_url }}" media="print" onload="this.media='all'">
 
 <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
@@ -420,6 +426,7 @@
 
                   <div class="product-form__buttons">
                     <button
+                      @submit.prevent="handle_atc(current_variant_id)"
                       type="submit"
                       name="add"
                       class="product-form__submit button button--full-width {% if block.settings.show_dynamic_checkout and product.selling_plan_groups == empty %}button--secondary{% else %}button--primary{% endif %}"
@@ -537,10 +544,283 @@
       </div>
     </modal-dialog>
   {%- endfor -%}
+
+  <div class="page-width">
+        <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">  
+          <slider-component class="slider-mobile-gutter">
+            <ul class="multicolumn-list grid grid--1-col grid--4-col-tablet"
+              id="Slider-{{ section.id }}"
+              role="list"
+            >
+                <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="multicolumn-list__item grid__item" {{ block.shopify_attributes }}>
+                  <div style="background: rgba(var(--color-foreground), 0.04);
+                  border-radius: 50px;
+                  height: 100%;"
+                  class="multicolumn-card">
+                    <div class="multicolumn-card__info">                          
+                        <div v-html="current_variant.sp1" class="rte"></div>                        
+                    </div>
+                  </div>
+                </li>
+
+                <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="multicolumn-list__item grid__item" {{ block.shopify_attributes }}>
+                  <div style="background: rgba(var(--color-foreground), 0.04);
+                  border-radius: 50px;
+                  height: 100%;"
+                  class="multicolumn-card">
+                    <div class="multicolumn-card__info">                          
+                        <div v-html="current_variant.sp2" class="rte"></div>                        
+                    </div>
+                  </div>
+                </li>
+
+                <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="multicolumn-list__item grid__item" {{ block.shopify_attributes }}>
+                  <div style="background: rgba(var(--color-foreground), 0.04);
+                  border-radius: 50px;
+                  height: 100%;"
+                  class="multicolumn-card">
+                    <div class="multicolumn-card__info">                          
+                        <div v-html="current_variant.sp3" class="rte"></div>                        
+                    </div>
+                  </div>
+                </li>
+
+                <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="multicolumn-list__item grid__item" {{ block.shopify_attributes }}>
+                  <div style="background: rgba(var(--color-foreground), 0.04);
+                  border-radius: 50px;
+                  height: 100%;"
+                  class="multicolumn-card">
+                    <div class="multicolumn-card__info">                          
+                        <div v-html="current_variant.sp4" class="rte"></div>                        
+                    </div>
+                  </div>
+                </li>
+            </ul>
+          </slider-component>
+        </div>
+      </details>
+      </div>
+
+    <details>
+      <summary>
+        <div class="summary__title">
+    		  <h2 style="text-align: center;">Dish information</h2>
+          {% render 'icon-caret' %}
+         </div>
+      </summary>
+       <!-- Nutrition info -->
+      <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">
+      <div style="text-align: center;" class="rich-text__blocks">
+
+         <h3>Nutrition (per 100g)</h3>
+
+      <!-- Energy -->    
+      <div class="nutrition-con">
+      <div id="product-page">
+      <h4 class="energy">Energy:</h4>
+      <p v-if="current_variant.energy" v-html="current_variant.energy"></p>
+      <p v-else v-html="current_variant.penergy"></p>
+      </div>
+      <!-- Fat -->
+      <div>
+      <h4>Fat:</h4>
+      <p v-if="current_variant.fat" v-html="current_variant.fat"></p>
+      <p v-else v-html="current_variant.pfat"></p>
+      </div>
+      <!-- Saturates -->
+      <div>
+      <h4>Saturates:</h4>
+      <p v-if="current_variant.saturates" v-html="current_variant.saturates"></p>
+      <p v-else v-html="current_variant.psaturates"></p>
+      </div>
+      <!-- Carbs -->
+      <div>
+      <h4>Carbs:</h4>
+      <p v-if="current_variant.carbs" v-html="current_variant.carbs"></p>
+      <p v-else v-html="current_variant.pcarbs"></p>
+      </div>
+      <!-- Sugars -->
+      <div>
+      <h4>Sugars:</h4>
+      <p v-if="current_variant.sugars" v-html="current_variant.sugars"></p>
+      <p v-else v-html="current_variant.psugar"></p>
+      </div>
+      <!-- Protein -->
+      <div>
+      <h4>Protein:</h4>
+      <p v-if="current_variant.protein" v-html="current_variant.protein"></p>
+      <p v-else v-html="current_variant.pprotein"></p>
+      </div>   
+      <!-- Salt -->
+      <div>
+      <h4>Salt:</h4>
+      <p v-if="current_variant.salt" v-html="current_variant.salt"></p>
+      <p v-else v-html="current_variant.psalt"></p>
+      </div>   
+      </div>
+           
+		  <h3>Ingredients</h3>
+        <div v-if="current_variant.ingredients" v-html="current_variant.ingredients" class="rich-text__text rte"></div>
+        <div v-else v-html="current_variant.pingredients" class="rich-text__text rte"></div>
+
+      <h3>Allergens</h3>
+        <div v-if="current_variant.allergens" v-html="current_variant.allergens" class="rich-text__text rte"></div>
+        <div v-else v-html="current_variant.pallergens" class="rich-text__text rte"></div>
+    	</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="summary__title">   
+      	  <h2 style="text-align: center;">
+        Storage instructions
+      	  </h2>
+          {% render 'icon-caret' %}
+             </div>
+       </summary>
+
+        <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">  
+          <slider-component class="slider-mobile-gutter">
+            <ul class="multicolumn-list grid grid--1-col grid--4-col-tablet"
+              id="Slider-{{ section.id }}"
+              role="list"
+            >
+
+            <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="multicolumn-list__item grid__item center" {{ block.shopify_attributes }}>
+              <div class="multicolumn-card">
+                  
+                  <div class="multicolumn-card__image-wrapper multicolumn-card__image-wrapper--third-width{% if section.settings.image_width != 'full' or spaced_image %} multicolumn-card-spacing{% endif %}">
+                    <div class="media media--transparent media--{{ section.settings.image_ratio }}"
+                        style="padding-bottom: 100%;"
+                      >
+                          <img
+                            src="{{ section.settings.image1 | img_url: '550x' }}"
+                            sizes="(min-width: 990px) 710px,
+                              (min-width: 750px) 550px,
+                              calc(100vw - 30px)"
+                            loading="lazy"
+                          >
+                        </div>
+                      </div>
+      
+                    <div class="multicolumn-card__info">
+                        <h3>Fridge</h3>
+                        <div v-html="current_variant.freezer" class="rte"></div>
+                    </div>
+                  </div>
+                </li>
+
+                <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="multicolumn-list__item grid__item center" {{ block.shopify_attributes }}>
+                  <div class="multicolumn-card">
+                      
+                      <div class="multicolumn-card__image-wrapper multicolumn-card__image-wrapper--third-width{% if section.settings.image_width != 'full' or spaced_image %} multicolumn-card-spacing{% endif %}">
+                        <div class="media media--transparent media--{{ section.settings.image_ratio }}"
+                            style="padding-bottom: 100%;"
+                          >
+                          <img
+                            src="{{ section.settings.image2| img_url: '550x' }}"
+                            sizes="(min-width: 990px) 710px,
+                              (min-width: 750px) 550px,
+                              calc(100vw - 30px)"
+                            loading="lazy"
+                          >
+                        </div>
+                      </div>
+      
+                    <div class="multicolumn-card__info">
+                        <h3>Freezer</h3>
+                        <div v-html="current_variant.freezer" class="rte"></div>
+                    </div>
+                  </div>
+                </li>
+
+            </ul>
+          </slider-component>
+
+              <div class="center">     
+                <p v-html="current_variant.fridgefreezer"></p>
+                </div>
+
+            </div>
+        </details>
+
+        <details>
+          <summary>
+            <div class="summary__title">   
+              <h2 style="text-align: center;">
+            Reheat Options
+              </h2>
+              {% render 'icon-caret' %}
+                 </div>
+           </summary>
+    
+            <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">  
+              <slider-component class="slider-mobile-gutter">
+                <ul class="multicolumn-list grid grid--1-col grid--4-col-tablet"
+                  id="Slider-{{ section.id }}"
+                  role="list"
+                >
+    
+                <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="multicolumn-list__item grid__item center" {{ block.shopify_attributes }}>
+                  <div class="multicolumn-card">
+                      
+                      <div class="multicolumn-card__image-wrapper multicolumn-card__image-wrapper--third-width{% if section.settings.image_width != 'full' or spaced_image %} multicolumn-card-spacing{% endif %}">
+                        <div class="media media--transparent media--{{ section.settings.image_ratio }}"
+                            style="padding-bottom: 100%;"
+                          >
+                              <img
+                                src="{{ section.settings.image3 | img_url: '550x' }}"
+                                sizes="(min-width: 990px) 710px,
+                                  (min-width: 750px) 550px,
+                                  calc(100vw - 30px)"
+                                loading="lazy"
+                              >
+                            </div>
+                          </div>
+          
+                        <div class="multicolumn-card__info">
+                            <h3>Microwave</h3>
+                            <div v-html="current_variant.microwave" class="rte"></div>
+                        </div>
+                      </div>
+                    </li>
+    
+                    <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="multicolumn-list__item grid__item center" {{ block.shopify_attributes }}>
+                      <div class="multicolumn-card">
+                          
+                          <div class="multicolumn-card__image-wrapper multicolumn-card__image-wrapper--third-width{% if section.settings.image_width != 'full' or spaced_image %} multicolumn-card-spacing{% endif %}">
+                            <div class="media media--transparent media--{{ section.settings.image_ratio }}"
+                                style="padding-bottom: 100%;"
+                              >
+                              <img
+                                src="{{ section.settings.image4 | img_url: '550x' }}"
+                                sizes="(min-width: 990px) 710px,
+                                  (min-width: 750px) 550px,
+                                  calc(100vw - 30px)"
+                                loading="lazy"
+                              >
+                            </div>
+                          </div>
+          
+                        <div class="multicolumn-card__info">
+                            <h3>Oven</h3>
+                            <div v-html="current_variant.oven" class="rte"></div>
+                        </div>
+                      </div>
+                    </li>
+    
+                </ul>
+              </slider-component>
+    
+                </div>
+            </details>  
+ </div>
 </section>
 
 <script>
   const ProductPage = {
+    name: 'Product',
     data() {
       return {
           current_variant_id: "{{ product.selected_or_first_available_variant.id }}",
@@ -557,6 +837,37 @@
                   option1: "{{ variant.option1 }}",
                   option2: "{{ variant.option2 }}",
                   option3: "{{ variant.option3 }}",
+                  energy: "{{ variant.metafields.my_fields.energy }}",
+                  fat: "{{ variant.metafields.my_fields.fat }}",
+                  saturates: "{{ variant.metafields.my_fields.saturates }}",
+                  carbs: "{{ variant.metafields.my_fields.carbs }}",
+                  sugars: "{{ variant.metafields.my_fields.sugars }}",
+                  protein: "{{ variant.metafields.my_fields.protein }}",
+                  salt: "{{ variant.metafields.my_fields.salt }}",
+                  ingredients: "{{ variant.metafields.my_fields.ingredients }}",
+                  allergens: "{{ variant.metafields.my_fields.allergens }}", 
+
+                  penergy: "{{ product.metafields.my_fields.energy }}",
+                  pfat: "{{ product.metafields.my_fields.fat }}",
+                  psaturates: "{{ product.metafields.my_fields.saturates }}",
+                  pcarbs: "{{ product.metafields.my_fields.carbs }}",
+                  psugars: "{{ product.metafields.my_fields.sugars }}",
+                  pprotein: "{{ product.metafields.my_fields.protein }}",
+                  psalt: "{{ product.metafields.my_fields.salt }}",
+                  pingredients: "{{ product.metafields.my_fields.ingredients }}",
+                  pallergens: "{{ product.metafields.my_fields.allergens }}",
+
+                  fridge: "{{ product.metafields.my_fields.fridge }}",
+                  freezer: "{{ product.metafields.my_fields.freezer }}",
+                  fridgefreezer: "{{ product.metafields.my_fields.fridge_and_freezer }}",
+                  oven: "{{ product.metafields.my_fields.oven }}",
+                  mircrowave: "{{ product.metafields.my_fields.microwave }}",
+
+                  sp1: "{{ product.metafields.my_fields.sp1 }}",
+                  sp2: "{{ product.metafields.my_fields.sp2 }}",
+                  sp3: "{{ product.metafields.my_fields.sp3 }}",
+                  sp4: "{{ product.metafields.my_fields.sp4 }}",
+
                   price: "{{ variant.price | money }}",
                   {% assign img_url = variant.image.src | img_url: '500x', scale: 2 %}
                   image: "{% unless img_url contains 'no-image' %}{{ img_url }}{% endunless %}"
@@ -595,6 +906,9 @@
         }
         var newurl = window.location.protocol + '//' + window.location.host + window.location.pathname + '?variant=' + variant.id;
         window.history.replaceState({path: newurl}, '', newurl);
+      },
+      handle_atc(id){
+        store.dispatch('add_to_cart', id);
       }
     }
   }
@@ -681,6 +995,22 @@
     assign seo_media = product.featured_media
   endif
 -%}
+
+<style>
+  .multicolumn:not(.background-secondary) {
+    margin: 0px !important;
+  }
+  .nutrition-con{
+   display: flex;
+    flex-direction: row;
+    justify-content: space-around; 
+        flex-wrap: wrap;
+  }
+  .nutrition {
+    display: flex;
+    flex-direction: column; 
+  }
+</style>
 
 <script type="application/ld+json">
   {
@@ -1007,6 +1337,26 @@
     }
   ],
   "settings": [
+  {
+    "type": "image_picker",
+    "id": "image1",
+    "label": "Image 1"
+  },
+  {
+    "type": "image_picker",
+    "id": "image2",
+    "label": "Image 1"
+  },
+  {
+    "type": "image_picker",
+    "id": "image3",
+    "label": "Image 1"
+  },
+  {
+    "type": "image_picker",
+    "id": "image4",
+    "label": "Image 1"
+  },
     {
       "type": "checkbox",
       "id": "enable_sticky_info",

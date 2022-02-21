@@ -940,11 +940,10 @@ document.getElementById("app").innerHTML = `
       ></path>
     </g>
   </svg>
-<h4>left to order till Friday!</h4>
 <h3>Order within</h3>
   <span id="base-timer-label" class="base-timer__label">
 ${formatTime(timeLeft)}</span>
-<h5>Days Hours Minutes Seconds</h5>
+<h5>Days Hours Minutes</h5>
 </div>
 `;
 
@@ -978,11 +977,16 @@ var minutesLeft = Math.floor((hoursLeft) - (hours*3600));
 let minutes = Math.floor(minutesLeft/60);
 let seconds = Math.floor(time % 60);
 
-if (seconds < 10) {
-seconds = `0${seconds}`;
+current = window.location.pathname;
+if (current == '/') {
+return `${days}:${hours}:${minutes}`;
+} else {
+  if (days < 1 ) {
+    return `${hours}:${minutes}:${seconds} left to order`;
+  }else {
+  return `${days} days left to order`;
+  }
 }
-
-return `${days}:${hours}:${minutes}:${seconds}`;
 }
 
 function setRemainingPathColor(timeLeft) {

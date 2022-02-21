@@ -2438,8 +2438,8 @@ details-disclosure > details {
 }
 .base-timer h5 {
      position: absolute;
-	top: 135px;
-    left: 40px;
+	  top: 135px;
+    left: 75px;
     font-weight: 100;
     color: white; 
 }

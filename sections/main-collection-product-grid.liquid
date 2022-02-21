@@ -37,7 +37,8 @@
         </div>
       </div>
     {%- else -%}
-      <div class="collection page-width">
+
+      <div id="collection-page" class="collection page-width">
         <div class="loading-overlay gradient"></div>
 
         <ul id="product-grid" data-id="{{ section.id }}" class="
@@ -123,6 +124,29 @@
   {%- endpaginate -%}
 </div>
 
+<script>
+  const CollectionPage = {
+    name: 'Collection',
+    data() {
+      return {
+        products: [
+            {% for product in collection.products %}
+                {
+                  id: "{{ product.selected_or_first_available_variant.id }}",
+                  available: {{ product.available }},
+                  price: "{{ product.price | money }}",
+                  {% assign img_url = product.featured_image | img_url: '500x', scale: 2 %}
+                  image: "{{ img_url }}"
+                },
+            {% endfor %}
+          ],
+      }
+    },
+  }
+  
+  Vue.createApp(CollectionPage).mount('#collection-page');
+  </script>
+
   <script>
     var childP;
     $(document).on('submit', '.product-form', function(e) {
@@ -185,17 +209,9 @@ display: none;
   display: none;
 }
 .base-timer__label {
-  width: 150px !important;
-  height: 52px !important; 
+  width: 350px !important;
+  height: 50px !important; 
   font-size: 16px !important;
-}
-.base-timer h4 {
-  margin: 0;
-  position: absolute;
-  top: 16px;
-  left: 120px;
-  font-weight: 100;
-  color: white;
 }
 </style>
 
