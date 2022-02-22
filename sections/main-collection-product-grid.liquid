@@ -124,29 +124,6 @@
   {%- endpaginate -%}
 </div>
 
-<script>
-  const CollectionPage = {
-    name: 'Collection',
-    data() {
-      return {
-        products: [
-            {% for product in collection.products %}
-                {
-                  id: "{{ product.selected_or_first_available_variant.id }}",
-                  available: {{ product.available }},
-                  price: "{{ product.price | money }}",
-                  {% assign img_url = product.featured_image | img_url: '500x', scale: 2 %}
-                  image: "{{ img_url }}"
-                },
-            {% endfor %}
-          ],
-      }
-    },
-  }
-  
-  Vue.createApp(CollectionPage).mount('#collection-page');
-  </script>
-
   <script>
     var childP;
     $(document).on('submit', '.product-form', function(e) {

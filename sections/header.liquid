@@ -14,6 +14,7 @@
 <noscript>{{ 'component-cart-notification.css' | asset_url | stylesheet_tag }}</noscript>
 <noscript>{{ 'component-cart-items.css' | asset_url | stylesheet_tag }}</noscript>
 
+{% include 'store.js' %}
 <style>
   header-drawer {
     justify-self: start;
@@ -525,7 +526,6 @@
         return store.state.cart;
       }
     }
-
   }
 
   const Header = Vue.createApp(HeaderOptions);

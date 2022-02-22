@@ -1917,7 +1917,7 @@ input[type='checkbox'] {
 .header {
   display: grid;
   grid-template-areas: 'left-icon heading icons';
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -1938,7 +1938,7 @@ input[type='checkbox'] {
 
   .header--middle-left {
     grid-template-areas: 'heading navigation icons';
-    grid-template-columns: auto auto 0fr;
+    grid-template-columns: 1fr 1fr 1fr;
     column-gap: 2rem;
   }
 
@@ -2220,6 +2220,7 @@ details[open] > .header__icon--menu .icon-hamburger {
 
 /* Header menu */
 .header__inline-menu {
+  text-align: center;
   margin-left: -1.2rem;
   grid-area: navigation;
   display: none;

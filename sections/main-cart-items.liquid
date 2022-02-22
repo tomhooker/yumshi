@@ -457,6 +457,8 @@
    }
   }
   
+  console.log(store.state.cart);
+
   const CartPage = Vue.createApp(CartPageOptions)
   CartPage.mount('#cart-page');
   CartPage.use(store);
