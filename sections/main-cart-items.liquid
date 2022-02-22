@@ -10,8 +10,6 @@
 <link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'template-collection.css' | asset_url }}" media="print" onload="this.media='all'">
 
-{% include 'store.js' %}
-<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 
   <div class="title-wrapper-with-link">
@@ -54,7 +52,6 @@
 <!-- id for Vue Cart App -->
 <div class="cart-page-container">
 <div class="cart-container">
-
   <template v-if="cart.items.length > 0">
   <!-- <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart"> -->
     <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
@@ -73,7 +70,7 @@
             <tbody>
 
               <!-- template used to be here -->
-              <div v-show="!loading">
+
                 <tr v-for="item in cart.items" class="cart-item" id="CartItem-{{ item.index | plus: 1 }}">
                   
                   <td class="cart-item__media">
@@ -275,94 +272,41 @@
                       {%- endif -%}
                     </div>
                   </td>
+
                 </tr>
-              </div>
 
               <!-- template used to be here-->
 
             </tbody>
           </table>
         {%- endif -%}
-            </div>
-          </div>
+      </div>
+    </div>
 
-            <p class="visually-hidden" id="cart-live-region-text" aria-live="polite" role="status"></p>
-            <p class="visually-hidden" id="shopping-cart-line-item-status" aria-live="polite" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
-      </template>
-
+    <p class="visually-hidden" id="cart-live-region-text" aria-live="polite" role="status"></p>
+    <p class="visually-hidden" id="shopping-cart-line-item-status" aria-live="polite" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
+    
+  </template>
 </div>
 
-    <ul id="Slider-{{ section.id }}" v-if="filtered_upsells.length > 0"
-    class="cart-add-to-cart grid product-grid" role="list">
+    <ul id="Slider-{{ section.id }}" class="cart-add-to-cart grid product-grid{% if section.settings.collection.all_products_count > 2 and section.settings.swipe_on_mobile and section.settings.products_to_show > 2 %} slider slider--tablet grid--peek{% endif %}{% if section.settings.show_view_all == false or section.settings.collection.products.size < section.settings.products_to_show %} negative-margin{% endif %}{% if section.settings.show_view_all and section.settings.collection.products.size > section.settings.products_to_show %} negative-margin--small{% endif %}" role="list">
       <h2 style="margin-top: 0; text-align: center;">You May Also Like</h2>
-      <template v-for="(upsell, index) in filtered_upsells">
-        <div v-if="index < 4">
-        <li style="padding: 0 !important; width: 100%; max-width: 100%;" class="grid__item">          
-        <div class="upsell-wrapper">
-          <div class="card-information">
-            <div class="card-information__wrapper">      
-                <h3 class="card-information__text h5" v-html="upsell.title">
-                </h3>
-              
-                <h4 class="card-information__text h5" v-html="upsell.price">
-                </h4>
-        
-      <form action="/cart/add" id="product_form_id" data-type="add-to-cart-form"  
-       method="post" enctype="multipart/form-data">
-          <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
-           {% if product.variants.size > 1 %}
-            <select  class="collection-option" name="id">
-              {% for variant in product.variants %}
-                {% if variant.available %}
-                  <option value="{{ variant.id }}">{{ variant.price | money }} - {{ variant.title }}</option>     
-                    {% else %}
-                  <option disabled="disabled">{{ variant.title }} - Sold Out</option>
-                {% endif %}
-              {% endfor %}
-            </select>  
-          {% endif %}
-        <div style="display: flex;">    
-          <button v-if="upsell.adding_upsell" class="button--primary product-form__submit button button--full-width" 
-          @click="add_to_cart(upsell.variant_id)">
-            <span class="primary-text" aria-hidden=false>
-            Adding</span>
-          </button>
-          <button v-else class="button--primary product-form__submit button button--full-width" 
-          @click="add_to_cart(upsell.variant_id)">
-            <span class="primary-text" aria-hidden=false data-cart-primary-submit-text>
-            Add to Order</span>
-          </button>
-        </div>
-      </form>
-        
-            </div>
-          </div>
-        
-          <div class="card-image card card--product" tabindex="-1">
-            <div class="card__inner">
-                <div>
-                  <div class="media media--transparent media--hover-effect"
-                   style="padding-bottom: 100%;"
-                  >
-                    <img
-                      :src="upsell.image"
-                      sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-                      alt="{{ product.featured_media.alt | escape }}"
-                      loading="lazy"
-                    >
-                  </div>
-                </div>
-            </div>
-          </div>
-        </div>
-
+      {%- for product in section.settings.collection.products limit: 4 -%}
+        <li style="padding: 0 !important; width: 100%; max-width: 100%;"
+        id="Slide-{{ section.id }}-{{ forloop.index }}" class="grid__item{% if section.settings.collection.all_products_count > 2 and section.settings.swipe_on_mobile %} slider__slide{% endif %}">
+          {% render 'cart-upsell',
+            product_card_product: product,
+            media_size: section.settings.image_ratio,
+            show_secondary_image: section.settings.show_secondary_image,
+            add_image_padding: section.settings.add_image_padding,
+            show_vendor: section.settings.show_vendor,
+            show_image_outline: section.settings.show_image_outline,
+            show_rating: section.settings.show_rating
+          %}            
         </li>
-      </div>
-      </template>
+      {%- endfor -%}
     </ul>
-
   </div>
-
   <!-- form used to be here -->
 
       <!-- Sub total -->
@@ -400,67 +344,47 @@
 <!-- id for Vue Cart App -->
 
 <script>
-  const CartPageOptions = {
-    name: 'Cart',
-    store,
+  const CartPage = {
     data() {
       return {
-        upsells: [
-          {% for product in collections['chow'].products %}
-          {
-            title: "{{ product.title }}",
-            handle: "{{ product.handle }}",
-            image: "{{ product.featured_image | img_url: '400x', scale: 2 }}",
-            price: "{{ product.price | money }}",
-            product_id: "{{ product.id }}",
-            variant_id: "{{ product.selected_or_first_available_variant.id }}",
-            adding_upsell: false
-          },
-          {% endfor %}
-        ],
-        loading: true
+        cart: {
+          items: []
+        }
      }
    },
    created() {
-    store.dispatch('get_cart').then(() => this.loading = false);
-   },
-   computed: {
-     cart() {
-       return store.state.cart;
-     },
-     filtered_upsells(){
-      const products_in_cart = store.state.cart.items.map(item => item.product_id.toString());
-      return this.upsells.filter(upsell => !products_in_cart.includes(upsell.product_id));
-     }
+     $.get('/cart.js')
+     .then(response => JSON.parse(response))
+     .then(cart => {
+      this.set_cart(cart);
+     })
    },
    methods: {
-     update_cart(id, qty) {
-        store.dispatch('update_cart', {id, qty});
+     set_cart(cart) {
+      this.cart = cart;
+      this.format_prices();
      },
-     add_to_cart(id) {
-       const upsell = this.upsells.find(upsell => upsell.variant_id == id);
-       this.loading = true;
-       upsell.adding_upsell = true;
-
-       store.dispatch('add_to_cart', id)
-       .then(() => {
-         this.loading = false;
-         upsell.adding_upsell = false;
+     update_cart(id, qty) {
+       $.post('/cart/update.js', `updates[${id}]=${qty}`)
+       .then(response => JSON.parse(response))
+       .then(cart => {
+        this.set_cart(cart);
        })
-
+     },
+     format_prices() {
+      this.cart.items.forEach(item => {
+        item.formatted_line_price = Shopify.formatMoney(item.line_price);
+        item.formatted_original_price = Shopify.formatMoney(item.original_price);
+      });
+      this.cart.formatted_total_price = Shopify.formatMoney(this.cart.total_price);
      },
      remove_from_cart(id) {
-       this.loading = true;
-       const qty = 0;
-       store.dispatch('update_cart', {id, qty})
-       .then(() => this.loading = false );
+       this.update_cart(id, 0);
      }
    }
   }
   
-  const CartPage = Vue.createApp(CartPageOptions)
-  CartPage.mount('#cart-page');
-  CartPage.use(store);
+  Vue.createApp(CartPage).mount('#cart-page');
   </script>
 
 {% schema %}
