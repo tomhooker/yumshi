@@ -2448,5 +2448,6 @@ details-disclosure > details {
 	  top: 135px;
     left: 75px;
     font-weight: 100;
-    color: white; 
+    color: white;
+  	text-align: center;
 }
