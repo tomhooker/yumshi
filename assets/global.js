@@ -979,10 +979,10 @@ let seconds = Math.floor(time % 60);
 
 current = window.location.pathname;
 if (current == '/') {
-return `${days}:${hours}:${minutes}`;
+return `${days} ${hours} ${minutes}`;
 } else {
   if (days < 1 ) {
-    return `${hours} ${minutes} ${seconds} left to order`;
+    return `${hours}:${minutes}:${seconds} left to order`;
   }else {
   return `${days} days left to order`;
   }
