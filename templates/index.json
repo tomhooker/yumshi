@@ -152,23 +152,11 @@
             "button_link": "",
             "button_style_secondary": false
           }
-        },
-        "b3da60f2-5368-4c48-a485-ffbb95ec7802": {
-          "type": "review",
-          "settings": {
-            "heading": "Talk about your brand",
-            "heading_size": "h1",
-            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.<\/p>",
-            "button_label": "Button label",
-            "button_link": "",
-            "button_style_secondary": false
-          }
         }
       },
       "block_order": [
         "ef061996-b2e5-4ca6-bb8c-bc72670fa1d2",
-        "4de9ecc2-29aa-4ade-8f33-0e5c7c1e8896",
-        "b3da60f2-5368-4c48-a485-ffbb95ec7802"
+        "4de9ecc2-29aa-4ade-8f33-0e5c7c1e8896"
       ],
       "settings": {
         "color_scheme": "background-1",
