@@ -53,7 +53,7 @@
 <div class="page-width{% if cart == empty %} is-empty{% endif %}">
 <!-- id for Vue Cart App -->
 <div id="cart-page" class="cart-page-container">
-<div class="cart-container">
+<div class="cart-container" v-for="item in cart.items">
 
   <template >
   <!-- <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart"> -->
@@ -72,7 +72,7 @@
             <tbody>
               <!-- template used to be here -->
               <div>
-                <tr v-for="item in cart.items" class="cart-item">
+                <tr class="cart-item">
                   
                   <td class="cart-item__media">
                     
