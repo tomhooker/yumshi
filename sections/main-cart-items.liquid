@@ -52,7 +52,7 @@
 
 <div class="page-width{% if cart == empty %} is-empty{% endif %}">
 <!-- id for Vue Cart App -->
-<div  class="cart-page-container">
+<div id="cart-page" class="cart-page-container">
 <div class="cart-container">
 
   <template >
@@ -70,49 +70,32 @@
             </thead>
 
             <tbody>
-             {%- for item in cart.items -%}
-                <tr class="cart-item" id="CartItem-{{ item.index | plus: 1 }}">
+              <!-- template used to be here -->
+              <div>
+                <tr v-for="item in cart.items" class="cart-item">
+                  
                   <td class="cart-item__media">
-                    {% if item.image %}
-                      {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
-                      <a href="{{ item.url }}" class="cart-item__link" aria-hidden="true" tabindex="-1"> </a>
+                    
                       <img class="cart-item__image"
-                        src="{{ item.image | img_url: '300x' }}"
-                        alt="{{ item.image.alt | escape }}"
+                        :src="item.image"
                         loading="lazy"
                         width="150"
                         height="{{ 150 | divided_by: item.image.aspect_ratio | ceil }}"
                       >
-                    {% endif %}
                   </td>
 
                   <td class="cart-item__details">
-                    {%- if section.settings.show_vendor -%}
-                      <p class="caption-with-letter-spacing light">{{ item.product.vendor }}</p>
-                    {%- endif -%}
 
-                    <a href="{{ item.url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
+                    <!-- Title -->
+                    <a :href="item.url" class="cart-item__name h4 break" v-html="item.title"></a>
+                    <!-- Title-->
 
-                    {%- if item.original_price != item.final_price -%}
-                      <div class="cart-item__discounted-prices">
-                        <span class="visually-hidden">
-                          {{ 'products.product.price.regular_price' | t }}
-                        </span>
-                        <s class="cart-item__old-price product-option">
-                          {{- item.original_price | money -}}
-                        </s>
-                        <span class="visually-hidden">
-                          {{ 'products.product.price.sale_price' | t }}
-                        </span>
-                        <strong class="cart-item__final-price product-option">
-                          {{ item.final_price | money }}
-                        </strong>
+                    <!-- Individual price -->
+                      <div class="product-option" v-html="item.formatted_original_price">
                       </div>
-                    {%- else -%}
-                      <div class="product-option">
-                        {{ item.original_price | money }}
-                      </div>
-                    {%- endif -%}
+                    <!-- Individual price -->
+
+                    <!-- Options and line_properties needs looking at -->
 
                     {%- if item.product.has_only_default_variant == false or item.properties.size != 0 or item.selling_plan_allocation != nil -%}
                       <dl>
@@ -146,6 +129,7 @@
 
                       <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>
                     {%- endif -%}
+                  
 
                     <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
                       {%- for discount in item.discounts -%}
@@ -155,6 +139,9 @@
                         </li>
                       {%- endfor -%}
                     </ul>
+
+                    <!-- Options and line_properties needs looking at -->
+
                   </td>
 
                   <td class="cart-item__totals right medium-hide large-up-hide">
@@ -209,27 +196,19 @@
                       <label class="visually-hidden" for="Quantity-{{ item.index | plus: 1 }}">
                         {{ 'products.product.quantity.label' | t }}
                       </label>
-                      <quantity-input class="quantity">
-                        <button class="quantity__button no-js-hidden" name="minus" type="button">
-                          <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}</span>
-                          {% render 'icon-minus' %}
-                        </button>
+    
+                  <!-- Changed quanityt input here / subract and add removed aswell -->
+
                         <input class="quantity__input"
                           type="number"
-                          name="updates[]"
-                          value="{{ item.quantity }}"
+                          v-model="item.quantity"
+                          @change="update_cart(item.variant_id, item.quantity)"
                           min="0"
-                          aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
-                          id="Quantity-{{ item.index | plus: 1 }}"
-                          data-index="{{ item.index | plus: 1 }}"
                         >
-                        <button class="quantity__button no-js-hidden" name="plus" type="button">
-                          <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}</span>
-                          {% render 'icon-plus' %}
-                        </button>
-                      </quantity-input>
 
-                      <cart-remove-button id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
+                  <!-- Changed quanityt input here / subract and add removed aswell -->      
+
+                      <cart-remove-button @click="remove_from_cart(item.variant_id)" id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
                         <a href="{{ item.url_to_remove }}" class="button button--tertiary" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
                           {% render 'icon-remove' %}
                         </a>
@@ -262,21 +241,22 @@
                             {{ 'products.product.price.regular_price' | t }}
                           </dt>
                           <dd>
-                            <s class="cart-item__old-price price price--end">
-                              {{ item.original_line_price | money }}
+                            <s class="cart-item__old-price price price--end" v-html="item.formatted_line_price">
                             </s>
                           </dd>
                           <dt class="visually-hidden">
                             {{ 'products.product.price.sale_price' | t }}
                           </dt>
-                          <dd class="price price--end">
-                            {{ item.final_line_price | money }}
+                          <dd class="price price--end" v-html="item.formatted_line_price">
                           </dd>
                         </dl>
                       {%- else -%}
-                        <span class="price price--end">
-                          {{ item.original_line_price | money }}
+
+                      <!-- Correct end total for price line total -->
+                        <span class="price price--end" v-html="item.formatted_line_price">
                         </span>
+                      <!-- Correct end total for price line total -->
+                      
                       {%- endif -%}
 
                       {%- if item.variant.available and item.unit_price_measurement -%}
@@ -294,7 +274,8 @@
                     </div>
                   </td>
                 </tr>
-              {%- endfor -%}
+              </div>
+
               <!-- template used to be here-->
 
             </tbody>
