@@ -3,7 +3,7 @@
     "16437429724ece21f2": {
       "type": "custom-liquid",
       "settings": {
-        "custom_liquid": "<h1 style=\"width: 100%; margin-top: 2rem; margin: auto; text-align: center;\">A better Chinese<\/h1>"
+        "custom_liquid": "<h1 style=\"width: 100%; margin-top: 4rem;\n    margin-bottom: 0; text-align: center;\">A better Chinese<\/h1>"
       }
     },
     "16433805081efdc11e": {
