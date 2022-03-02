@@ -57,7 +57,7 @@
       {%- endif -%}
       
       {% unless template contains 'index' %}
-      {%- render 'price', product: product_card_product, price_class: '' -%}
+      {%- render 'price', product: product_card_product, custom_price: 'card-information__text h5', price_class: '' -%}
       {% endunless %}
     </div>
   </div>
