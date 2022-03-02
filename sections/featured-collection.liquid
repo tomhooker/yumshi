@@ -104,15 +104,18 @@
       {%- endfor -%}
     </ul>
     {%- if section.settings.collection.all_products_count > 2 and section.settings.swipe_on_mobile and section.settings.products_to_show > 2 -%}
-<button type="button" class="slider-button slider-button--prev" name="previous" aria-label="{{ 'general.slider.previous_slide' | t }}">{% render 'icon-caret' %}</button>
-        <div class="slider-counter caption">
+<button style="position: absolute; top: 8rem;left: -12rem;"
+        type="button" class="slider-button slider-button--prev" name="previous" aria-label="{{ 'general.slider.previous_slide' | t }}">{% render 'icon-caret' %}</button>
+       
+    	<div class="slider-counter caption">
           <span class="slider-counter--current">1</span>
           <span aria-hidden="true"> / </span>
           <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
           <span class="slider-counter--total">{{ products_to_display }}</span>
         </div>
-        <button type="button" class="slider-button slider-button--next" name="next" aria-label="{{ 'general.slider.next_slide' | t }}">{% render 'icon-caret' %}</button>
-  
+        
+<button style="position: absolute; top: 8rem;right: -12rem;"
+        type="button" class="slider-button slider-button--next" name="next" aria-label="{{ 'general.slider.next_slide' | t }}">{% render 'icon-caret' %}</button>  
     {%- endif -%}
   </slider-component>
 
