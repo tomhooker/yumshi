@@ -982,7 +982,7 @@ if (current == '/') {
 return `${days}:${hours}:${minutes}`;
 } else {
   if (days < 1 ) {
-    return `${hours}:${minutes}:${seconds} left to order`;
+    return `${hours} ${minutes} ${seconds} left to order`;
   }else {
   return `${days} days left to order`;
   }
