@@ -1910,7 +1910,7 @@ input[type='checkbox'] {
 .header-wrapper {
   display: block;
   position: relative;
-  background-color: transparent;
+  background-color: #f6f7ed;
 }
 
 .header-wrapper--border-bottom {
