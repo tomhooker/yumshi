@@ -228,6 +228,7 @@
  object-fit: contain; 
 }
 .image-with-text__content .button {
+    border-radius: 6px;
 background: #053951 !important;
 color: white;
 }
