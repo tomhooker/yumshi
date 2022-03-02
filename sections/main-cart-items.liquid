@@ -4,25 +4,13 @@
 {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
 
-{{ 'component-card.css' | asset_url | stylesheet_tag }}
-{{ 'component-product-grid.css' | asset_url | stylesheet_tag }}
-
-<link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="{{ 'template-collection.css' | asset_url }}" media="print" onload="this.media='all'">
-
-<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 
-
+<cart-items class="page-width{% if cart == empty %} is-empty{% endif %}">
   <div class="title-wrapper-with-link">
-    <img class="head-container"
-    src="{{ 'collectionleft.png' | asset_img_url: '1400x' }}">
-    <img class="head-container-right"
-    src="{{ 'collectionright.png' | asset_img_url: '1400x' }}">
-
     <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
   </div>
-<!--
+  
  <a href="{{ routes.all_products_collection_url }}" class="underlined-link">{{ 'general.continue_shopping' | t }}</a>
 
   <div class="cart__warnings">
@@ -38,27 +26,11 @@
       </p>
     {%- endif -%}
   </div>
--->
 
-<!-- id for Vue Cart App -->
-<div style="margin-bottom: 1rem;" class="page-width">
-  <div class="cart-top">
-  <a href="{{ routes.all_products_collection_url }}" class="select button">
-    {{ 'general.continue_shopping' | t }}
-  </a>
-  <div style="align-self: center;" id="app"></div>
-  </div>
-</div>
-
-<div class="page-width{% if cart == empty %} is-empty{% endif %}">
-<!-- id for Vue Cart App -->
-<div id="cart-page" class="cart-page-container">
-<div class="cart-container">
-
-  <template >
-  <!-- <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart"> -->
+  <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
     <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
-      <div class="js-contents">  
+      <div class="js-contents">
+        {%- if cart != empty -%}
           <table class="cart-items">
             <thead>
               <tr>
@@ -70,32 +42,49 @@
             </thead>
 
             <tbody>
-              <!-- template used to be here -->
-              <div>
-                <tr v-for="item in cart.items" class="cart-item">
-                  
+              {%- for item in cart.items -%}
+                <tr class="cart-item" id="CartItem-{{ item.index | plus: 1 }}">
                   <td class="cart-item__media">
-                    
+                    {% if item.image %}
+                      {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
+                      <a href="{{ item.url }}" class="cart-item__link" aria-hidden="true" tabindex="-1"> </a>
                       <img class="cart-item__image"
-                        :src="item.image"
+                        src="{{ item.image | img_url: '300x' }}"
+                        alt="{{ item.image.alt | escape }}"
                         loading="lazy"
                         width="150"
                         height="{{ 150 | divided_by: item.image.aspect_ratio | ceil }}"
                       >
+                    {% endif %}
                   </td>
 
                   <td class="cart-item__details">
+                    {%- if section.settings.show_vendor -%}
+                      <p class="caption-with-letter-spacing light">{{ item.product.vendor }}</p>
+                    {%- endif -%}
 
-                    <!-- Title -->
-                    <a :href="item.url" class="cart-item__name h4 break" v-html="item.title"></a>
-                    <!-- Title-->
+                    <a href="{{ item.url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
 
-                    <!-- Individual price -->
-                      <div class="product-option" v-html="item.formatted_original_price">
+                    {%- if item.original_price != item.final_price -%}
+                      <div class="cart-item__discounted-prices">
+                        <span class="visually-hidden">
+                          {{ 'products.product.price.regular_price' | t }}
+                        </span>
+                        <s class="cart-item__old-price product-option">
+                          {{- item.original_price | money -}}
+                        </s>
+                        <span class="visually-hidden">
+                          {{ 'products.product.price.sale_price' | t }}
+                        </span>
+                        <strong class="cart-item__final-price product-option">
+                          {{ item.final_price | money }}
+                        </strong>
                       </div>
-                    <!-- Individual price -->
-
-                    <!-- Options and line_properties needs looking at -->
+                    {%- else -%}
+                      <div class="product-option">
+                        {{ item.original_price | money }}
+                      </div>
+                    {%- endif -%}
 
                     {%- if item.product.has_only_default_variant == false or item.properties.size != 0 or item.selling_plan_allocation != nil -%}
                       <dl>
@@ -129,7 +118,6 @@
 
                       <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>
                     {%- endif -%}
-                  
 
                     <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
                       {%- for discount in item.discounts -%}
@@ -139,9 +127,6 @@
                         </li>
                       {%- endfor -%}
                     </ul>
-
-                    <!-- Options and line_properties needs looking at -->
-
                   </td>
 
                   <td class="cart-item__totals right medium-hide large-up-hide">
@@ -196,19 +181,27 @@
                       <label class="visually-hidden" for="Quantity-{{ item.index | plus: 1 }}">
                         {{ 'products.product.quantity.label' | t }}
                       </label>
-    
-                  <!-- Changed quanityt input here / subract and add removed aswell -->
-
+                      <quantity-input class="quantity">
+                        <button class="quantity__button no-js-hidden" name="minus" type="button">
+                          <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}</span>
+                          {% render 'icon-minus' %}
+                        </button>
                         <input class="quantity__input"
                           type="number"
-                          v-model="item.quantity"
-                          @change="update_cart(item.variant_id, item.quantity)"
+                          name="updates[]"
+                          value="{{ item.quantity }}"
                           min="0"
+                          aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
+                          id="Quantity-{{ item.index | plus: 1 }}"
+                          data-index="{{ item.index | plus: 1 }}"
                         >
+                        <button class="quantity__button no-js-hidden" name="plus" type="button">
+                          <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}</span>
+                          {% render 'icon-plus' %}
+                        </button>
+                      </quantity-input>
 
-                  <!-- Changed quanityt input here / subract and add removed aswell -->      
-
-                      <cart-remove-button @click="remove_from_cart(item.variant_id)" id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
+                      <cart-remove-button id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
                         <a href="{{ item.url_to_remove }}" class="button button--tertiary" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
                           {% render 'icon-remove' %}
                         </a>
@@ -241,22 +234,21 @@
                             {{ 'products.product.price.regular_price' | t }}
                           </dt>
                           <dd>
-                            <s class="cart-item__old-price price price--end" v-html="item.formatted_line_price">
+                            <s class="cart-item__old-price price price--end">
+                              {{ item.original_line_price | money }}
                             </s>
                           </dd>
                           <dt class="visually-hidden">
                             {{ 'products.product.price.sale_price' | t }}
                           </dt>
-                          <dd class="price price--end" v-html="item.formatted_line_price">
+                          <dd class="price price--end">
+                            {{ item.final_line_price | money }}
                           </dd>
                         </dl>
                       {%- else -%}
-
-                      <!-- Correct end total for price line total -->
-                        <span class="price price--end" v-html="item.formatted_line_price">
+                        <span class="price price--end">
+                          {{ item.original_line_price | money }}
                         </span>
-                      <!-- Correct end total for price line total -->
-                      
                       {%- endif -%}
 
                       {%- if item.variant.available and item.unit_price_measurement -%}
@@ -274,274 +266,28 @@
                     </div>
                   </td>
                 </tr>
-              </div>
-
-              <!-- template used to be here-->
-
+              {%- endfor -%}
             </tbody>
           </table>
-        
-            </div>
-          </div>
-
-            <p class="visually-hidden" id="cart-live-region-text" aria-live="polite" role="status"></p>
-            <p class="visually-hidden" id="shopping-cart-line-item-status" aria-live="polite" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
-      </template>
-
-</div>
-
-    <ul id="Slider-{{ section.id }}" v-if="filtered_upsells.length > 0"
-    class="cart-add-to-cart grid product-grid" role="list">
-      <template v-for="(upsell, index) in filtered_upsells">
-        <div v-if="index < 4">
-        <li style="padding: 0 !important; width: 100%; max-width: 100%;" class="grid__item">          
-        <div class="upsell-wrapper">
-          <div class="card-information">
-            <div class="card-information__wrapper">      
-                <h3 class="card-information__text h5" v-html="upsell.title">
-                </h3>
-              
-                <h4 class="card-information__text h5" v-html="upsell.price">
-                </h4>
-        
-        <form action="/cart/add" id="product_form_id" data-type="add-to-cart-form"  
-          method="post" enctype="multipart/form-data">
-          <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
-           {% if product.variants.size > 1 %}
-            <select  class="collection-option" name="id">
-              {% for variant in product.variants %}
-                {% if variant.available %}
-                  <option value="{{ variant.id }}">{{ variant.price | money }} - {{ variant.title }}</option>     
-                    {% else %}
-                  <option disabled="disabled">{{ variant.title }} - Sold Out</option>
-                {% endif %}
-              {% endfor %}
-            </select>  
-          {% endif %}
-        <div style="display: flex;">    
-          <button v-if="upsell.adding_upsell" class="button--primary product-form__submit button button--full-width" 
-          @click="add_to_cart(upsell.variant_id)">
-            <span class="primary-text" aria-hidden=false>
-            Adding</span>
-          </button>
-          <button v-else class="button--primary product-form__submit button button--full-width" 
-          @click="add_to_cart(upsell.variant_id)">
-            <span class="primary-text" aria-hidden=false data-cart-primary-submit-text>
-            Add to Order</span>
-          </button>
-        </div>
-        </form>
-        
-            </div>
-          </div>
-        
-          <div class="card-image card card--product" tabindex="-1">
-            <div class="card__inner">
-                <div>
-                  <div class="media media--transparent media--hover-effect"
-                   style="padding-bottom: 100%;"
-                  >
-                    <img
-                      :src="upsell.image"
-                      sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-                      alt="{{ product.featured_media.alt | escape }}"
-                      loading="lazy"
-                    >
-                  </div>
-                </div>
-            </div>
-          </div>
-        </div>
-
-        </li>
+        {%- endif -%}
       </div>
-      </template>
-    </ul>
+    </div>
 
-  </div>
-
-  <!-- form used to be here -->
-
-      <!-- Sub total -->
-      <div class="totals">
-        <div class="totals-container">
-        <h3 class="totals__subtotal">{{ 'sections.cart.subtotal' | t }}</h3>
-        <p class="totals__subtotal-value" v-html="cart.formatted_total_price"></p>
-    
-        <small class="tax-note caption-large rte">
-          {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
-            {{ 'sections.cart.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
-          {%- elsif cart.taxes_included -%}
-            {{ 'sections.cart.taxes_included_but_shipping_at_checkout' | t }}
-          {%- elsif shop.shipping_policy.body != blank -%}
-            {{ 'sections.cart.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
-          {%- else -%}
-            {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
-          {%- endif -%}
-        </small>
-        <!-- Sub total -->
-    
-        <a href="/checkout" class="cart__checkout-button button">
-          Checkout
-        </a>
-      </div>
-
-        <cart-note class="totals-container cart__note field">
-          <label for="Cart-note">{{ 'sections.cart.note' | t }}</label>
-          <textarea class="text-area text-area--resize-vertical field__input" name="note" form="cart" id="Cart-note" placeholder="{{ 'sections.cart.note' | t }}">{{ cart.note }}</textarea>
-        </cart-note>
-      </div>
-
- <!-- id for Vue Cart App --> 
-</div>
-<!-- id for Vue Cart App -->
-
-<script>
-  const CartPage = {
-    data() {
-      return {
-        cart: {
-          items: []
-        },
-        upsells: [
-          {% for product in collections['chow'].products %}
-          {
-            title: "{{ product.title }}",
-            handle: "{{ product.handle }}",
-            image: "{{ product.featured_image | img_url: '400x', scale: 2 }}",
-            price: "{{ product.price | money }}",
-            product_id: "{{ product.id }}",
-            variant_id: "{{ product.selected_or_first_available_variant.id }}",
-            adding_upsell: false
-          },
-          {% endfor %}
-        ],
-        loading: true
-      }
-    },
-    created() {
-      this.get_cart();
-    },
-    computed: {
-      filtered_upsells() {
-        const products_in_cart = this.cart.items.map(item => item.product_id.toString());
-        return this.upsells.filter(upsell => !products_in_cart.includes(upsell.product_id));
-      }
-    },
-    methods: {
-      get_cart() {
-        $.get('/cart.js')
-        .then(response => JSON.parse(response)) 
-        .then(cart => {
-          this.set_cart(cart);
-        })
-      },
-      set_cart(cart) {
-        this.cart = cart;
-        this.format_prices();
-        this.loading = false;
-      },
-      update_cart(id, qty) {
-        $.post('/cart/update.js', `updates[${id}]=${qty}`)
-        .then(response => JSON.parse(response))
-        .then(cart => {
-          this.set_cart(cart);
-        })
-      },
-      format_prices() {
-        this.cart.items.forEach(item => {
-          item.formatted_line_price = Shopify.formatMoney(item.line_price);
-        });
-        this.cart.formatted_total_price = Shopify.formatMoney(this.cart.total_price);
-      },
-      add_to_cart(id) {
-        const upsell = this.upsells.find(upsell => upsell.variant_id == id);
-        this.loading = true;
-        upsell.adding_upsell = true;
-        $.post('/cart/add.js', {
-          items: [
-            {
-              id,
-              quantity: 1
-            }
-          ]
-        })
-        .then(response => JSON.parse(response))
-        .then(items => {
-          this.get_cart();
-          upsell.adding_upsell = false;
-        })
-      },
-      remove_from_cart(id) {
-        this.loading = true;
-        this.update_cart(id, 0);
-      }
-    }
-  }
-
-  Vue.createApp(CartPage).mount('#cart-page');
-  </script>
+    <p class="visually-hidden" id="cart-live-region-text" aria-live="polite" role="status"></p>
+    <p class="visually-hidden" id="shopping-cart-line-item-status" aria-live="polite" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
+  </form>
+</cart-items>
 
 {% schema %}
 {
   "name": "t:sections.main-cart-items.name",
   "settings": [
-  {
-    "type": "checkbox",
-    "id": "swipe_on_mobile",
-    "default": false,
-    "label": "t:sections.featured-collection.settings.swipe_on_mobile.label"
-  },
-  {
-    "type": "collection",
-    "id": "collection",
-    "label": "t:sections.featured-collection.settings.collection.label"
-  },
-  {
-    "type": "select",
-    "id": "image_ratio",
-    "options": [
-      {
-        "value": "adapt",
-        "label": "t:sections.featured-collection.settings.image_ratio.options__1.label"
-      },
-      {
-        "value": "portrait",
-        "label": "t:sections.featured-collection.settings.image_ratio.options__2.label"
-      },
-      {
-        "value": "square",
-        "label": "t:sections.featured-collection.settings.image_ratio.options__3.label"
-      }
-    ],
-    "default": "adapt",
-    "label": "t:sections.featured-collection.settings.image_ratio.label"
-  },
-  {
-    "type": "checkbox",
-    "id": "show_secondary_image",
-    "default": false,
-    "label": "t:sections.featured-collection.settings.show_secondary_image.label"
-  },
-  {
-    "type": "checkbox",
-    "id": "add_image_padding",
-    "default": false,
-    "label": "t:sections.featured-collection.settings.add_image_padding.label"
-  },
-  {
-    "type": "checkbox",
-    "id": "show_image_outline",
-    "default": true,
-    "label": "t:sections.featured-collection.settings.show_image_outline.label"
-  },
-  {
-    "type": "checkbox",
-    "id": "show_rating",
-    "default": false,
-    "label": "t:sections.featured-collection.settings.show_rating.label",
-    "info": "t:sections.featured-collection.settings.show_rating.info"
-  }
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "t:sections.main-cart-items.settings.show_vendor.label"
+    }
   ]
 }
 {% endschema %}
