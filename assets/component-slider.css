@@ -212,6 +212,10 @@ slider-component {
     display: none;
   }
 }
+.customslider-button {
+  width: 100px;
+  height: 100px;
+}
 
 .slider-button {
   color: rgba(var(--color-foreground), 0.75);
