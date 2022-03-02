@@ -417,7 +417,6 @@
           },
           {% endfor %}
         ],
-        loading: true
       }
     },
     created() {
@@ -440,7 +439,6 @@
       set_cart(cart) {
         this.cart = cart;
         this.format_prices();
-        this.loading = false;
       },
       update_cart(id, qty) {
         $.post('/cart/update.js', `updates[${id}]=${qty}`)
