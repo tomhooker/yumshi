@@ -400,14 +400,6 @@
       return {
         cart: {
           items: [
-            {% for item in cart.items %}
-            title: "{{ product.title }}",
-            handle: "{{ product.handle }}",
-            image: "{{ product.featured_image | img_url: '400x', scale: 2 }}",
-            price: "{{ product.price | money }}",
-            product_id: "{{ product.id }}",
-            variant_id: "{{ product.selected_or_first_available_variant.id }}"          
-            {% endfor %}
           ]
         },
         upsells: [
@@ -418,12 +410,10 @@
             image: "{{ product.featured_image | img_url: '400x', scale: 2 }}",
             price: "{{ product.price | money }}",
             product_id: "{{ product.id }}",
-            variant_id: "{{ product.selected_or_first_available_variant.id }}",
-            adding_upsell: false
+            variant_id: "{{ product.selected_or_first_available_variant.id }}"
           },
           {% endfor %}
         ],
-        loading: true
       }
     },
     created() {
