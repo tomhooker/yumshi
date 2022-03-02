@@ -186,7 +186,7 @@
           "type": "image",
           "settings": {
             "image": "shopify:\/\/shop_images\/Amersham_Town_F.C._logo.png",
-            "image_padding": false,
+            "image_padding": true,
             "color_scheme": "background-1"
           }
         }
