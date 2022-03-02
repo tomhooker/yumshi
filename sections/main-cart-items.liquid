@@ -457,7 +457,6 @@
       },
       add_to_cart(id) {
         const upsell = this.upsells.find(upsell => upsell.variant_id == id);
-        this.loading = true;
         upsell.adding_upsell = true;
         $.post('/cart/add.js', {
           items: [
