@@ -230,7 +230,7 @@ slider-component {
 }
 
 .slider-button .icon {
-  height: 0.6rem;
+  height: 100px;
 }
 
 .slider-button[disabled] .icon {
