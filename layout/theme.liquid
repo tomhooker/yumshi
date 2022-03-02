@@ -10,7 +10,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     
-	<script src="https://unpkg.com/vue@3"></script>
+	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">
@@ -134,6 +135,8 @@
     }
     </script>
 
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://unpkg.com/vuex@4.0.2/dist/vuex.global.js"></script>
     <script src="{{ 'shopify-money.js' | asset_url }}"></script>
 
     <!-- TrustBox script -->
@@ -141,6 +144,8 @@
     <!-- End TrustBox script -->
 
   </head>
+
+  {% include 'store.js' %}
   
   <body class="gradient">
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
