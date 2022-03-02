@@ -399,9 +399,8 @@
     data() {
       return {
         cart: {
-          {% for item in cart.items %}
-          items: []
-          {% endfor %}
+          items: [
+          ]
         },
         upsells: [
           {% for product in collections['chow'].products %}
