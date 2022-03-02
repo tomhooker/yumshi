@@ -273,11 +273,11 @@
 }
 
 .card__icons {
-  top: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  right: 1rem;
-  position: absolute;
+	top: 0.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    right: 0.4rem;
+    position: absolute;
 }
 
 .card__icons > * {
