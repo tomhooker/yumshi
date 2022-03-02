@@ -216,6 +216,9 @@ slider-component {
   width: 100px;
   height: 100px;
 }
+.customslider-button .icon {
+ height: 100px; 
+}
 
 .slider-button {
   color: rgba(var(--color-foreground), 0.75);
