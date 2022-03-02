@@ -73,8 +73,8 @@
             <tbody>
 
               <!-- template used to be here -->
-              <div v-for="item in cart.items">
-                <tr class="cart-item">
+              <div>
+                <tr v-for="item in cart.items" class="cart-item">
                   
                   <td class="cart-item__media">
                       {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
