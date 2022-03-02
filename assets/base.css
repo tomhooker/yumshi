@@ -2021,9 +2021,11 @@ input[type='checkbox'] {
 
 /* Header icons */
 .header__icons {
-  display: flex;
-  grid-area: icons;
-  justify-self: end;
+    display: flex;
+    grid-area: icons;
+    justify-self: end;
+    align-content: center;
+    align-items: center;
 }
 
 .header__icon:not(.header__icon--summary),
