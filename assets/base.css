@@ -1228,6 +1228,7 @@ deferred-media {
 
 .orderbutton {
   width: 160px;
+  height: 40px;
   border-radius: 3px;
   background: #169689;
   color: white;
