@@ -119,7 +119,7 @@
 
   {%- if section.settings.show_view_all and more_in_collection -%}
     <div class="center{% if section.settings.swipe_on_mobile %} small-hide medium-hide{% endif %}">
-      <a style="border-radius: 6px; background: #053951 !important; color: white;"
+      <a style="border-radius: 6px; background: #053951 !important; color: white; border: none;"
         href="{{ section.settings.collection.url }}"
         class="button"
         aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: section.settings.collection.title }}"
