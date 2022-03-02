@@ -19,7 +19,7 @@
 }
 
 .price .price-item {
-  margin: 0 1rem 0 0;
+  margin: 0 0 0 0;
 }
 
 .price:not(.price--show-badge) .price-item--last:last-of-type {
