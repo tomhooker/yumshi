@@ -397,25 +397,6 @@
 
 {%- render 'cart-notification', color_scheme: section.settings.color_scheme -%}
 
-<script>
-  const HeaderOptions = {
-    name: 'Header',
-    store,
-    created() {
-      store.dispatch('get_cart');
-    },
-    computed: {
-      cart() {
-        return store.state.cart;
-      }
-    }
-  }
-
-  const Header = Vue.createApp(HeaderOptions);
-  Header.mount('#header');
-  Header.use(store);
-</script>
-
 {% javascript %}
   class StickyHeader extends HTMLElement {
     constructor() {
