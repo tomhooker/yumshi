@@ -417,15 +417,11 @@
           },
           {% endfor %}
         ],
+        loading: true
       }
     },
     created() {
-        $.get('/cart.js')
-        .then(response => JSON.parse(response)) 
-        .then(cart => {
-          this.cart = cart;
-          this.format_prices();
-        })
+      this.get_cart();
     },
     computed: {
       filtered_upsells() {
@@ -434,13 +430,23 @@
       }
     },
     methods: {
-
+      get_cart() {
+        $.get('/cart.js')
+        .then(response => JSON.parse(response)) 
+        .then(cart => {
+          this.set_cart(cart);
+        })
+      },
+      set_cart(cart) {
+        this.cart = cart;
+        this.format_prices();
+        this.loading = false;
+      },
       update_cart(id, qty) {
         $.post('/cart/update.js', `updates[${id}]=${qty}`)
         .then(response => JSON.parse(response))
         .then(cart => {
-          this.cart = cart;
-          this.format_prices();
+          this.set_cart(cart);
         })
       },
       format_prices() {
@@ -451,6 +457,7 @@
       },
       add_to_cart(id) {
         const upsell = this.upsells.find(upsell => upsell.variant_id == id);
+        this.loading = true;
         upsell.adding_upsell = true;
         $.post('/cart/add.js', {
           items: [
@@ -467,6 +474,7 @@
         })
       },
       remove_from_cart(id) {
+        this.loading = true;
         this.update_cart(id, 0);
       }
     }
