@@ -943,7 +943,13 @@ document.getElementById("app").innerHTML = `
 <h3>Order within</h3>
   <span id="base-timer-label" class="base-timer__label">
 ${formatTime(timeLeft)}</span>
-<h5>Days Hours Minutes</h5>
+<h5>Days Hours Minutes
+<br>
+<p>Next delivery:
+<br>
+Friday 14th Sep
+</p>
+</h5>
 </div>
 `;
 
