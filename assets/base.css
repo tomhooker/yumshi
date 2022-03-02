@@ -1212,7 +1212,7 @@ deferred-media {
   align-items: center;
   box-sizing: border-box;
   font: inherit;
-  padding: 0.9rem 3rem 1.1rem;
+  padding: 0.9rem 3rem 0.9rem;
   text-decoration: none;
   border: 0.1rem solid transparent;
   border-radius: 0;
