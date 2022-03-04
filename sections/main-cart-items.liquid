@@ -448,14 +448,12 @@
       }
       })
       },
-      
       format_prices() {
         this.cart.items.forEach(item => {
           item.formatted_line_price = Shopify.formatMoney(item.line_price);
         });
         this.cart.formatted_total_price = Shopify.formatMoney(this.cart.total_price);
       },
-      
       add_to_cart(id) {
         const upsell = this.upsells.find(upsell => upsell.variant_id == id);
         this.loading = true;
@@ -474,7 +472,6 @@
           upsell.adding_upsell = false;
         })
       },
-      
       remove_from_cart(id) {
         this.update_cart(id, 0);
       }
