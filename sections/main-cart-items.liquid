@@ -468,7 +468,7 @@
         })
         .then(response => JSON.parse(response))
         .then(items => {
-          this.update_cart(id, 1);
+          this.add_to_cart(id, 1);
           this.get_cart();
           upsell.adding_upsell = false;
         })
