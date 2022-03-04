@@ -425,7 +425,7 @@
     },
     methods: {
       get_cart() {
-        $.get('/cart.js')
+        fetch('/cart.js')
         .then(response => response.json())
         .then(cart => {
           this.set_cart(cart);
@@ -436,7 +436,7 @@
         this.format_prices();
       },
       update_cart(id, qty) {
-        $.post('/cart/update.js', `updates[${id}]=${qty}`)
+        fetch('/cart/update.js', `updates[${id}]=${qty}`)
         .then(response => JSON.parse(response))
         .then(cart => {
           this.set_cart(cart);
@@ -451,7 +451,7 @@
       add_to_cart(id) {
         const upsell = this.upsells.find(upsell => upsell.variant_id == id);
         upsell.adding_upsell = true;
-        $.post('/cart/add.js', {
+        fetch('/cart/add.js', {
           items: [
             {
               id,
