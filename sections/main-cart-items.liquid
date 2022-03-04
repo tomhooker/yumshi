@@ -444,6 +444,7 @@
       success: function (data) {
       console.log(data);
       this.cart = data;
+      this.add_to_cart();
       this.format_prices();
       }
       })
