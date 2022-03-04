@@ -466,6 +466,7 @@
         dataType: "json",
         success: function (data) {
         console.log(data);
+        this.update_cart(data);
         this.cart = data;
         this.format_prices();
         }
