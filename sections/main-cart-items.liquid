@@ -413,7 +413,12 @@
       }
     },
     created() {
-      this.get_cart();
+        fetch('/cart.js')
+        .then(response => response.json())
+        .then(cart => {
+        this.cart = cart;
+        this.format_prices();
+        })
     },
     computed: {
       filtered_upsells() {
