@@ -433,21 +433,21 @@
         this.cart = cart;
         this.format_prices();
       },
-update_cart(id, qty) {
-$.ajax({
-type: "POST",
-url: "/cart/update.js",
-context: this,
-data: `updates[${id}]=${qty}`,
-contentType: "application/x-www-form-urlencoded",
-dataType: "json",
-success: function (data) {
-console.log(data);
-this.cart = data;
-this.format_prices();
-}
-})
-},
+      update_cart(id, qty) {
+      $.ajax({
+      type: "POST",
+      url: "/cart/update.js",
+      context: this,
+      data: `updates[${id}]=${qty}`,
+      contentType: "application/x-www-form-urlencoded",
+      dataType: "json",
+      success: function (data) {
+      console.log(data);
+      this.cart = data;
+      this.format_prices();
+      }
+      })
+      },
       format_prices() {
         this.cart.items.forEach(item => {
           item.formatted_line_price = Shopify.formatMoney(item.line_price);
