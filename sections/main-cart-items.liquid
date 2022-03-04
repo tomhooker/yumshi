@@ -66,8 +66,8 @@
 
             <tbody>
               <!-- template used to be here -->
-              <template v-for="item in cart.items">
-                <tr class="cart-item">
+              <div>
+                <tr v-for="item in cart.items" class="cart-item">
                   
                   <td class="cart-item__media">
                     
@@ -269,7 +269,7 @@
                     </div>
                   </td>
                 </tr>
-              </template>
+              </div>
 
               <!-- template used to be here-->
 
@@ -414,11 +414,7 @@
       }
     },
     created() {
-        fetch('/cart.js')
-        .then(response => response.json())
-        .then(cart => {
-          this.set_cart(cart);
-        });
+      this.get_cart();
     },
     computed: {
       filtered_upsells() {
@@ -465,11 +461,7 @@
         })
         .then(response => JSON.parse(response))
         .then(items => {
-        fetch('/cart.js')
-        .then(response => response.json())
-        .then(cart => {
-          this.set_cart(cart);
-        });
+          this.get_cart();
           upsell.adding_upsell = false;
         })
       },
