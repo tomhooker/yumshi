@@ -455,8 +455,6 @@
         this.cart.formatted_total_price = Shopify.formatMoney(this.cart.total_price);
       },
       add_to_cart(id, qty) {
-        const upsell = this.upsells.find(upsell => upsell.variant_id == id);
-        upsell.adding_upsell = true; 
         $.ajax({
         type: "POST",
         url: "/cart/add.js",
