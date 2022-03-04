@@ -425,7 +425,7 @@
     },
     methods: {
       get_cart() {
-        $.get('/cart.js')
+        jQuery.get('/cart.js')
         .then(response => response.json())
         .then(cart => {
           this.set_cart(cart);
