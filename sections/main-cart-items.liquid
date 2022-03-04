@@ -461,6 +461,7 @@
         .then(response => JSON.parse(response))
         .then(items => {
           this.get_cart();
+          upsell.adding_upsell = false;
         })
       },
       remove_from_cart(id) {
