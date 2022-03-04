@@ -477,14 +477,7 @@
         }
         })
         
-        $.post('/cart/add.js', {
-          items: [
-            {
-              id,
-              quantity: 1
-            }
-          ]
-        })
+
         
         .then(response => JSON.parse(response))
         .then(items => {
