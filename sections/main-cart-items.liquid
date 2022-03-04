@@ -53,6 +53,7 @@
 
     <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
       <div class="js-contents">  
+        <template v-for="item in cart.items">
           <table class="cart-items">
             <thead>
               <tr>
@@ -66,7 +67,7 @@
             <tbody>
               <!-- template used to be here -->
               <div>
-                <tr  v-for="item in cart.items" class="cart-item">
+                <tr class="cart-item">
                   
                   <td class="cart-item__media">
                     
@@ -274,7 +275,7 @@
 
             </tbody>
           </table>
-        
+        </template>
             </div>
           </div>
 
