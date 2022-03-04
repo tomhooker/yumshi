@@ -22,13 +22,11 @@
   </div>
 <!--
  <a href="{{ routes.all_products_collection_url }}" class="underlined-link">{{ 'general.continue_shopping' | t }}</a>
-
   <div class="cart__warnings">
     <h1 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h1>
     <a href="{{ routes.all_products_collection_url }}" class="button">
       {{ 'general.continue_shopping' | t }}
     </a>
-
     {%- if shop.customer_accounts_enabled -%}
       <h2 class="cart__login-title">{{ 'sections.cart.login.title' | t }}</h2>
       <p class="cart__login-paragraph">
@@ -53,7 +51,6 @@
 <div id="cart-page" class="cart-page-container">
 <div class="cart-container">
 
-  <template>
   <!-- <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart"> -->
     <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
       <div class="js-contents">  
@@ -284,7 +281,6 @@
 
             <p class="visually-hidden" id="cart-live-region-text" aria-live="polite" role="status"></p>
             <p class="visually-hidden" id="shopping-cart-line-item-status" aria-live="polite" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
-      </template>
 
 </div>
 
@@ -396,6 +392,7 @@
 
 <script>
   const CartPage = {
+    name: "Cart Page",
     data() {
       return {
         cart: {
@@ -427,8 +424,8 @@
     },
     methods: {
       get_cart() {
-        $.get('/cart.js')
-        .then(response => JSON.parse(response)) 
+        fetch('/cart.js')
+        .then(response => response.json())
         .then(cart => {
           this.set_cart(cart);
         })
@@ -473,7 +470,6 @@
       }
     }
   }
-
   Vue.createApp(CartPage).mount('#cart-page');
   </script>
 
