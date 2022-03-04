@@ -454,20 +454,14 @@
         });
         this.cart.formatted_total_price = Shopify.formatMoney(this.cart.total_price);
       },
-      add_to_cart(id) {
+      add_to_cart(id, qty) {
         const upsell = this.upsells.find(upsell => upsell.variant_id == id);
-        upsell.adding_upsell = true;
-        
+        upsell.adding_upsell = true; 
         $.ajax({
         type: "POST",
         url: "/cart/add.js",
         context: this,
-        items: [
-            {
-              id,
-              quantity: 1
-            }
-          ],
+        data: `items[${id}]=${qty}`,
         contentType: "application/x-www-form-urlencoded",
         dataType: "json",
         success: function (data) {
@@ -476,15 +470,7 @@
         this.format_prices();
         }
         })
-        
-
-        
-        .then(response => JSON.parse(response))
-        .then(items => {
-          this.get_cart();
-          upsell.adding_upsell = false;
-        })
-      },
+      	},
       remove_from_cart(id) {
         this.update_cart(id, 0);
       }
