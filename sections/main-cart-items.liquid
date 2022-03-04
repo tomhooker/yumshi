@@ -434,11 +434,18 @@
         this.format_prices();
       },
       update_cart(id, qty) {
-        $.post('/cart/update.js', `updates[${id}]=${qty}`)
-        .then(response => JSON.parse(response))
-        .then(cart => {
-          this.set_cart(cart);
-        })
+      $.ajax({
+      type: "POST",
+      url: "/cart/update.js",
+      context: this,
+      data: `updates[${id}]=${qty}`,
+      contentType: "application/x-www-form-urlencoded",
+      dataType: "json",
+      success: function (data) {
+      console.log(data);
+      this.cart = data;
+      }
+      })
       },
       format_prices() {
         this.cart.items.forEach(item => {
