@@ -414,7 +414,11 @@
       }
     },
     created() {
-      this.get_cart();
+        fetch('/cart.js')
+        .then(response => response.json())
+        .then(cart => {
+          this.set_cart(cart);
+        });
     },
     computed: {
       filtered_upsells() {
@@ -461,7 +465,11 @@
         })
         .then(response => JSON.parse(response))
         .then(items => {
-          this.get_cart();
+        fetch('/cart.js')
+        .then(response => response.json())
+        .then(cart => {
+          this.set_cart(cart);
+        });
           upsell.adding_upsell = false;
         })
       },
