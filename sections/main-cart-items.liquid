@@ -283,9 +283,8 @@
 
 </div>
 
-    <ul id="Slider-{{ section.id }}" v-if="filtered_upsells.length > 0"
+    <ul id="Slider-{{ section.id }}" v-for="(upsell, index) in filtered_upsells"
     class="cart-add-to-cart grid product-grid" role="list">
-      <template v-for="(upsell, index) in filtered_upsells">
         <div v-if="index < 4">
         <li style="padding: 0 !important; width: 100%; max-width: 100%;" class="grid__item">          
         <div class="upsell-wrapper">
@@ -348,7 +347,6 @@
 
         </li>
       </div>
-      </template>
     </ul>
 
   </div>
