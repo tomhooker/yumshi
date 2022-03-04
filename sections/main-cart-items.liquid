@@ -392,25 +392,24 @@
 
 <script>
   const CartPage = {
-    name: "Cart Page",
     data() {
       return {
         cart: {
-          items: [
-          ]
+          items: []
         },
         upsells: [
-          {% for product in collections['chow'].products %}
-          {
-            title: "{{ product.title }}",
-            handle: "{{ product.handle }}",
-            image: "{{ product.featured_image | img_url: '400x', scale: 2 }}",
-            price: "{{ product.price | money }}",
-            product_id: "{{ product.id }}",
-            variant_id: "{{ product.selected_or_first_available_variant.id }}"
-          },
+          {% for product in collections['shoes'].products %}
+            {
+              title: "{{ product.title }}",
+              handle: "{{ product.handle }}",
+              image: "{{ product.featured_image | img_url: '400x', scale: 2 }}",
+              product_id: "{{ product.id }}",
+              variant_id: "{{ product.selected_or_first_available_variant.id }}",
+              adding_upsell: false
+            },
           {% endfor %}
         ],
+        loading: true
       }
     },
     created() {
@@ -425,7 +424,7 @@
     methods: {
       get_cart() {
         fetch('/cart.js')
-        .then(response => response.json())
+        .then(response => JSON.parse(response)) 
         .then(cart => {
           this.set_cart(cart);
         })
@@ -433,6 +432,7 @@
       set_cart(cart) {
         this.cart = cart;
         this.format_prices();
+        this.loading = false;
       },
       update_cart(id, qty) {
         $.post('/cart/update.js', `updates[${id}]=${qty}`)
@@ -466,12 +466,13 @@
         })
       },
       remove_from_cart(id) {
+        this.loading = true;
         this.update_cart(id, 0);
       }
     }
   }
   Vue.createApp(CartPage).mount('#cart-page');
-  </script>
+</script>
 
 {% schema %}
 {
