@@ -454,14 +454,14 @@
         });
         this.cart.formatted_total_price = Shopify.formatMoney(this.cart.total_price);
       },
-      add_to_cart(id, qty) {
+      add_to_cart(id) {
         const upsell = this.upsells.find(upsell => upsell.variant_id == id);
         upsell.adding_upsell = true; 
         $.ajax({
         type: "POST",
         url: "/cart/add.js",
         context: this,
-        data: `items[${id}]=${qty}`,
+        data: `items[${id}]`,
         contentType: "application/x-www-form-urlencoded",
         dataType: "json",
         success: function (data) {
