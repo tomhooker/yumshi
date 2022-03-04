@@ -443,7 +443,9 @@
       dataType: "json",
       success: function (data) {
       console.log(data);
-      this.set_cart(cart);
+      this.cart = data;
+      this.format_prices();
+      this.get_cart();
       }
       })
       },
