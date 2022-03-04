@@ -413,12 +413,7 @@
       }
     },
     created() {
-        fetch('/cart.js')
-        .then(response => response.json())
-        .then(cart => {
-        this.cart = cart;
-        this.format_prices();
-        })
+      this.get_cart();
     },
     computed: {
       filtered_upsells() {
@@ -431,8 +426,7 @@
         fetch('/cart.js')
         .then(response => response.json())
         .then(cart => {
-        this.cart = cart;
-        this.format_prices();
+          this.set_cart(cart);
         })
       },
       set_cart(cart) {
