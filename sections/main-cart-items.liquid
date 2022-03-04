@@ -427,6 +427,7 @@
         .then(response => response.json())
         .then(cart => {
           this.set_cart(cart);
+                  this.format_prices();
         })
       },
       set_cart(cart) {
