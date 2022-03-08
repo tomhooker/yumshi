@@ -434,17 +434,10 @@
         this.format_prices();
       },
       update_cart(id, qty) {
-        $.ajax({
-        type: "POST",
-        url: "/cart/update.js",
-        context: this,
-        data: `updates[${id}]=${qty}`,
-        contentType: "application/x-www-form-urlencoded",
-        dataType: "json",
-        success: function (data) {
-        this.cart = data;
-        this.format_prices();
-        }
+        $.post('/cart/update.js', `updates[${id}]=${qty}`)
+        .then(response => JSON.parse(response))
+        .then(cart => {
+          this.set_cart(cart);
         })
       },
       format_prices() {
@@ -455,6 +448,7 @@
       },
       add_to_cart(id) {
         const upsell = this.upsells.find(upsell => upsell.variant_id == id);
+        this.loading = true;
         upsell.adding_upsell = true;
         $.post('/cart/add.js', {
           items: [
