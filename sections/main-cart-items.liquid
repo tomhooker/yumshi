@@ -359,7 +359,7 @@
       <div class="totals">
         <div class="totals-container">
         <h3 class="totals__subtotal">{{ 'sections.cart.subtotal' | t }}</h3>
-        <p class="totals__subtotal-value" v-html="cart.formatted_total_price"></p>
+        <p class="totals__subtotal-value" v-html="cart.total_price"></p>
     
         <small class="tax-note caption-large rte">
           {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
