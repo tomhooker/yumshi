@@ -203,7 +203,7 @@
                   <!-- Changed quanityt input here / subract and add removed aswell -->      
 
                       <div @click="remove_from_cart(item.variant_id)">
-                        <a href="{{ item.url_to_remove }}" class="button button--tertiary" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
+                        <a style="min-width: 4rem;" href="{{ item.url_to_remove }}" class="button button--tertiary" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
                           {% render 'icon-remove' %}
                         </a>
                       </div>
