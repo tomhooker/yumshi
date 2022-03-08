@@ -202,11 +202,11 @@
 
                   <!-- Changed quanityt input here / subract and add removed aswell -->      
 
-                      <cart-remove-button @click="remove_from_cart(item.variant_id)" id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
+                      <div @click="remove_from_cart(item.variant_id)">
                         <a href="{{ item.url_to_remove }}" class="button button--tertiary" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
                           {% render 'icon-remove' %}
                         </a>
-                      </cart-remove-button>
+                      </div>
                     </div>
                     <div class="cart-item__error" id="Line-item-error-{{ item.index | plus: 1 }}" role="alert">
                       <small class="cart-item__error-text"></small>
