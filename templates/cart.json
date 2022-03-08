@@ -4,9 +4,15 @@
       "type": "main-cart-items",
       "settings": {
       }
+    },
+    "cart-footer": {
+      "type": "main-cart-footer",
+      "settings": {
+      }
     }
   },
   "order": [
-    "cart-items"
+    "cart-items",
+    "cart-footer"
   ]
 }
