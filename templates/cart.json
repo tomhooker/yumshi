@@ -3,11 +3,37 @@
     "cart-items": {
       "type": "main-cart-items",
       "settings": {
+        "swipe_on_mobile": false,
+        "collection": "",
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "add_image_padding": false,
+        "show_image_outline": true,
+        "show_rating": false
       }
     },
     "cart-footer": {
       "type": "main-cart-footer",
+      "blocks": {
+        "b093b8f3-faa4-4bb5-a8e2-cc03813c7c34": {
+          "type": "subtotal",
+          "disabled": true,
+          "settings": {
+          }
+        },
+        "055dd9a6-8eee-4918-827b-cbdc14dab1cf": {
+          "type": "buttons",
+          "disabled": true,
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "b093b8f3-faa4-4bb5-a8e2-cc03813c7c34",
+        "055dd9a6-8eee-4918-827b-cbdc14dab1cf"
+      ],
       "settings": {
+        "show_cart_note": false
       }
     }
   },
