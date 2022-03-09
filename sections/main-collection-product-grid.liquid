@@ -57,61 +57,50 @@
                 show_image_outline: section.settings.show_image_outline,
                 show_rating: section.settings.show_rating
               %}           
-<form action="/cart/add" id="product_form_id" class="product-form" data-type="add-to-cart-form"  
-      method="post" enctype="multipart/form-data">
-   <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
-        {% if product.variants.size > 1 %}
-  <select  class="collection-option" name="id">
-  {% for variant in product.variants %}
-    {% if variant.available %}
-    <option value="{{ variant.id }}">{{ variant.price | money }} - {{ variant.title }}</option>     
-    {% else %}
-    <option disabled="disabled">{{ variant.title }} - Sold Out</option>
-    {% endif %}
-  {% endfor %}
-    </select>  
-  {% endif %}
-<div style="display: flex;">       
-  <button class="button--primary product-form__submit button button--full-width" 
-          data-cart-submit 
-          type="submit" 
-          name="add" 
-          aria-live="polite" {% unless product.available %} disabled="true" {% endunless %} 
-          aria-live="polite">
-    <span class="primary-text" aria-hidden=false data-cart-primary-submit-text>
-      {% unless product.available %}
-        Sold Out
-      {% else %}
-        Add to Order
-      {% endunless %}
-    </span>
-  </button>
+<product-form class="product-form">
+                <div class="product-form__error-message-wrapper" role="alert" hidden>
+                  <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-error" viewBox="0 0 13 13">
+                    <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
+                    <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7"/>
+                    <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"/>
+                    <path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="#EB001B" stroke-width="0.7">
+                  </svg>
+                  <span class="product-form__error-message"></span>
+                </div>
 
-{% assign count = 0 %}
-{% for item in cart.items %}
-  {% if product.id == item.product.id %}
-    {% assign count = count | plus: item.quantity %}
-  {% endif %}
-{% endfor %}
-{% if count > 0 %}
-  <div>
-    <div class="itemCollection" style="position: absolute; z-index: 6; margin-left: -9px; margin-top: 4px;">
-      <span class="itemCollection" >
-        {% assign num = 0 %} 
-        {% for item in cart.items %}
-        {% if product.id == item.product.id %}
-        {% capture temp %}{{ num | plus: item.quantity }}{% endcapture %} 
-        {%endif%}
-        {% assign num = temp %}
-        {% endfor %}
-        {{ num }}
-      </span>
-    </div>
-     
-<img style="position: absolute; margin-left: -20px;" src="{{ 'shopping-bag.png' | asset_img_url: '30x' }}">  
-  </div>{% endif %}
-  </div>
-</form>    
+                {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+
+                <!-- Added in :value here to update the add to cart form as well -->
+                  <input type="hidden" name="id" :value="current_variant_id" disabled>
+                <!-- Added in :value here to update the add to cart form as well -->
+
+                  <div class="product-form__buttons">
+                    <button
+                      @submit.prevent="handle_atc(current_variant_id)"
+                      type="submit"
+                      name="add"
+                      class="product-form__submit button button--full-width {% if block.settings.show_dynamic_checkout and product.selling_plan_groups == empty %}button--secondary{% else %}button--primary{% endif %}"
+                    {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+                    >
+                        <span>
+                          {%- if product.selected_or_first_available_variant.available -%}
+                            {{ 'products.product.add_to_cart' | t }}
+                          {%- else -%}
+                            {{ 'products.product.sold_out' | t }}
+                          {%- endif -%}
+                        </span>
+                        <div class="loading-overlay__spinner hidden">
+                          <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                          </svg>
+                        </div>
+                    </button>
+                    {%- if block.settings.show_dynamic_checkout -%}
+                      {{ form | payment_button }}
+                    {%- endif -%}
+                  </div>
+                {%- endform -%}
+              </product-form>   
             </li>
           {%- endfor -%}
         </ul>
