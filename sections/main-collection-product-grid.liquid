@@ -93,8 +93,8 @@
     {% assign count = count | plus: item.quantity %}
   {% endif %}
 {% endfor %}
-{% if count > 0 %}
-  <div>
+
+  <div class="button-cart-count" {% if count > 0 %} style="visibility:visible" {% else %} style="visibility:hidden" {% endif %}>
     <div class="itemCollection" style="position: absolute; z-index: 6; margin-left: -9px; margin-top: 4px;">
       <span class="itemCollection" >
         {% assign num = 0 %} 
@@ -109,7 +109,7 @@
     </div>
      
 <img style="position: absolute; margin-left: -20px;" src="{{ 'shopping-bag.png' | asset_img_url: '30x' }}">  
-  </div>{% endif %}
+  </div>
   </div>
 </form>    
             </li>
