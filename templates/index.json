@@ -3,7 +3,11 @@
     "16437429724ece21f2": {
       "type": "custom-liquid",
       "settings": {
+<<<<<<< HEAD
         "custom_liquid": "<h1 style=\"width: 100%; margin-top: 4rem; margin-bottom: 0; text-align: center; font-family: CustomFont;\">A better Chinese<\/h1>"
+=======
+        "custom_liquid": "<h1 style=\"width: 100%; margin-top: 4rem; margin-bottom: 0; text-align: center;\">A better Chinese<\/h1>"
+>>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171
       }
     },
     "16433805081efdc11e": {
@@ -185,7 +189,11 @@
         "1f4c34f7-0430-4272-80a5-30da87dd5848": {
           "type": "image",
           "settings": {
+<<<<<<< HEAD
             "image": "shopify:\/\/shop_images\/Amersham_Town_F.C._logo_bfc53ac1-c3d9-48f1-b916-60e97c8d7deb.png",
+=======
+            "image": "shopify:\/\/shop_images\/Amersham_Town_F.C._logo.png",
+>>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171
             "image_padding": true,
             "color_scheme": "background-1"
           }

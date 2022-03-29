@@ -293,12 +293,15 @@
     flex-wrap: wrap;
     right: 0.4rem;
     position: absolute;
+<<<<<<< HEAD
 }
 @media screen and (max-width: 749px) {
 .card__icons {
 	top: 0 !important;
     right: 0 !important;
 }  
+=======
+>>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171
 }
 
 .card__icons > * {

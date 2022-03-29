@@ -70,10 +70,17 @@
               {%- endif -%}
               <div class="multicolumn-card__info">
                 {%- if block.settings.title != blank -%}
+<<<<<<< HEAD
                   <h3 style="color: black;">{{ block.settings.title | escape }}</h3>
                 {%- endif -%}
                 {%- if block.settings.text != blank -%}
                   <div style="color: black;" class="rte">{{ block.settings.text }}</div>
+=======
+                  <h3 style="color: #595959;">{{ block.settings.title | escape }}</h3>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <div style="color: #595959;" class="rte">{{ block.settings.text }}</div>
+>>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171
                 {%- endif -%}
                 {%- if block.settings.link_label != blank -%}
                   <a class="link animate-arrow" {% if block.settings.link == blank %}role="link" aria-disabled="true"{% else %}href="{{ block.settings.link }}"{% endif %}>{{ block.settings.link_label | escape }}<span class="icon-wrap">&nbsp;{% render 'icon-arrow' %}</span></a>

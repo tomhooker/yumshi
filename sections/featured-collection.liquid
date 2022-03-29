@@ -104,24 +104,40 @@
       {%- endfor -%}
     </ul>
     {%- if section.settings.collection.all_products_count > 2 and section.settings.swipe_on_mobile and section.settings.products_to_show > 2 -%}
+<<<<<<< HEAD
 <button style="position: absolute; top: 8rem; left: -4vw;;"
         type="button" class="customslider-button slider-button slider-button--prev" name="previous" aria-label="{{ 'general.slider.previous_slide' | t }}">{% render 'icon-caret' %}</button>
        
     	<div style="opacity: 0; visibility: hidden;" class="slider-counter caption">
+=======
+<button style="position: absolute; top: 8rem;left: -12rem;"
+        type="button" class="customslider-button slider-button slider-button--prev" name="previous" aria-label="{{ 'general.slider.previous_slide' | t }}">{% render 'icon-caret' %}</button>
+       
+    	<div class="slider-counter caption">
+>>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171
           <span class="slider-counter--current">1</span>
           <span aria-hidden="true"> / </span>
           <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
           <span class="slider-counter--total">{{ products_to_display }}</span>
         </div>
         
+<<<<<<< HEAD
 <button style="position: absolute; top: 8rem;right: -4vw;"
+=======
+<button style="position: absolute; top: 8rem;right: -12rem;"
+>>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171
         type="button" class="customslider-button slider-button slider-button--next" name="next" aria-label="{{ 'general.slider.next_slide' | t }}">{% render 'icon-caret' %}</button>  
     {%- endif -%}
   </slider-component>
 
   {%- if section.settings.show_view_all and more_in_collection -%}
+<<<<<<< HEAD
     <div style="margin-top: 3rem; margin-bottom: 3rem;" class="center{% if section.settings.swipe_on_mobile %} small-hide medium-hide{% endif %}">
       <a style="width: 210px; height: 45px;border-radius: 6px; background: #053951 !important; color: white; border: none; box-shadow: none;"
+=======
+    <div class="center{% if section.settings.swipe_on_mobile %} small-hide medium-hide{% endif %}">
+      <a style="border-radius: 6px; background: #053951 !important; color: white; border: none; box-shadow: none;"
+>>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171
         href="{{ section.settings.collection.url }}"
         class="button"
         aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: section.settings.collection.title }}"

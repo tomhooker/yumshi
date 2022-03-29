@@ -50,9 +50,15 @@
         </div>
       {%- endif -%}
       
+<<<<<<< HEAD
       
       <!-- render 'price', product: product_card_product, custom_price: 'card-information__text h5', price_class: '' -->
       
+=======
+      {% unless template contains 'index' %}
+      {%- render 'price', product: product_card_product, custom_price: 'card-information__text h5', price_class: '' -%}
+      {% endunless %}
+>>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171
     </div>
   </div>
 

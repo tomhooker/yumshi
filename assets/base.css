@@ -1231,7 +1231,11 @@ deferred-media {
 }
 
 .orderbutton {
+<<<<<<< HEAD
   width: 140px;
+=======
+  width: 160px;
+>>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171
   height: 40px;
   border-radius: 6px;
   background: #169689;
@@ -1240,6 +1244,7 @@ deferred-media {
   display: flex;
   justify-content: center;
   align-items: center; 
+<<<<<<< HEAD
   margin-right: 1rem;
 }
   
@@ -1248,6 +1253,9 @@ deferred-media {
   width: 100px !important;
   height: 35px !important;  
   }
+=======
+  margin-right: 0.8rem;
+>>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171
 }
 
 .button:focus-visible {
@@ -2462,6 +2470,7 @@ details-disclosure > details {
     font-weight: 100;
     color: white;
   	text-align: center;
+<<<<<<< HEAD
 }
 .base-timer h5 span {
 	padding-left: 13px;
@@ -2470,4 +2479,6 @@ details-disclosure > details {
 .mobile {
  display: none; 
 }
+=======
+>>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171
 }

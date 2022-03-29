@@ -5,7 +5,11 @@
 <link rel="stylesheet" href="{{ 'component-deferred-media.css' | asset_url }}" media="print" onload="this.media='all'">
 
 <div class="collage-wrapper page-width{% if section.settings.heading == blank %} no-heading{% endif %}">
+<<<<<<< HEAD
   <h2 class="h1 collage-wrapper-title">{{ section.settings.heading | escape }}</h2>
+=======
+  <h2 class="collage-wrapper-title">{{ section.settings.heading | escape }}</h2>
+>>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171
 
   <div class="collage collage--{{ section.settings.desktop_layout }}{% if section.settings.mobile_layout == 'collage' %} collage--mobile{% endif %}">
     {%- for block in section.blocks -%}

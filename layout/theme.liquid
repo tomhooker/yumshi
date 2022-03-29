@@ -42,11 +42,16 @@
     {{ content_for_header }}
     
       <script src="https://unpkg.com/vue@next"></script>
+<<<<<<< HEAD
   	  <script src="https://unpkg.com/vuex@4.0.0/dist/vuex.global.js"></script>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
       {% unless template contains 'cart' %}
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
       {% endunless %}
+=======
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+>>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171
 
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
