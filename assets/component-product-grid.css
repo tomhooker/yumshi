@@ -23,3 +23,11 @@
     margin-bottom: calc(-1rem - var(--page-width-margin));
   }
 }
+.custom-container {
+	height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    background: white;
+}

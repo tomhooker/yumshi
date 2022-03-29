@@ -16,7 +16,7 @@
     assign more_in_collection = true
   endif
 -%}
-<div class="collection page-width{% if section.settings.swipe_on_mobile == true and section.settings.collection.all_products_count > 2 and section.settings.products_to_show > 2 %} page-width-desktop{% endif %}">
+<div style="overflow: hidden;" class="collection page-width{% if section.settings.swipe_on_mobile == true and section.settings.collection.all_products_count > 2 and section.settings.products_to_show > 2 %} page-width-desktop{% endif %}">
   <div class="title-wrapper-with-link{% if section.settings.title == blank %} title-wrapper-with-link--no-heading{% endif %}{% if section.settings.collection.all_products_count > 2 and section.settings.swipe_on_mobile and section.settings.products_to_show > 2 %} title-wrapper--self-padded-tablet-down{% endif %}">
     <h1 class="title{% if section.settings.title == blank %} title--no-heading{% endif %}">{{ section.settings.title | escape }}</h1>
 
@@ -38,7 +38,7 @@
             show_image_outline: section.settings.show_image_outline,
             show_rating: section.settings.show_rating
           %}
-
+	{% unless template contains 'index' %}
           <form action="/cart/add" id="product_form_id" class="product-form" data-type="add-to-cart-form"  
           method="post" enctype="multipart/form-data">
        <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
@@ -93,7 +93,7 @@
       </div>{% endif %}
       </div>
     </form>       
-
+{% endunless %}
         </li>
       {%- else -%}
         {%- for i in (1..4) -%}
@@ -104,26 +104,29 @@
       {%- endfor -%}
     </ul>
     {%- if section.settings.collection.all_products_count > 2 and section.settings.swipe_on_mobile and section.settings.products_to_show > 2 -%}
-      <div class="slider-buttons no-js-hidden{% if section.settings.collection.all_products_count < 4 %} medium-hide{% endif %}{% if section.settings.collection.all_products_count < 3 %} small-hide{% endif %}">
-        <button type="button" class="slider-button slider-button--prev" name="previous" aria-label="{{ 'general.slider.previous_slide' | t }}">{% render 'icon-caret' %}</button>
-        <div class="slider-counter caption">
+<button style="position: absolute; top: 8rem; left: -4vw;;"
+        type="button" class="customslider-button slider-button slider-button--prev" name="previous" aria-label="{{ 'general.slider.previous_slide' | t }}">{% render 'icon-caret' %}</button>
+       
+    	<div style="opacity: 0; visibility: hidden;" class="slider-counter caption">
           <span class="slider-counter--current">1</span>
           <span aria-hidden="true"> / </span>
           <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
           <span class="slider-counter--total">{{ products_to_display }}</span>
         </div>
-        <button type="button" class="slider-button slider-button--next" name="next" aria-label="{{ 'general.slider.next_slide' | t }}">{% render 'icon-caret' %}</button>
-      </div>
+        
+<button style="position: absolute; top: 8rem;right: -4vw;"
+        type="button" class="customslider-button slider-button slider-button--next" name="next" aria-label="{{ 'general.slider.next_slide' | t }}">{% render 'icon-caret' %}</button>  
     {%- endif -%}
   </slider-component>
 
   {%- if section.settings.show_view_all and more_in_collection -%}
-    <div class="center{% if section.settings.swipe_on_mobile %} small-hide medium-hide{% endif %}">
-      <a href="{{ section.settings.collection.url }}"
+    <div style="margin-top: 3rem; margin-bottom: 3rem;" class="center{% if section.settings.swipe_on_mobile %} small-hide medium-hide{% endif %}">
+      <a style="width: 210px; height: 45px;border-radius: 6px; background: #053951 !important; color: white; border: none; box-shadow: none;"
+        href="{{ section.settings.collection.url }}"
         class="button"
         aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: section.settings.collection.title }}"
       >
-        {{ 'sections.featured_collection.view_all' | t }}
+        See Our Menu
       </a>
     </div>
   {%- endif -%}

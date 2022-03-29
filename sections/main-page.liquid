@@ -4,7 +4,7 @@
 <noscript>{{ 'section-main-page.css' | asset_url | stylesheet_tag }}</noscript>
 <noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
 
-<div class="page-width page-width--narrow">
+<div class="hidden page-width page-width--narrow">
   <h1 class="main-page-title page-title h0">
     {{ page.title | escape }}
   </h1>
@@ -12,6 +12,18 @@
     {{ page.content }}
   </div>
 </div>
+
+<style>
+  @media screen and (min-width: 749px)   {
+.multicolumn:not(.background-secondary) {
+    margin: 10px 0 10px !important;
+  }
+ }
+  .rich-text--full-width.color-background-1 {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+	}
+</style>
 
 {% schema %}
 {

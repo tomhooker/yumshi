@@ -14,6 +14,7 @@
     <ul id="Slider-{{ section.id }}" class="slider--everywhere grid grid--2-col product-grid{% if recommendations.products_count > 3 %} grid--4-col-desktop grid--quarter-max{% else %} grid--{{ recommendations.products_count }}-col-tablet{% endif %}" role="list">
       {% for recommendation in recommendations.products %}
         <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="grid__item">
+         <div class="customcontainer">
           {% render 'product-card',
             product_card_product: recommendation,
             media_size: section.settings.image_ratio,
@@ -36,7 +37,13 @@
     {% endif %}
   {% endfor %}
     </select>  
+   {% else %}
+    <input type="hidden" name="id" value="{{product.selected_or_first_available_variant.id}}" disabled>
+       {%- render 'price', product: product, custom_price: 'card-information__text h5', price_class: '' -%}             
   {% endif %}
+            
+                    <input id="tag" type="hidden" name="properties[tags]" 
+                         value="{% for tag in product.tags %}{{ tag }}{% endfor %}">          
         
   <button class="button--primary product-form__submit button button--full-width" 
           data-cart-submit 
@@ -53,10 +60,21 @@
     </span>
   </button>
 </form>
+          </div>
         </li>
       {% endfor %}
     </ul>
 </product-recommendations>
+
+<style>
+  .customcontainer {
+	display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    background: white;  
+}
+</style>
 
 {% javascript %}
   class ProductRecommendations extends HTMLElement {

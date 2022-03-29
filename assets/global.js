@@ -943,7 +943,13 @@ document.getElementById("app").innerHTML = `
 <h3>Order within</h3>
   <span id="base-timer-label" class="base-timer__label">
 ${formatTime(timeLeft)}</span>
-<h5>Days Hours Minutes</h5>
+<h5>Days <span></span> Hours <span></span> Mins
+<br>
+<p>Next delivery:
+<br>
+Friday 14th Sep
+</p>
+</h5>
 </div>
 `;
 
@@ -979,10 +985,10 @@ let seconds = Math.floor(time % 60);
 
 current = window.location.pathname;
 if (current == '/') {
-return `${days}:${hours}:${minutes}`;
+return `${days} ${hours} ${minutes}`;
 } else {
   if (days < 1 ) {
-    return `${hours}:${minutes}:${seconds} left to order`;
+    return `${hours}:${minutes} left to order`;
   }else {
   return `${days} days left to order`;
   }

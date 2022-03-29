@@ -21,9 +21,6 @@
 }
 
 @media screen and (min-width: 750px) {
-  .header-wrapper:not(.header-wrapper--border-bottom) + cart-notification .cart-notification {
-    border-top-width: 3rem;
-  }
 
   .cart-notification {
     border-width: 0 0.1rem 0.1rem;
@@ -96,4 +93,10 @@
 .cart-notification-product__name {
   margin-bottom: 0.5rem;
   margin-top: 0;
+}
+#cart-notification-button {
+  background: #169689 !important;
+  color: white !important;
+    box-shadow: none;
+  border: none;
 }

@@ -39,8 +39,7 @@
         "type": "header",
         "settings": {
           "color_scheme": "background-1",
-          "logo": "shopify:\/\/shop_images\/Yumshi_Logo.png",
-          "logo_width": 250,
+          "logo_width": 130,
           "logo_position": "middle-left",
           "menu": "main-menu",
           "show_line_separator": false,
@@ -54,13 +53,12 @@
             "type": "link_list",
             "settings": {
               "heading": "",
-              "menu": "main-menu"
+              "menu": ""
             }
           },
           "aee79664-f70c-4310-829d-09776966e0ee": {
             "type": "image",
             "settings": {
-              "image": "shopify:\/\/shop_images\/Yumshi_Logo.png",
               "image_width": 110,
               "alignment": "center"
             }
@@ -69,7 +67,7 @@
             "type": "link_list",
             "settings": {
               "heading": "",
-              "menu": "main-menu"
+              "menu": ""
             }
           }
         },

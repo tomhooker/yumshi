@@ -422,6 +422,10 @@
 
                 <!-- Added in :value here to update the add to cart form as well -->
                   <input type="hidden" name="id" :value="current_variant_id" disabled>
+                                   
+                  <input id="tag" type="hidden" name="properties[tags]" 
+                         value="{% for tag in product.tags %}{{ tag }}{% endfor %}">
+                  
                 <!-- Added in :value here to update the add to cart form as well -->
 
                   <div class="product-form__buttons">
@@ -445,9 +449,7 @@
                           </svg>
                         </div>
                     </button>
-                    {%- if block.settings.show_dynamic_checkout -%}
-                      {{ form | payment_button }}
-                    {%- endif -%}
+
                   </div>
                 {%- endform -%}
               </product-form>
@@ -682,19 +684,19 @@
 
         <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">  
           <slider-component class="slider-mobile-gutter">
-            <ul class="multicolumn-list grid grid--1-col grid--4-col-tablet"
+            <ul style="justify-content: center;" class="multicolumn-list grid grid--1-col grid--4-col-tablet"
               id="Slider-{{ section.id }}"
               role="list"
             >
 
-            <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="multicolumn-list__item grid__item center" {{ block.shopify_attributes }}>
+            <li style="flex-grow: 0;" id="Slide-{{ section.id }}-{{ forloop.index }}" class="multicolumn-list__item grid__item center" {{ block.shopify_attributes }}>
               <div class="multicolumn-card">
                   
                   <div class="multicolumn-card__image-wrapper multicolumn-card__image-wrapper--third-width{% if section.settings.image_width != 'full' or spaced_image %} multicolumn-card-spacing{% endif %}">
                     <div class="media media--transparent media--{{ section.settings.image_ratio }}"
                         style="padding-bottom: 100%;"
                       >
-                          <img
+                          <img style="object-fit: contain;"
                             src="{{ section.settings.image1 | img_url: '550x' }}"
                             sizes="(min-width: 990px) 710px,
                               (min-width: 750px) 550px,
@@ -711,14 +713,14 @@
                   </div>
                 </li>
 
-                <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="multicolumn-list__item grid__item center" {{ block.shopify_attributes }}>
+                <li style="flex-grow: 0;" id="Slide-{{ section.id }}-{{ forloop.index }}" class="multicolumn-list__item grid__item center" {{ block.shopify_attributes }}>
                   <div class="multicolumn-card">
                       
                       <div class="multicolumn-card__image-wrapper multicolumn-card__image-wrapper--third-width{% if section.settings.image_width != 'full' or spaced_image %} multicolumn-card-spacing{% endif %}">
                         <div class="media media--transparent media--{{ section.settings.image_ratio }}"
                             style="padding-bottom: 100%;"
                           >
-                          <img
+                          <img style="object-fit: contain;"
                             src="{{ section.settings.image2| img_url: '550x' }}"
                             sizes="(min-width: 990px) 710px,
                               (min-width: 750px) 550px,
@@ -757,19 +759,19 @@
     
             <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">  
               <slider-component class="slider-mobile-gutter">
-                <ul class="multicolumn-list grid grid--1-col grid--4-col-tablet"
+                <ul style="justify-content: center;" class="multicolumn-list grid grid--1-col grid--4-col-tablet"
                   id="Slider-{{ section.id }}"
                   role="list"
                 >
     
-                <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="multicolumn-list__item grid__item center" {{ block.shopify_attributes }}>
+                <li style="flex-grow: 0;" id="Slide-{{ section.id }}-{{ forloop.index }}" class="multicolumn-list__item grid__item center" {{ block.shopify_attributes }}>
                   <div class="multicolumn-card">
                       
                       <div class="multicolumn-card__image-wrapper multicolumn-card__image-wrapper--third-width{% if section.settings.image_width != 'full' or spaced_image %} multicolumn-card-spacing{% endif %}">
                         <div class="media media--transparent media--{{ section.settings.image_ratio }}"
                             style="padding-bottom: 100%;"
                           >
-                              <img
+                              <img style="object-fit: contain;"
                                 src="{{ section.settings.image3 | img_url: '550x' }}"
                                 sizes="(min-width: 990px) 710px,
                                   (min-width: 750px) 550px,
@@ -786,14 +788,14 @@
                       </div>
                     </li>
     
-                    <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="multicolumn-list__item grid__item center" {{ block.shopify_attributes }}>
+                    <li style="flex-grow: 0;" id="Slide-{{ section.id }}-{{ forloop.index }}" class="multicolumn-list__item grid__item center" {{ block.shopify_attributes }}>
                       <div class="multicolumn-card">
                           
                           <div class="multicolumn-card__image-wrapper multicolumn-card__image-wrapper--third-width{% if section.settings.image_width != 'full' or spaced_image %} multicolumn-card-spacing{% endif %}">
                             <div class="media media--transparent media--{{ section.settings.image_ratio }}"
                                 style="padding-bottom: 100%;"
                               >
-                              <img
+                              <img style="object-fit: contain;"
                                 src="{{ section.settings.image4 | img_url: '550x' }}"
                                 sizes="(min-width: 990px) 710px,
                                   (min-width: 750px) 550px,
@@ -815,13 +817,34 @@
     
                 </div>
             </details>  
- </div>
-</section>
+  
+          <details>
+          <summary>
+            <div class="summary__title">   
+              <h2 style="text-align: center;">
+            Reviews
+              </h2>
+              {% render 'icon-caret' %}
+                 </div>
+           </summary>
+    
+            <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">  
+  		{% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false, product: product %}    
+            </div>
+         </details>   
+       </div>
+     </section>
+
+<style>
+  @media screen and (max-width: 749px) {
+  .grid--1-col .grid__item {
+        width: 65% !important;
+  }
+  }
+</style>
 
 <script>
   const ProductPage = {
-    name: 'Product',
-    store,
     data() {
       return {
           current_variant_id: "{{ product.selected_or_first_available_variant.id }}",
@@ -897,6 +920,7 @@
         this.current_variant_id = variant.id;
         this.update_history_state(variant);
       },
+        
       update_history_state(variant) {
         if(!history.replaceState || !variant){
           return;

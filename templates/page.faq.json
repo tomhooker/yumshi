@@ -1,0 +1,75 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+      }
+    },
+    "164693109112dab763": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<h1 style=\"width: 100%; margin-top: 4rem; margin-bottom: 3rem; text-align: center; font-family: CustomFont;\">Frequently asked questions<\/h1>"
+      }
+    },
+    "1646930942e6dda060": {
+      "type": "faq",
+      "blocks": {
+        "8ddbf8be-e456-4d76-bf1a-2063be9b4bf3": {
+          "type": "Heading",
+          "settings": {
+            "title": "Popular Questions"
+          }
+        },
+        "3b43dc28-444b-4738-af39-c1f7e9224f3e": {
+          "type": "Question",
+          "settings": {
+            "heading": "Question",
+            "text": "<p>Question<\/p>"
+          }
+        },
+        "8a237c2c-a850-4e2f-9765-df43af1acc45": {
+          "type": "Question",
+          "settings": {
+            "heading": "Question",
+            "text": "<p>Question<\/p>"
+          }
+        },
+        "6241b469-0274-40ae-8d60-77bc3a2e247c": {
+          "type": "Question",
+          "settings": {
+            "heading": "Question",
+            "text": "<p>Question<\/p>"
+          }
+        },
+        "7db65d0f-7a10-40c8-a997-156e31a4572d": {
+          "type": "Heading",
+          "settings": {
+            "title": "Title"
+          }
+        },
+        "f4f5b14a-0eb3-405a-a85b-462ae76b0db5": {
+          "type": "Question",
+          "settings": {
+            "heading": "Question",
+            "text": "<p>Question<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "8ddbf8be-e456-4d76-bf1a-2063be9b4bf3",
+        "3b43dc28-444b-4738-af39-c1f7e9224f3e",
+        "8a237c2c-a850-4e2f-9765-df43af1acc45",
+        "6241b469-0274-40ae-8d60-77bc3a2e247c",
+        "7db65d0f-7a10-40c8-a997-156e31a4572d",
+        "f4f5b14a-0eb3-405a-a85b-462ae76b0db5"
+      ],
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main",
+    "164693109112dab763",
+    "1646930942e6dda060"
+  ]
+}

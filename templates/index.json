@@ -3,7 +3,7 @@
     "16437429724ece21f2": {
       "type": "custom-liquid",
       "settings": {
-        "custom_liquid": "<h1 style=\"width: 100%; margin: auto; text-align: center;\">A better Chinese<\/h1>"
+        "custom_liquid": "<h1 style=\"width: 100%; margin-top: 4rem; margin-bottom: 0; text-align: center; font-family: CustomFont;\">A better Chinese<\/h1>"
       }
     },
     "16433805081efdc11e": {
@@ -21,7 +21,7 @@
           "type": "text",
           "settings": {
             "text": "<p>No subscriptions, no minimum order.<\/p>",
-            "textimage": "shopify:\/\/shop_images\/order-now.png",
+            "textimage": "shopify:\/\/shop_images\/fast-delivery_2_10b9ff20-9b59-4231-b863-41cd7ddc9193.png",
             "text_style": "subtitle"
           }
         },
@@ -29,7 +29,7 @@
           "type": "text",
           "settings": {
             "text": "<p>FREE nationwide delivery every Friday<\/p>",
-            "textimage": "shopify:\/\/shop_images\/fast-delivery_2.png",
+            "textimage": "shopify:\/\/shop_images\/order-now_5d85764f-0ae2-47e3-8c1b-9974c21217db.png",
             "text_style": "subtitle"
           }
         },
@@ -54,7 +54,11 @@
         "26e71e97-1280-4211-ab7c-ddcf215e4c73"
       ],
       "settings": {
-        "image": "shopify:\/\/shop_images\/Component_1.png",
+        "image": "shopify:\/\/shop_images\/Wok_and_Food_V3.png",
+        "dish1": "shopify:\/\/shop_images\/jia_chang_tofu_table_1000x1000_web.png",
+        "dish2": "shopify:\/\/shop_images\/char_siu_rice_tray_white_bg.png",
+        "dish3": "shopify:\/\/shop_images\/chicken_chow_mein_table_1000x1000_web.png",
+        "dish4": "shopify:\/\/shop_images\/pork_dumplings_table.png",
         "height": "adapt",
         "desktop_image_width": "medium",
         "layout": "text_first",
@@ -71,7 +75,6 @@
         "1643381123dec25c6c-0": {
           "type": "column",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Easy_Ordering.png",
             "title": "Easy Ordering",
             "text": "<p>random text<\/p>",
             "link_label": "",
@@ -81,7 +84,6 @@
         "1643381123dec25c6c-1": {
           "type": "column",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Restaurant_Quality.png",
             "title": "Restaurant Quality",
             "text": "<p>random text<\/p>",
             "link_label": "",
@@ -91,7 +93,6 @@
         "1643381123dec25c6c-2": {
           "type": "column",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Ready_in_No_Time.png",
             "title": "Ready in No Time",
             "text": "<p>random text<\/p>",
             "link_label": "",
@@ -101,7 +102,6 @@
         "1f07712b-2341-48b0-acce-c40502ff3ffc": {
           "type": "column",
           "settings": {
-            "image": "shopify:\/\/shop_images\/We_Do_Care.png",
             "title": "We Do Care",
             "text": "<p>random text<\/p>",
             "link_label": "",
@@ -152,23 +152,11 @@
             "button_link": "",
             "button_style_secondary": false
           }
-        },
-        "b3da60f2-5368-4c48-a485-ffbb95ec7802": {
-          "type": "review",
-          "settings": {
-            "heading": "Talk about your brand",
-            "heading_size": "h1",
-            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.<\/p>",
-            "button_label": "Button label",
-            "button_link": "",
-            "button_style_secondary": false
-          }
         }
       },
       "block_order": [
         "ef061996-b2e5-4ca6-bb8c-bc72670fa1d2",
-        "4de9ecc2-29aa-4ade-8f33-0e5c7c1e8896",
-        "b3da60f2-5368-4c48-a485-ffbb95ec7802"
+        "4de9ecc2-29aa-4ade-8f33-0e5c7c1e8896"
       ],
       "settings": {
         "color_scheme": "background-1",
@@ -197,8 +185,8 @@
         "1f4c34f7-0430-4272-80a5-30da87dd5848": {
           "type": "image",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Amersham_Town_F.C._logo.png",
-            "image_padding": false,
+            "image": "shopify:\/\/shop_images\/Amersham_Town_F.C._logo_bfc53ac1-c3d9-48f1-b916-60e97c8d7deb.png",
+            "image_padding": true,
             "color_scheme": "background-1"
           }
         }

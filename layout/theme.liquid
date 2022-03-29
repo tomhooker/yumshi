@@ -7,12 +7,11 @@
     <meta name="theme-color" content="">
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     
 	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 
+    
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">
     {%- endif -%}
@@ -36,7 +35,18 @@
 
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
     
+        <!-- TrustBox script -->
+    <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+    <!-- End TrustBox script -->
+    
     {{ content_for_header }}
+    
+      <script src="https://unpkg.com/vue@next"></script>
+  	  <script src="https://unpkg.com/vuex@4.0.0/dist/vuex.global.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+      {% unless template contains 'cart' %}
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+      {% endunless %}
 
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
@@ -135,17 +145,11 @@
     }
     </script>
 
-    <script src="https://unpkg.com/vue@3"></script>
-    <script src="https://unpkg.com/vuex@4.0.2/dist/vuex.global.js"></script>
     <script src="{{ 'shopify-money.js' | asset_url }}"></script>
 
-    <!-- TrustBox script -->
-    <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
-    <!-- End TrustBox script -->
+      {% include 'judgeme_core' %}
 
   </head>
-
-  {% include 'store.js' %}
   
   <body class="gradient">
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
@@ -163,6 +167,24 @@
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
     </ul>
+    
+  <script>
+    const HeaderOptions = {
+      name: 'Header',
+      store,
+      created() {
+        store.dispatch('get_cart');
+      },
+      computed: {
+        cart() {
+          return store.state.cart;
+        }
+      }
+    }
+    const Header = Vue.createApp(HeaderOptions);
+    Header.mount('#header');
+    Header.use(store);
+  </script>
 
     <script>
       window.shopUrl = '{{ shop.url }}';
@@ -196,7 +218,9 @@
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
     
+    {% comment %}
     {% render 'ajaxify-cart' %}
+    {% endcomment %}
     
   </body>
 </html>

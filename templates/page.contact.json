@@ -1,5 +1,17 @@
 {
   "sections": {
+    "1646927230385b91bf": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<h1 style=\"width: 100%; margin-top: 4rem; margin-bottom: 0; text-align: center; font-family: CustomFont; padding: 0 10px;\">How can we help you?<\/h1>"
+      }
+    },
+    "1646927240c1e60d40": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<p style=\"width: 100%; margin-top: 2rem; margin-bottom: 2rem; text-align: center; padding: 0 20px;\">Our most common answer are answered over at our FAQ page<\/p>"
+      }
+    },
     "main": {
       "type": "main-page",
       "settings": {
@@ -13,6 +25,8 @@
     }
   },
   "order": [
+    "1646927230385b91bf",
+    "1646927240c1e60d40",
     "main",
     "form"
   ]

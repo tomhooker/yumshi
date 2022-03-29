@@ -1,6 +1,7 @@
 {{ 'component-image-with-text.css' | asset_url | stylesheet_tag }}
 
-<div class="image-with-text {% if section.settings.full_width %}image-with-text--full-width{% else %}page-width{% endif %} image-with-text--{{ section.settings.content_layout }} color-scheme-{{ section.settings.color_scheme }}">
+<div {% if section.settings.nosidepadding %}style="padding: 0 0;"{% endif %}
+     class="image-with-text {% if section.settings.full_width %}image-with-text--full-width{% else %}page-width{% endif %} image-with-text--{{ section.settings.content_layout }} color-scheme-{{ section.settings.color_scheme }}">
   <div class="image-with-text__grid grid grid--gapless grid--1-col grid--{% if section.settings.desktop_image_width == 'medium' %}2-col-tablet{% else %}3-col-tablet{% endif %}{% if section.settings.layout == 'text_first' %} image-with-text__grid--reverse{% endif %}{% if section.settings.content_layout == 'no-overlap' %} gradient color-{{ section.settings.color_scheme }}{% endif %}">
     <div class="image-with-text__media-item image-with-text__media-item--{{ section.settings.desktop_image_width }} image-with-text__media-item--{{ section.settings.desktop_content_position }} grid__item">
       <div class="image-with-text__media image-with-text__media--{{ section.settings.height }} {% if section.settings.image != blank %}media{% else %}image-with-text__media--placeholder placeholder{% endif %}"
@@ -22,10 +23,12 @@
             width="{{ section.settings.image.width }}"
             height="{{ section.settings.image.height }}"
           >
+        {% if section.settings.dish1 != blank %}
           <img class="img1" src="{{ section.settings.dish1 | img_url: 'medium' }}">
           <img class="img2" src="{{ section.settings.dish2 | img_url: 'medium' }}">
           <img class="img3" src="{{ section.settings.dish3 | img_url: 'medium' }}">
           <img class="img4" src="{{ section.settings.dish4 | img_url: 'medium' }}">
+        {% endif %}
         {%- else -%}
           {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
         {%- endif -%}
@@ -45,12 +48,14 @@
               <p class="image-with-text__text image-with-text__text--caption {{ block.settings.text_style }} {{ block.settings.text_style }}--{{ block.settings.text_size }} {{ block.settings.text_style }}" {{ block.shopify_attributes }}>{{ block.settings.caption | escape }}</p>
             {%- when 'text' -%}
         	<div class="icon-con">
+            {% if block.settings.textimage != blank %}
           	<img
             srcset="{{ block.settings.textimage | img_url: '50x' }}"
             src="{{ block.settings.textimage | img_url: '50x' }}"
             alt="{{ block.settings.textimage | escape }}"
             loading="lazy"
          	 >
+            {% endif %}
             <div class="image-with-text__text rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
         	</div>
               {%- when 'button' -%}
@@ -78,6 +83,27 @@
   src="{{ 'landingright.png' | asset_img_url: '1400x' }}">
   
 </div>
+
+{% if template contains 'index' %}
+<style>
+  .base-timer__label {
+    font-family: 'CustomFontThin';
+  }
+</style>
+{% else %}
+<style>
+  @media screen and (min-width: 750px) {
+  .image-with-text__content--top {
+    justify-content: center !important;
+    align-self: center !important;
+    padding: 0rem 6rem;
+	}
+  }
+   .image-with-text__media img {
+    object-fit: contain;	
+   }
+</style>
+{% endif %}
 
 <style>
     .head-container {
@@ -119,6 +145,11 @@ display: none !important;
   "class": "spaced-section spaced-section--full-width",
   "settings": [
     {
+      "type": "checkbox",
+      "id": "nosidepadding",
+      "label": "No Side Padding"
+    },
+	{
       "type": "image_picker",
       "id": "image",
       "label": "t:sections.image-with-text.settings.image.label"

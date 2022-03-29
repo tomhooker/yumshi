@@ -30,14 +30,13 @@ menu-drawer > details[open] > summary::before {
 
 .menu-drawer {
   position: absolute;
-  transform: translateX(-100%);
+  transform: translateY(-100%);
   visibility: hidden;
-  z-index: 3;
+  z-index: -1;
   left: 0;
-  top: 100%;
-  width: calc(100vw - 4rem);
+  top: 98%;
+  width: calc(100vw);
   padding: 0;
-  border: 0.1rem solid rgba(var(--color-foreground), 0.2);
   border-left: 0;
   background-color: rgb(var(--color-background));
   overflow-x: hidden;
@@ -45,9 +44,7 @@ menu-drawer > details[open] > summary::before {
 
 .js .menu-drawer {
   height: calc(100vh - 100%);
-  height: calc(
-    var(--viewport-height, 100vh) - (var(--header-bottom-position, 100%))
-  );
+  height: auto;
 }
 
 .js details[open] > .menu-drawer,
@@ -87,7 +84,8 @@ details[open].menu-opening > .menu-drawer__submenu {
 }
 
 .menu-drawer__navigation {
-  padding: 5.6rem 0;
+  background: #A6D3AB;
+  padding: 0.4rem 0;
 }
 
 .menu-drawer__inner-submenu {
@@ -115,6 +113,7 @@ details[open].menu-opening > .menu-drawer__submenu {
 .menu-drawer__menu-item {
   padding: 1.1rem 3.2rem;
   text-decoration: none;
+  justify-content: center;
   font-size: 1.8rem;
 }
 
@@ -203,8 +202,8 @@ details[open].menu-opening > .menu-drawer__submenu {
 }
 
 .menu-drawer__utility-links {
-  padding: 2rem;
-  background-color: rgba(var(--color-foreground), 0.03);
+    margin-top: -1px;
+	background: #A6D3AB;
 }
 
 .menu-drawer__account {
@@ -212,9 +211,10 @@ details[open].menu-opening > .menu-drawer__submenu {
   align-items: center;
   text-decoration: none;
   padding: 1.2rem;
-  margin-left: -1.2rem;
   font-size: 1.4rem;
   color: rgb(var(--color-foreground));
+        width: 100%;
+    justify-content: center;
 }
 
 .menu-drawer__account .icon-account {
@@ -228,6 +228,7 @@ details[open].menu-opening > .menu-drawer__submenu {
 }
 
 .menu-drawer .list-social {
+  display: none;
   justify-content: flex-start;
   margin-left: -1.25rem;
   margin-top: 2rem;

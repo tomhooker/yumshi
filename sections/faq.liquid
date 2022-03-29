@@ -1,0 +1,134 @@
+<div style="margin-bottom: 4rem;" class="page-width--narrow page-width faqpage">
+
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'Question' -%}
+<div class="accordion" id="section-{{block.id}}">{{ block.settings.heading }}<span></span></div>
+<div class="container">
+<div class="content">
+{{ block.settings.text }}
+</div>
+</div>
+      {%- when 'Heading' -%}
+<p style="font-size: 2rem; color: black; border-bottom: 1px solid #888888; margin-bottom: 1rem;">{{ block.settings.title }}</p> 
+  	  {% endcase %}
+  {% endfor %}
+
+</div>
+
+<script type="text/javascript" src="{{ 'jquery_accordion.js' | asset_url }}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+$('.accordion').accordion({
+defaultOpen: 'section1',
+cookieName: 'accordion_nav'
+});
+});
+</script>
+<style>
+.accordion {
+	margin: 0;
+    padding: 10px;
+    text-decoration: none;
+    color: #000;
+    font-size: 1em;
+    position: relative;
+    }
+.accordion-open {
+    color: black;
+    }
+.accordion-open span {
+    display:block;
+    position:absolute;
+    right:3px;
+    top:25%;
+    padding:10px;
+    }
+.accordion-open span {
+    background:url('{{ 'minus.png' | asset_url }}') center center no-repeat;
+    }
+.accordion-close span {
+    display:block;
+    position:absolute;
+    right:3px;
+    top:25%;
+    background:url('{{ 'plus.png' | asset_url }}') center center no-repeat;
+    padding:10px;
+    }
+.faqpage div.container {
+    padding:0;
+    margin:0;
+    }
+.faqpage div.content {
+    margin: 0;
+    padding: 6px;
+    font-size: .9em;
+    line-height: 1.1em;
+	}
+.faqpage div.content ul {
+    padding:0;
+    margin:0;
+    padding:3px;
+    }
+.faqpage div.content p {
+    padding:0;
+    margin:3px 0 10px;
+    padding:3px;
+    }
+.faqpage div.content ul li {
+    list-style-position:inside;
+    line-height:25px;
+    }
+</style>
+
+{% schema %}
+  {
+    "name": "FAQ",
+  	"tag": "section",
+    "settings": [
+	],
+  	"blocks": [
+    {
+      "type": "Question",
+      "name": "Question and answers",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Question",
+          "label": "Question"
+        },	
+        {
+          "type": "richtext",
+          "id": "text",
+		  "default": "<p>Question</p>",
+          "label": "Answer"
+        }	
+      ]
+    },
+    {
+      "type": "Heading",
+      "name": "Heading",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Title",
+          "label": "Title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

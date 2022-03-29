@@ -12,7 +12,8 @@
     {%- form 'recover_customer_password' -%}
       {% assign recover_success = form.posted_successfully? %}
       <div class="field">
-        <input type="email"
+        <input style="box-shadow: none; border-bottom: 1px solid;"
+               type="email"
           value=""
           name="email"
           id="RecoverEmail"
@@ -52,7 +53,7 @@
     {%- endform -%}
   </div>
 
-  <h1 id="login" tabindex="-1">
+  <h1 style="font-family: CustomFont;" id="login" tabindex="-1">
     {{ 'customer.login_page.title' | t }}
   </h1>
   <div>
@@ -82,7 +83,7 @@
       {%- endif -%}
 
       <div class="field">        
-        <input
+        <input style="box-shadow: none; border-bottom: 1px solid;"
           type="email"
           name="customer[email]"
           id="CustomerEmail"
@@ -101,7 +102,7 @@
 
       {%- if form.password_needed -%}
         <div class="field">          
-          <input
+          <input style="box-shadow: none; border-bottom: 1px solid;"
             type="password"
             value=""
             name="customer[password]"

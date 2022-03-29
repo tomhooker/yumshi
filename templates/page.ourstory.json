@@ -1,0 +1,175 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+      }
+    },
+    "164692183297471a1e": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<h1 style=\"width: 100%; margin-top: 4rem; margin-bottom: 4rem; text-align: center; font-family: CustomFont;\">Our Story<\/h1>"
+      }
+    },
+    "16469218847f015395": {
+      "type": "image-with-text",
+      "blocks": {
+        "16469218844e9ece66-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "From humble beginnings",
+            "heading_size": "h2"
+          }
+        },
+        "e20e4436-9564-40bf-9533-77f90dd3958e": {
+          "type": "text",
+          "settings": {
+            "text": "<p>From a humble beginning in 1997, Ken and his family have always strived to bring authentic Chinese cuisine to the town of Amersham, Buckinghamshire. The restaurant has since been rated as one of the best places to have Chinese food as voted by locals.<br\/>Our mission now is to bring that taste and quality right to your doorstep wherever you are in the country.<br\/>24 years later in 2021 the Yumshi team was founded, based on its original core values and lead by the now grown-up three sons and their friends.<\/p><p><br\/>We've worked hard to reinvent the recipes and repackage them to ensure they stay fresh on their journey to your fridge. Once reheated, sizzling out of the oven, you'll be able to relive the moment the dishes are served to your table.<br\/>Join us on our new adventure to bring you restaurant quality meals - cooked one wok at a time.<\/p><p><br\/><strong>The Yumshi Team<\/strong><\/p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "16469218844e9ece66-0",
+        "e20e4436-9564-40bf-9533-77f90dd3958e"
+      ],
+      "settings": {
+        "nosidepadding": true,
+        "image": "shopify:\/\/shop_images\/About_Us_Collage_V2_4a80c4cc-1c83-4d9e-b44d-797e81ca7963.png",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "content_layout": "no-overlap",
+        "color_scheme": "background-1",
+        "mobile_content_alignment": "left"
+      }
+    },
+    "16469231812ef4c0a9": {
+      "type": "collage",
+      "blocks": {
+        "164692318179352bd0-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Meet_The_Team.png",
+            "image_padding": false,
+            "color_scheme": "background-1"
+          }
+        }
+      },
+      "block_order": [
+        "164692318179352bd0-0"
+      ],
+      "settings": {
+        "heading": "Meet the team",
+        "desktop_layout": "left",
+        "mobile_layout": "collage"
+      }
+    },
+    "164692313034bacbd3": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<p style=\"width: 100%; margin-top: 2rem; margin-bottom: 0rem; text-align: center;\">Meet the team - custom text<\/p>"
+      }
+    },
+    "1646923814bbb32f86": {
+      "type": "multicolumn",
+      "blocks": {
+        "164692381465601e06-0": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/image_4.png",
+            "title": "Column",
+            "text": "<p>Pair text with an image to focus on your chosen<\/p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "164692381465601e06-1": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Rectangle_12-1_2a66b68b-2db9-49a2-b238-287e0bfc2917.png",
+            "title": "Column",
+            "text": "<p>Pair text with an<\/p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "164692381465601e06-2": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Rectangle_12.png",
+            "title": "Column",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or bl<\/p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "164692381465601e06-0",
+        "164692381465601e06-1",
+        "164692381465601e06-2"
+      ],
+      "settings": {
+        "title": "Our commitment",
+        "dropdown": false,
+        "extratext": "",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "column_alignment": "center",
+        "background_style": "none",
+        "button_label": "",
+        "button_link": "",
+        "swipe_on_mobile": false
+      }
+    },
+    "1647889806289081c9": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<h1 style=\"width: 100%; margin-top: 4rem; margin-bottom: 4rem; text-align: center;\">Supporting<\/h1>"
+      }
+    },
+    "16469241030d7a94be": {
+      "type": "multicolumn",
+      "blocks": {
+        "16469241033f30fe6b-1": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Untitled-1.png",
+            "title": "",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "16469241033f30fe6b-1"
+      ],
+      "settings": {
+        "title": "",
+        "dropdown": false,
+        "extratext": "",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "column_alignment": "center",
+        "background_style": "none",
+        "button_label": "",
+        "button_link": "",
+        "swipe_on_mobile": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "164692183297471a1e",
+    "16469218847f015395",
+    "16469231812ef4c0a9",
+    "164692313034bacbd3",
+    "1646923814bbb32f86",
+    "1647889806289081c9",
+    "16469241030d7a94be"
+  ]
+}

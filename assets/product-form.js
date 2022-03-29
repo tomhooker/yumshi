@@ -7,7 +7,7 @@ if (!customElements.get('product-form')) {
       this.form.querySelector('[name=id]').disabled = false;
       this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
       this.cartNotification = document.querySelector('cart-notification');
-    }
+  	}
 
     onSubmitHandler(evt) {
       evt.preventDefault();
@@ -29,6 +29,8 @@ if (!customElements.get('product-form')) {
       formData.append('sections', this.cartNotification.getSectionsToRender().map((section) => section.id));
       formData.append('sections_url', window.location.pathname);
       config.body = formData;
+      
+      const masterForm = this.form;
 
       fetch(`${routes.cart_add_url}`, config)
         .then((response) => response.json())
@@ -39,6 +41,11 @@ if (!customElements.get('product-form')) {
           }
 
           this.cartNotification.renderContents(response);
+        	if(masterForm.querySelector('.button-cart-count')){
+            const qty = parseInt(masterForm.querySelector('.itemCollection').textContent,10);
+            masterForm.querySelector('.itemCollection').textContent= (qty + 1);
+            masterForm.querySelector('.button-cart-count').style.visibility="visible";
+          }        
         })
         .catch((e) => {
           console.error(e);

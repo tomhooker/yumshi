@@ -1,5 +1,5 @@
 .customer:not(.account):not(.order) {
-  margin: 6rem auto 9rem;
+  margin: 5rem auto 5rem;
   max-width: 33.4rem;
   padding: 0 1.5rem;
   text-align: center;
@@ -16,7 +16,10 @@
 }
 
 .customer button {
-  margin: 4rem 0 1.5rem;
+  margin: 1rem 0 1.5rem;
+  background: #169689;
+  box-shadow: none;
+  color: white;
 }
 
 .customer ul {
@@ -325,6 +328,7 @@
 /* Login */
 .login a {
   display: block;
+  color: black;
   margin: 0 auto;
   width: fit-content;
 }
@@ -335,7 +339,8 @@
 }
 
 .login .field + a {
-  margin-top: 1rem;
+	margin: 10px auto;
+  	color: black;
 }
 
 .login p {
@@ -422,7 +427,7 @@
 
 @media screen and (min-width: 990px) {
   :is(.account, .order) > div:nth-of-type(2) > div:first-of-type {
-    flex-grow: 1;
+    width: 30%;
     padding-right: 3.2rem;
   }
 }
@@ -751,4 +756,10 @@ li[data-address] > h2 {
 .addresses form > div:nth-of-type(7),
 .addresses form > div:nth-of-type(7) + div[id] {
   margin-top: 1.5rem;
+}
+
+
+.account-side {
+	height: 100%;
+    background: #ffffffb0;
 }

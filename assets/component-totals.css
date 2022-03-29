@@ -11,7 +11,8 @@
 }
 @media screen and (max-width: 749px) {
 .totals {
-flex-direction: column-reverse !important;
+  padding: 3rem;
+  flex-direction: column !important;
   }
 } 
 @media screen and (max-width: 749px) {
@@ -25,13 +26,24 @@ width: 100% !important;
   flex-direction: column;
   width: 30%;
 }
-.totals-container h3, .totals-container p{
-  margin-top: 1rem !important;
-  margin-bottom: 1rem !important;
+@media screen and (min-width: 749px) {
+  .totals-container h3, .totals-container p{
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
 }
+@media screen and (max-width: 749px) {
+  .totals-container h3, .totals-container p{ 
+    margin-top: 0rem !important;
+    margin-bottom: 1rem !important;  
+  }
+}
+
 .totals > * {
   font-size: 1.6rem;
   margin: 10px;
+  margin-left: 0 !important;
+  margin-top: 0 !important;
 }
 
 .totals > h3 {

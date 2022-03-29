@@ -14,7 +14,6 @@
 <noscript>{{ 'component-cart-notification.css' | asset_url | stylesheet_tag }}</noscript>
 <noscript>{{ 'component-cart-items.css' | asset_url | stylesheet_tag }}</noscript>
 
-{% include 'store.js' %}
 <style>
   header-drawer {
     justify-self: start;
@@ -384,12 +383,14 @@
           endif
         -%}
         <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+
           <div class="cart-count-bubble">
             {%- if cart.item_count < 100 -%}
-              <span aria-hidden="true">{{ cart.item_count }}</span>
+              <span aria-hidden="true" {% if template contains 'cart' %}v-html="cart.item_count"{% endif %}>{{ cart.item_count }}</span>
             {%- endif -%}
             <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
           </div>
+
       </a>
     </div>
   </header>
@@ -397,25 +398,6 @@
 </{% if section.settings.enable_sticky_header %}sticky-header{% else %}div{% endif %}>
 
 {%- render 'cart-notification', color_scheme: section.settings.color_scheme -%}
-
-<script>
-  const HeaderOptions = {
-    name: 'Header',
-    store,
-    created() {
-      store.dispatch('get_cart');
-    },
-    computed: {
-      cart() {
-        return store.state.cart;
-      }
-    }
-  }
-
-  const Header = Vue.createApp(HeaderOptions);
-  Header.mount('#header');
-  Header.use(store);
-</script>
 
 {% javascript %}
   class StickyHeader extends HTMLElement {

@@ -3,6 +3,11 @@
     "main": {
       "type": "main-blog",
       "settings": {
+        "layout": "grid",
+        "show_image": true,
+        "image_height": "small",
+        "show_date": true,
+        "show_author": false
       }
     }
   },

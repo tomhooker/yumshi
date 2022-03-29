@@ -4,7 +4,8 @@
 
 @media screen and (max-width: 749px) {
   .collage-wrapper-title {
-    margin-top: -1rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem !important;
   }
 }
 
@@ -20,7 +21,7 @@
 
 .collage-wrapper-title {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
 .collage {
@@ -190,7 +191,7 @@
 .collage-card--left:not(.collage-product) .media > .collage-card__image,
 .collage-card--right:not(.collage-product) .media > .collage-card__image {
   position: inherit;
-  max-height: 30vh;
+  max-height: 250px;
   object-fit: contain;
 }
 

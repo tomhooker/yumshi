@@ -153,11 +153,15 @@
 .card-information__text {
   text-align: center;
   display: block;
-  margin: 0;
+    margin: 0 0 0.5rem 0;
 }
 
 .card-information__wrapper {
   width: 100%;
+      height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .card-information__wrapper > * {
@@ -170,13 +174,15 @@
 }
 
 .card-information__wrapper > .rating {
-	margin-top: 6%;
+	margin-top: 0%;
+    display: flex;
+    flex-direction: column;
 }
 
 .card-information__wrapper
   > *:not(.visually-hidden:first-child)
   + *:not(.rating) {
-	margin-top: 6%;
+	margin-top: 2%;
 }
 
 .card-information__wrapper .caption {
@@ -184,11 +190,14 @@
 }
 
 .card-wrapper {
-  color: inherit;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  text-decoration: none;
+    color: inherit;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    position: relative;
+    text-decoration: none;
+    flex-wrap: nowrap;
+    justify-content: space-between;
 }
 
 .upsell-wrapper {
@@ -204,12 +213,18 @@
   padding: 10px;
   width: 90%;
   order: 1;
+  display: flex;
+    align-content: center;
+    align-items: center;
 }
 
 .card-wrapper .card-information {
   background: white;
   padding: 10px;
   order: 1;
+  flex-shrink: 90;
+  height: inherit;
+  align-items: center;
 }
 
 .card-wrapper .full-unstyled-link::after {
@@ -273,16 +288,27 @@
 }
 
 .card__icons {
-  top: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  right: 1rem;
-  position: absolute;
+	top: 0.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    right: 0.4rem;
+    position: absolute;
+}
+@media screen and (max-width: 749px) {
+.card__icons {
+	top: 0 !important;
+    right: 0 !important;
+}  
 }
 
 .card__icons > * {
   margin-right: 1rem;
   margin-top: 0.5rem;
+}
+@media screen and (max-width: 749px) {
+.card__icons>* {
+    margin-right: 0.5rem !important;
+}
 }
 
 .card__icons-container {
@@ -347,4 +373,8 @@
     background-color: rgba(var(--color-card-hover), 0.06);
     transition: background-color var(--duration-long) ease;
   }
+}
+.product-form__submit {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 }

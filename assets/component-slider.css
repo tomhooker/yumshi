@@ -212,6 +212,13 @@ slider-component {
     display: none;
   }
 }
+.customslider-button {
+  width: 100px;
+  height: 100px;
+}
+.customslider-button .icon {
+ height: 100px; 
+}
 
 .slider-button {
   color: rgba(var(--color-foreground), 0.75);
@@ -230,7 +237,7 @@ slider-component {
 }
 
 .slider-button .icon {
-  height: 0.6rem;
+  height: 100px;
 }
 
 .slider-button[disabled] .icon {

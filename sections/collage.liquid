@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{ 'component-deferred-media.css' | asset_url }}" media="print" onload="this.media='all'">
 
 <div class="collage-wrapper page-width{% if section.settings.heading == blank %} no-heading{% endif %}">
-  <h1 class="collage-wrapper-title">{{ section.settings.heading | escape }}</h1>
+  <h2 class="h1 collage-wrapper-title">{{ section.settings.heading | escape }}</h2>
 
   <div class="collage collage--{{ section.settings.desktop_layout }}{% if section.settings.mobile_layout == 'collage' %} collage--mobile{% endif %}">
     {%- for block in section.blocks -%}
@@ -344,11 +344,21 @@
   </div>
 </div>
 
+{% if template contains 'index' %}
+<style>
+  @media screen and (max-width: 749px) {
+  .collage-card--left:not(.collage-product) .media>.collage-card__image {
+    max-height: 190px !important;
+  }
+  }
+</style>
+{% endif %}
+
 {% schema %}
 {
   "name": "t:sections.collage.name",
   "tag": "section",
-  "class": "spaced-section collage-section",
+  "class": "collage-section",
   "settings": [
     {
       "type": "text",

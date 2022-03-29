@@ -45,6 +45,10 @@
         "buy_buttons"
       ],
       "settings": {
+        "image1": "shopify:\/\/shop_images\/Cool.png",
+        "image2": "shopify:\/\/shop_images\/Freeze.png",
+        "image3": "shopify:\/\/shop_images\/Microwave_dba0b4c9-e4f4-46da-95f0-cba7e631a859.png",
+        "image4": "shopify:\/\/shop_images\/Oven.png",
         "enable_sticky_info": false,
         "gallery_layout": "thumbnail_slider",
         "media_size": "small",
@@ -62,7 +66,7 @@
         "add_image_padding": false,
         "show_image_outline": true,
         "show_vendor": false,
-        "show_rating": false
+        "show_rating": true
       }
     }
   },
