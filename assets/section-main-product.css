@@ -689,10 +689,7 @@ a.product__text {
 .product-media-modal__content > * {
   display: block;
     height: 100vh;
-<<<<<<< HEAD
   max-width: 100%;
-=======
->>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171
     object-fit: contain;
   margin: auto;
   border: 0.1rem solid rgba(var(--color-foreground), 0.04);

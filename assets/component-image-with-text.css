@@ -184,7 +184,6 @@
 
 @media screen and (min-width: 750px) {
 .image-with-text__content > * + * {
-<<<<<<< HEAD
   margin-top: 3.2rem;
 }
 }
@@ -193,9 +192,6 @@
 .image-with-text__content > * + * {
   margin-top: 1.3rem;
 }
-=======
-  margin-top: 2.5rem;
->>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171
 }
 
 .image-with-text__content > .image-with-text__text:empty ~ a {

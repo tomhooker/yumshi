@@ -48,19 +48,12 @@
   </div>
 </div>
 
-<<<<<<< HEAD:templates/cart.liquid
 <div class="page-width{% if cart == empty %} is-empty{% endif %}">
 <!-- id for Vue Cart App -->
 <div id="cart-page" class="cart-page-container">
   <div class="cartandupsell">
 	
    <div v-if="cart.items.length > 0" class="cart-container">
-=======
-<cart-items class="page-width{% if cart == empty %} is-empty{% endif %}">
-<!-- id for Vue Cart App -->
-<div id="cart-page" class="cart-page-container">
-<div class="cart-container">
->>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171:sections/main-cart-items.liquid
 
     <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
       <div class="js-contents">  
@@ -247,18 +240,10 @@
 
                   <!-- Changed quanityt input here / subract and add removed aswell -->      
 
-<<<<<<< HEAD:templates/cart.liquid
                   <!-- Correct end total for price line total -->
                         <span style="padding-left: 4rem; margin-bottom: 0;" class="price price--end" v-html="item.formatted_line_price">
                         </span>
                       
-=======
-                      <div @click="remove_from_cart(item.variant_id)">
-                        <a style="min-width: 4rem; padding: 0;" href="{{ item.url_to_remove }}" class="button button--tertiary" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
-                          {% render 'icon-remove' %}
-                        </a>
-                      </div>
->>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171:sections/main-cart-items.liquid
                     </div>
                     <div class="cart-item__error" id="Line-item-error-{{ item.index | plus: 1 }}" role="alert">
                       <small class="cart-item__error-text"></small>
@@ -352,10 +337,7 @@
 
     <ul id="Slider-{{ section.id }}"
     class="cart-add-to-cart grid product-grid" role="list">
-<<<<<<< HEAD:templates/cart.liquid
       <h3 style="text-align: center; margin-top: 0;">You may like</h3>
-=======
->>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171:sections/main-cart-items.liquid
       <template v-for="(upsell, index) in filtered_upsells">
         <div>
         <li style="padding: 0 !important; width: 100%; max-width: 100%;" class="grid__item">          
@@ -476,7 +458,7 @@
   <!-- form used to be here -->
 
  <!-- id for Vue Cart App --> 
-</cart-items>
+</div>
 <!-- id for Vue Cart App -->
 
 <style>
@@ -541,16 +523,12 @@
 </style>
 
 <script>
-  const CartPage = {
-    name: "Cart Page",
+  const CartPageOptions = {
+    name: 'Cart',
+    store,
     data() {
       return {
-        cart: {
-          items: [
-          ]
-        },
         upsells: [
-<<<<<<< HEAD:templates/cart.liquid
           {% for product in collections['Chow'].products %}
             {
               title: "{{ product.title }}",
@@ -575,32 +553,10 @@
       },
       filtered_upsells() {
         const products_in_cart = store.state.cart.items.map(item => item.product_id.toString());
-=======
-          {% for product in collections['chow'].products %}
-          {
-            title: "{{ product.title }}",
-            handle: "{{ product.handle }}",
-            image: "{{ product.featured_image | img_url: '400x', scale: 2 }}",
-            price: "{{ product.price | money }}",
-            product_id: "{{ product.id }}",
-            variant_id: "{{ product.selected_or_first_available_variant.id }}"
-          },
-          {% endfor %}
-        ],
-      }
-    },
-    created() {
-      this.get_cart();
-    },
-    computed: {
-      filtered_upsells() {
-        const products_in_cart = this.cart.items.map(item => item.product_id.toString());
->>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171:sections/main-cart-items.liquid
         return this.upsells.filter(upsell => !products_in_cart.includes(upsell.product_id));
       }
     },
     methods: {
-<<<<<<< HEAD:templates/cart.liquid
       update_cart(id, qty) {
         store.dispatch('update_cart', {id, qty});
       },
@@ -627,124 +583,3 @@
   CartPage.mount('#cart-page');
   CartPage.use(store);
 </script>
-=======
-      get_cart() {
-        fetch('/cart.js')
-        .then(response => response.json())
-        .then(cart => {
-          this.set_cart(cart);
-        })
-      },
-      set_cart(cart) {
-        this.cart = cart;
-        this.format_prices();
-      },
-      update_cart(id, qty) {
-        $.ajax({
-        type: "POST",
-        url: "/cart/update.js",
-        context: this,
-        data: `updates[${id}]=${qty}`,
-        contentType: "application/x-www-form-urlencoded",
-        dataType: "json",
-        success: function (data) {
-        this.cart = data;
-        this.format_prices();
-        }
-        })
-      },
-      format_prices() {
-        this.cart.items.forEach(item => {
-          item.formatted_line_price = Shopify.formatMoney(item.line_price);
-        });
-        this.cart.formatted_total_price = Shopify.formatMoney(this.cart.total_price);
-      },
-      add_to_cart(id) {
-        const upsell = this.upsells.find(upsell => upsell.variant_id == id);
-        upsell.adding_upsell = true;
-        $.post('/cart/add.js', {
-          items: [
-            {
-              id,
-              quantity: 1
-            }
-          ]
-        })
-        .then(response => JSON.parse(response))
-        .then(items => {
-          this.get_cart();
-          upsell.adding_upsell = false;
-        })
-      },
-      remove_from_cart(id) {
-        this.update_cart(id, 0);
-      }
-    }
-  }
-  Vue.createApp(CartPage).mount('#cart-page');
-  </script>
-
-{% schema %}
-{
-  "name": "t:sections.main-cart-items.name",
-  "settings": [
-  {
-    "type": "checkbox",
-    "id": "swipe_on_mobile",
-    "default": false,
-    "label": "t:sections.featured-collection.settings.swipe_on_mobile.label"
-  },
-  {
-    "type": "collection",
-    "id": "collection",
-    "label": "t:sections.featured-collection.settings.collection.label"
-  },
-  {
-    "type": "select",
-    "id": "image_ratio",
-    "options": [
-      {
-        "value": "adapt",
-        "label": "t:sections.featured-collection.settings.image_ratio.options__1.label"
-      },
-      {
-        "value": "portrait",
-        "label": "t:sections.featured-collection.settings.image_ratio.options__2.label"
-      },
-      {
-        "value": "square",
-        "label": "t:sections.featured-collection.settings.image_ratio.options__3.label"
-      }
-    ],
-    "default": "adapt",
-    "label": "t:sections.featured-collection.settings.image_ratio.label"
-  },
-  {
-    "type": "checkbox",
-    "id": "show_secondary_image",
-    "default": false,
-    "label": "t:sections.featured-collection.settings.show_secondary_image.label"
-  },
-  {
-    "type": "checkbox",
-    "id": "add_image_padding",
-    "default": false,
-    "label": "t:sections.featured-collection.settings.add_image_padding.label"
-  },
-  {
-    "type": "checkbox",
-    "id": "show_image_outline",
-    "default": true,
-    "label": "t:sections.featured-collection.settings.show_image_outline.label"
-  },
-  {
-    "type": "checkbox",
-    "id": "show_rating",
-    "default": false,
-    "label": "t:sections.featured-collection.settings.show_rating.label",
-    "info": "t:sections.featured-collection.settings.show_rating.info"
-  }
-  ]
-}
-{% endschema %}
->>>>>>> 388e58d9547aebbf869e54c07877dc8b3f22c171:sections/main-cart-items.liquid
